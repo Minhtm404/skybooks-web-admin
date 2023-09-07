@@ -89,5 +89,8 @@ export const LINKS = [
 ];
 
 export const ACTIONS = {
+  SET_MODE: 'SET_MODE',
+  SET_COLOR: 'SET_COLOR',
+
   SET_COLLECTIONS: 'SET_COLLECTIONS'
 };
