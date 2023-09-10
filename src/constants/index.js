@@ -88,6 +88,40 @@ export const LINKS = [
   }
 ];
 
+export const CONTEXT_MENU_ITEMS = [
+  'AutoFit',
+  'AutoFitAll',
+  'SortAscending',
+  'SortDescending',
+  'Copy',
+  'Edit',
+  'Delete',
+  'Save',
+  'Cancel',
+  'PdfExport',
+  'ExcelExport',
+  'CsvExport',
+  'FirstPage',
+  'PrevPage',
+  'LastPage',
+  'NextPage'
+];
+
+export const COLLECTIONS_GRID = [
+  {
+    field: '_id',
+    headerText: 'ID',
+    width: '150',
+    textAlign: 'Center'
+  },
+  {
+    field: 'name',
+    headerText: 'Name',
+    width: '300',
+    textAlign: 'Center'
+  }
+];
+
 export const ACTIONS = {
   SET_MODE: 'SET_MODE',
   SET_COLOR: 'SET_COLOR',
