@@ -1,6 +1,6 @@
-import React, { useReducer, createContext } from 'react';
+import React, { createContext, useReducer } from 'react';
 
-export const contextFactory = (reducer, actions, defaultValue) => {
+const contextFactory = (reducer, actions, defaultValue) => {
   const Context = createContext();
 
   const Provider = ({ children }) => {
@@ -21,3 +21,5 @@ export const contextFactory = (reducer, actions, defaultValue) => {
 
   return { Context, Provider };
 };
+
+export default contextFactory;
