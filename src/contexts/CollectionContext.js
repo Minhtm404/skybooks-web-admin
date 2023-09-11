@@ -1,4 +1,4 @@
-import contextFactory from './Factory';
+import contextFactory from './ContextFactory';
 import { ACTIONS } from '../constants';
 import apiHelper from '../utils/apiHelper';
 
