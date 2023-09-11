@@ -14,7 +14,7 @@ import {
   Inject
 } from '@syncfusion/ej2-react-grids';
 
-import { Context as CollectionContext } from '../contexts/CategoryContext';
+import { Context as CollectionContext } from '../contexts/CollectionContext';
 import { Header } from '../components';
 import { CONTEXT_MENU_ITEMS, COLLECTIONS_GRID } from '../constants';
 
