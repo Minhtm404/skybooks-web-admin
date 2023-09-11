@@ -1,4 +1,4 @@
-import contextFactory from './ContextFactory';
+import contextFactory from './Factory';
 import { ACTIONS } from '../constants';
 
 const stateReducer = (state, action) => {
