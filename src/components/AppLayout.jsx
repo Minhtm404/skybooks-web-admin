@@ -47,8 +47,8 @@ const AppLayout = () => {
       <div
         className={
           activeMenu
-            ? 'dark:bg-main-dark-bg bg-main-bg min-h-screen md:ml-72 w-full'
-            : 'bg-main-bg dark:bg-main-dark-bg  w-full min-h-screen flex-2'
+            ? 'bg-main-bg dark:bg-main-dark-bg min-h-screen w-full md:ml-72'
+            : 'bg-main-bg dark:bg-main-dark-bg min-h-screen w-full flex-2'
         }
       >
         <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
