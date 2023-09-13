@@ -4,7 +4,14 @@ import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Context as StateContext } from './contexts/StateContext';
-import { Navbar, Footer, Sidebar, ThemeSettings } from './components/index';
+import {
+  ProtectedRoute,
+  AppLayout,
+  Navbar,
+  Footer,
+  Sidebar,
+  ThemeSettings
+} from './components/index';
 import {
   Login,
   Ecommerce,
@@ -24,7 +31,6 @@ import {
   PageNotFound
 } from './pages';
 import './App.css';
-import AppLayout from './components/AppLayout';
 
 const App = () => {
   const {
@@ -46,7 +52,13 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
 
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route path="/" element={<Ecommerce />} />
             <Route path="/ecommerce" element={<Ecommerce />} />
 

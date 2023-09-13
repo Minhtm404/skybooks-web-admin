@@ -9,7 +9,7 @@ const authReducer = (state, action) => {
         ...state,
         token: action.payload.token,
         user: action.payload.user,
-        isSignIn: true
+        isAuthenticated: true
       };
     default:
       return state;
@@ -37,6 +37,7 @@ export const { Provider, Context } = contextFactory(
   },
   {
     token: undefined,
-    user: undefined
+    user: undefined,
+    isAuthenticated: false
   }
 );

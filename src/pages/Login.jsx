@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { SiSass } from 'react-icons/si';
+import { useNavigate } from 'react-router-dom';
 
 import { Context as AuthContext } from '../contexts/AuthContext';
 
@@ -7,7 +8,13 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login } = useContext(AuthContext);
+  const { login, isAuthenticated } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) navigate('/');
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -15,6 +22,8 @@ const Login = () => {
     if (!email || !password) return;
 
     login({ email, password });
+
+    navigate('/');
   };
 
   return (
