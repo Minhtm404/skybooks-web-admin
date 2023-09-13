@@ -23,6 +23,6 @@ export const { Provider, Context } = contextFactory(
     getAllCollections
   },
   {
-    collections: null
+    collections: undefined
   }
 );
