@@ -44,7 +44,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="login" element={<Login />} />
+          <Route path="/login" element={<Login />} />
 
           <Route element={<AppLayout />}>
             <Route path="/" element={<Ecommerce />} />
@@ -66,7 +66,7 @@ const App = () => {
             <Route path="/stacked" element={<Stacked />} />
           </Route>
 
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

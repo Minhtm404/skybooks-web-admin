@@ -13,25 +13,29 @@ const Login = () => {
 
       <h4 className="text-4xl font-semibold text-center">Log in to your account</h4>
 
-      <form className="px-8 py-14 bg-white border border-solid border-gray-100 rounded-md">
-        <div className="flex flex-col gap-2 px-4 py-0">
-          <label className="font-medium">
-            Email address
-            <input
-              className="border border-solid border-gray-300 bg-gray-50 rounded-sm px-3 py-4 shadow-sm"
-              type="email"
-              id="email"
-            />
-          </label>
+      <form className="px-14 py-8 bg-white border border-solid border-gray-100 rounded-md overflow-hidden text-xl">
+        <div className="flex flex-col gap-2 px-0 py-4">
+          <label className="font-medium">Email address</label>
+          <input
+            className="border border-solid border-gray-300 bg-gray-50 rounded-md px-4 py-3 shadow-sm"
+            type="email"
+            id="email"
+          />
+        </div>
 
-          <label className="font-medium">
-            Password
-            <input
-              className="border border-solid border-gray-300 bg-gray-50 rounded-sm px-3 py-4 shadow-sm"
-              type="password"
-              id="password"
-            />
-          </label>
+        <div className="flex flex-col gap-2 px-0 py-4">
+          <label className="font-medium">Password</label>
+          <input
+            className="border border-solid border-gray-300 bg-gray-50 rounded-md px-4 py-3 shadow-sm"
+            type="password"
+            id="password"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 px-0 py-4">
+          <button className="border-none rounded-md shadow-sm text-sky-50 bg-sky-600 text-2xl px-9 py-4 font-medium">
+            Login
+          </button>
         </div>
       </form>
     </div>
