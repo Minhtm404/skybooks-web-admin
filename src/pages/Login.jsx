@@ -2,12 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { SiSass } from 'react-icons/si';
 import { useNavigate } from 'react-router-dom';
 
+import { Context as StateContext } from '../contexts/StateContext';
 import { Context as AuthContext } from '../contexts/AuthContext';
+
+import { MiniSpinner } from '../components/index';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { setIsLoading, isLoading } = useContext(StateContext);
   const { login, isAuthenticated } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -16,12 +20,16 @@ const Login = () => {
     if (isAuthenticated) navigate('/');
   }, [isAuthenticated, navigate]);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (!email || !password) return;
 
-    login({ email, password });
+    setIsLoading(true);
+
+    await login({ email, password });
+
+    setIsLoading(false);
 
     navigate('/');
   };
@@ -65,7 +73,7 @@ const Login = () => {
 
         <div className="flex flex-col gap-2 px-0 py-3">
           <button className="border-none rounded-md shadow-sm text-sky-50 bg-sky-600 text-base px-6 py-3 font-medium">
-            Log in
+            {!isLoading ? 'Login' : <MiniSpinner />}
           </button>
         </div>
       </form>

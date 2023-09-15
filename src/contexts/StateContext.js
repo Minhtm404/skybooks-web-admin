@@ -13,6 +13,8 @@ const stateReducer = (state, action) => {
       return { ...state, screenSize: action.payload.screenSize };
     case ACTIONS.SET_THEME_SETTINGS:
       return { ...state, themeSettings: action.payload.themeSettings };
+    case ACTIONS.SET_IS_LOADING:
+      return { ...state, isLoading: action.payload.isLoading };
     default:
       return state;
   }
@@ -25,14 +27,21 @@ const setMode = dispatch => async mode => {
 const setColor = dispatch => async color => {
   dispatch({ type: ACTIONS.SET_COLOR, payload: { color } });
 };
+
 const setActiveMenu = dispatch => async activeMenu => {
   dispatch({ type: ACTIONS.SET_ACTIVE_MENU, payload: { activeMenu } });
 };
+
 const setScreenSize = dispatch => async screenSize => {
   dispatch({ type: ACTIONS.SET_SCREEN_SIZE, payload: { screenSize } });
 };
+
 const setThemeSettings = dispatch => async themeSettings => {
   dispatch({ type: ACTIONS.SET_THEME_SETTINGS, payload: { themeSettings } });
+};
+
+const setIsLoading = dispatch => async isLoading => {
+  dispatch({ type: ACTIONS.SET_IS_LOADING, payload: { isLoading } });
 };
 
 export const { Provider, Context } = contextFactory(
@@ -42,13 +51,15 @@ export const { Provider, Context } = contextFactory(
     setColor,
     setActiveMenu,
     setScreenSize,
-    setThemeSettings
+    setThemeSettings,
+    setIsLoading
   },
   {
     currentColor: '#03C9D7',
     currentMode: 'Light',
     activeMenu: true,
     screenSize: undefined,
-    themeSettings: false
+    themeSettings: false,
+    isLoading: false
   }
 );
