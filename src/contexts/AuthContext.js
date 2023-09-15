@@ -11,6 +11,19 @@ const authReducer = (state, action) => {
         user: action.payload.user,
         isAuthenticated: true
       };
+    case ACTIONS.SET_LOGIN_LOCAL:
+      return {
+        ...state,
+        token: action.payload.token,
+        isAuthenticated: true
+      };
+    case ACTIONS.SET_LOGOUT:
+      return {
+        ...state,
+        token: undefined,
+        user: undefined,
+        isAuthenticated: false
+      };
     default:
       return state;
   }
@@ -19,21 +32,39 @@ const authReducer = (state, action) => {
 const login =
   dispatch =>
   async ({ email, password }) => {
-    const data = await apiHelper.post('/users/login', {
+    const { data } = await apiHelper.post('/users/login', {
       email,
       password
     });
 
+    localStorage.setItem('token', data.token);
+
     dispatch({
       type: ACTIONS.SET_LOGIN,
-      payload: { token: data.data.token, user: data.data.data.user }
+      payload: { token: data.token, user: data.data.user }
     });
   };
+
+const localLogin = dispatch => async () => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    dispatch({ type: ACTIONS.SET_LOGIN_LOCAL, payload: { token } });
+  }
+};
+
+const logout = dispatch => async () => {
+  localStorage.removeItem('token');
+
+  dispatch({ type: ACTIONS.SET_LOGIN_LOCAL });
+};
 
 export const { Provider, Context } = contextFactory(
   authReducer,
   {
-    login
+    login,
+    localLogin,
+    logout
   },
   {
     token: undefined,
