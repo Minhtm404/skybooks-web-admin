@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
@@ -14,7 +14,7 @@ import {
 } from './components/index';
 import {
   Login,
-  Ecommerce,
+  Dashboard,
   Employees,
   Collections,
   Products,
@@ -50,7 +50,7 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="login" element={<Login />} />
 
           <Route
             element={
@@ -59,23 +59,22 @@ const App = () => {
               </ProtectedRoute>
             }
           >
-            <Route path="/" element={<Ecommerce />} />
-            <Route path="/ecommerce" element={<Ecommerce />} />
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="employees" element={<Employees />} />
+            <Route path="collections" element={<Collections />} />
+            <Route path="products" element={<Products />} />
+            <Route path="customers" element={<Customers />} />
+            <Route path="orders" element={<Orders />} />
 
-            <Route path="/employees" element={<Employees />} />
-            <Route path="/collections" element={<Collections />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/orders" element={<Orders />} />
-
-            <Route path="/line" element={<Line />} />
-            <Route path="/area" element={<Area />} />
-            <Route path="/bar" element={<Bar />} />
-            <Route path="/pie" element={<Pie />} />
-            <Route path="/financial" element={<Financial />} />
-            <Route path="/color-mapping" element={<ColorMapping />} />
-            <Route path="/pyramid" element={<Pyramid />} />
-            <Route path="/stacked" element={<Stacked />} />
+            <Route path="line" element={<Line />} />
+            <Route path="area" element={<Area />} />
+            <Route path="bar" element={<Bar />} />
+            <Route path="pie" element={<Pie />} />
+            <Route path="financial" element={<Financial />} />
+            <Route path="color-mapping" element={<ColorMapping />} />
+            <Route path="pyramid" element={<Pyramid />} />
+            <Route path="stacked" element={<Stacked />} />
           </Route>
 
           <Route path="*" element={<PageNotFound />} />

@@ -2,7 +2,7 @@ import {
   AiOutlineShoppingCart,
   AiOutlineAreaChart,
   AiOutlineBarChart,
-  AiOutlineStock
+  AiOutlineStock,
 } from 'react-icons/ai';
 import { FiShoppingBag, FiPieChart } from 'react-icons/fi';
 import { BsBarChart } from 'react-icons/bs';
@@ -13,79 +13,62 @@ import { GiLouvrePyramid, GiBookshelf } from 'react-icons/gi';
 
 export const LINKS = [
   {
-    title: 'Dashboard',
-    links: [
-      {
-        name: 'ecommerce',
-        icon: <FiShoppingBag />
-      }
-    ]
+    name: 'dashboard',
+    icon: <FiShoppingBag />,
+  },
+  {
+    name: 'employees',
+    icon: <IoMdContacts />,
+  },
+  {
+    name: 'collections',
+    icon: <BiCategory />,
+  },
+  {
+    name: 'products',
+    icon: <GiBookshelf />,
+  },
+  {
+    name: 'customers',
+    icon: <RiContactsLine />,
+  },
+  {
+    name: 'orders',
+    icon: <AiOutlineShoppingCart />,
+  },
+  {
+    name: 'line',
+    icon: <AiOutlineStock />,
+  },
+  {
+    name: 'area',
+    icon: <AiOutlineAreaChart />,
   },
 
   {
-    title: 'Pages',
-    links: [
-      {
-        name: 'employees',
-        icon: <IoMdContacts />
-      },
-      {
-        name: 'collections',
-        icon: <BiCategory />
-      },
-      {
-        name: 'products',
-        icon: <GiBookshelf />
-      },
-      {
-        name: 'customers',
-        icon: <RiContactsLine />
-      },
-      {
-        name: 'orders',
-        icon: <AiOutlineShoppingCart />
-      }
-    ]
+    name: 'bar',
+    icon: <AiOutlineBarChart />,
   },
-
   {
-    title: 'Charts',
-    links: [
-      {
-        name: 'line',
-        icon: <AiOutlineStock />
-      },
-      {
-        name: 'area',
-        icon: <AiOutlineAreaChart />
-      },
-
-      {
-        name: 'bar',
-        icon: <AiOutlineBarChart />
-      },
-      {
-        name: 'pie',
-        icon: <FiPieChart />
-      },
-      {
-        name: 'financial',
-        icon: <RiStockLine />
-      },
-      {
-        name: 'color-mapping',
-        icon: <BsBarChart />
-      },
-      {
-        name: 'pyramid',
-        icon: <GiLouvrePyramid />
-      },
-      {
-        name: 'stacked',
-        icon: <AiOutlineBarChart />
-      }
-    ]
-  }
+    name: 'pie',
+    icon: <FiPieChart />,
+  },
+  {
+    name: 'financial',
+    icon: <RiStockLine />,
+  },
+  {
+    name: 'color-mapping',
+    icon: <BsBarChart />,
+  },
+  {
+    name: 'pyramid',
+    icon: <GiLouvrePyramid />,
+  },
+  {
+    name: 'stacked',
+    icon: <AiOutlineBarChart />,
+  },
 ];
 
 export const CONTEXT_MENU_ITEMS = [
@@ -104,7 +87,7 @@ export const CONTEXT_MENU_ITEMS = [
   'FirstPage',
   'PrevPage',
   'LastPage',
-  'NextPage'
+  'NextPage',
 ];
 
 export const COLLECTIONS_GRID = [
@@ -112,14 +95,29 @@ export const COLLECTIONS_GRID = [
     field: '_id',
     headerText: 'ID',
     width: '150',
-    textAlign: 'Center'
+    textAlign: 'Center',
   },
   {
     field: 'name',
     headerText: 'Name',
     width: '300',
-    textAlign: 'Center'
-  }
+    textAlign: 'Center',
+  },
+];
+
+export const PRODUCT_COLUMNS = [
+  {
+    field: '_id',
+    headerText: 'ID',
+  },
+  {
+    field: 'name',
+    headerText: 'Name',
+  },
+  {
+    field: 'price',
+    headerText: 'Price',
+  },
 ];
 
 export const ACTIONS = {
@@ -134,5 +132,5 @@ export const ACTIONS = {
   SET_LOGIN_LOCAL: 'SET_LOGIN_LOCAL',
   SET_LOGOUT: 'SET_LOGOUT',
 
-  SET_COLLECTIONS: 'SET_COLLECTIONS'
+  SET_COLLECTIONS: 'SET_COLLECTIONS',
 };

@@ -1,5 +1,5 @@
 export { default as Login } from './Login';
-export { default as Ecommerce } from './Ecommerce';
+export { default as Dashboard } from './Dashboard';
 export { default as Employees } from './Employees';
 export { default as Collections } from './Collections';
 export { default as Products } from './Products';
