@@ -13,7 +13,7 @@ const productReducer = (state, action) => {
 
 const getAllProducts = dispacth => async () => {
   const data = await apiHelper.get('/products');
-  console.log(data.status);
+
   dispacth({ type: ACTIONS.SET_PRODUCTS, payload: data.data.data });
 };
 
@@ -23,6 +23,6 @@ export const { Provider, Context } = contextFactory(
     getAllProducts,
   },
   {
-    products: undefined,
+    products: [],
   },
 );
