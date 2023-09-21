@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { Context as StateContext } from '../contexts/StateContext';
 
 const Table = ({ headers, dataSource }) => {
+  const { currentColor } = useContext(StateContext);
+
   return (
     <div class="flex flex-col">
       <div class="overflow-x-auto">
@@ -30,6 +34,12 @@ const Table = ({ headers, dataSource }) => {
                       {column.headerText}
                     </th>
                   ))}
+                  <th
+                    scope="col"
+                    class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+                  >
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
@@ -55,11 +65,14 @@ const Table = ({ headers, dataSource }) => {
                       {row.name.slice(0, 30)}...
                     </td>
                     <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
+                      {row.mainCollection}
+                    </td>
+                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      {row.sku}
+                    </td>
+                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       {row.price}
                     </td>
-                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
-                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white"></td>
 
                     <td class="p-4 space-x-2 whitespace-nowrap">
                       <button
@@ -69,7 +82,7 @@ const Table = ({ headers, dataSource }) => {
                         data-drawer-show="drawer-update-product-default"
                         aria-controls="drawer-update-product-default"
                         data-drawer-placement="right"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800"
                       >
                         <svg
                           class="w-4 h-4 mr-2"

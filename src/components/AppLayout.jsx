@@ -17,7 +17,7 @@ const AppLayout = () => {
     setColor,
     setActiveMenu,
     setScreenSize,
-    setThemeSettings
+    setThemeSettings,
   } = useContext(StateContext);
 
   return (
@@ -26,8 +26,7 @@ const AppLayout = () => {
         <TooltipComponent content="Settings" position="Top">
           <button
             type="button"
-            className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
-            style={{ background: 'blue', borderRadius: '50%' }}
+            className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-blue-800 bg-blue-700 rounded-full"
           >
             <FiSettings />
           </button>

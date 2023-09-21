@@ -115,6 +115,14 @@ export const PRODUCT_COLUMNS = [
     headerText: 'Name',
   },
   {
+    field: 'mainCollection',
+    headerText: 'Collection',
+  },
+  {
+    field: 'sku',
+    headerText: 'SKU',
+  },
+  {
     field: 'price',
     headerText: 'Price',
   },

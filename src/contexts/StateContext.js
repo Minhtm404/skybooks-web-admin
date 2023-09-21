@@ -55,7 +55,7 @@ export const { Provider, Context } = contextFactory(
     setIsLoading
   },
   {
-    currentColor: '#03C9D7',
+    currentColor: '#1d4ed8',
     currentMode: 'Light',
     activeMenu: true,
     screenSize: undefined,
