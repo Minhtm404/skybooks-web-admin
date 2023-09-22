@@ -3,8 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Context as StateContext } from '../contexts/StateContext';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { FiSettings } from 'react-icons/fi';
-import Sidebar from './Sidebar';
-import Navbar from './Navbar';
+import { Sidebar, Navbar, ThemeSettings } from '../components/index';
 
 const AppLayout = () => {
   const {
@@ -26,7 +25,9 @@ const AppLayout = () => {
         <TooltipComponent content="Settings" position="Top">
           <button
             type="button"
-            className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-blue-800 bg-blue-700 rounded-full"
+            onClick={() => setThemeSettings(true)}
+            style={{ background: currentColor }}
+            className="text-3xl text-white p-3 hover:drop-shadow-xl rounded-full"
           >
             <FiSettings />
           </button>
@@ -51,6 +52,7 @@ const AppLayout = () => {
         }
       >
         <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+          {themeSettings && <ThemeSettings />}
           <Navbar />
         </div>
         <div>

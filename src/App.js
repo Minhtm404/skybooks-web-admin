@@ -10,7 +10,7 @@ import {
   Navbar,
   Footer,
   Sidebar,
-  ThemeSettings
+  ThemeSettings,
 } from './components/index';
 import {
   Login,
@@ -28,7 +28,7 @@ import {
   ColorMapping,
   Pyramid,
   Stacked,
-  PageNotFound
+  PageNotFound,
 } from './pages';
 import './App.css';
 
@@ -43,11 +43,11 @@ const App = () => {
     setColor,
     setActiveMenu,
     setScreenSize,
-    setThemeSettings
+    setThemeSettings,
   } = useContext(StateContext);
 
   return (
-    <div>
+    <div className={currentMode === 'dark' ? 'dark' : ''}>
       <BrowserRouter>
         <Routes>
           <Route path="login" element={<Login />} />

@@ -82,7 +82,8 @@ const Table = ({ headers, dataSource }) => {
                         data-drawer-show="drawer-update-product-default"
                         aria-controls="drawer-update-product-default"
                         data-drawer-placement="right"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-primary-800"
+                        style={{ background: currentColor }}
+                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-800"
                       >
                         <svg
                           class="w-4 h-4 mr-2"

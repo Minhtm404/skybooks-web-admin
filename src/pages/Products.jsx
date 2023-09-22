@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 
+import { Context as StateContext } from '../contexts/StateContext';
 import { Context as ProductContext } from '../contexts/ProductContext';
 
 import { Header, Table } from '../components';
 import { PRODUCT_COLUMNS } from '../constants';
 
 const Products = () => {
+  const { currentColor } = useContext(StateContext);
   const { products, getAllProducts } = useContext(ProductContext);
 
   useEffect(() => {
@@ -37,7 +39,8 @@ const Products = () => {
             </div>
             <button
               id="createProductButton"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-primary-800"
+              style={{ background: currentColor }}
+              class="text-white focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none dark:focus:ring-primary-800"
               type="button"
               data-drawer-target="drawer-create-product-default"
               data-drawer-show="drawer-create-product-default"

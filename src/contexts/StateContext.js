@@ -21,7 +21,7 @@ const stateReducer = (state, action) => {
 };
 
 const setMode = dispatch => async mode => {
-  dispatch({ type: ACTIONS.SET_COLOR, payload: { mode } });
+  dispatch({ type: ACTIONS.SET_MODE, payload: { mode } });
 };
 
 const setColor = dispatch => async color => {
@@ -52,14 +52,14 @@ export const { Provider, Context } = contextFactory(
     setActiveMenu,
     setScreenSize,
     setThemeSettings,
-    setIsLoading
+    setIsLoading,
   },
   {
     currentColor: '#1d4ed8',
-    currentMode: 'Light',
+    currentMode: 'dark',
     activeMenu: true,
     screenSize: undefined,
     themeSettings: false,
-    isLoading: false
-  }
+    isLoading: false,
+  },
 );

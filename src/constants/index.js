@@ -11,6 +11,33 @@ import { IoMdContacts } from 'react-icons/io';
 import { RiContactsLine, RiStockLine } from 'react-icons/ri';
 import { GiLouvrePyramid, GiBookshelf } from 'react-icons/gi';
 
+export const THEME_COLORS = [
+  {
+    name: 'blue-theme',
+    color: '#1a97f5',
+  },
+  {
+    name: 'green-theme',
+    color: '#03c9d7',
+  },
+  {
+    name: 'purple-theme',
+    color: '#7352ff',
+  },
+  {
+    name: 'red-theme',
+    color: '#ff5c8e',
+  },
+  {
+    name: 'indigo-theme',
+    color: '#1e4db7',
+  },
+  {
+    color: '#fb9678',
+    name: 'orange-theme',
+  },
+];
+
 export const LINKS = [
   {
     name: 'dashboard',
