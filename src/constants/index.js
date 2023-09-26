@@ -132,6 +132,29 @@ export const COLLECTIONS_GRID = [
   },
 ];
 
+export const EMPLOYEE_COLUMNS = [
+  {
+    field: '_id',
+    headerText: 'ID',
+  },
+  {
+    field: 'name',
+    headerText: 'Name',
+  },
+  {
+    field: 'email',
+    headerText: 'Email',
+  },
+  {
+    field: 'role',
+    headerText: 'Role',
+  },
+  {
+    field: 'active',
+    headerText: 'Status',
+  },
+];
+
 export const PRODUCT_COLUMNS = [
   {
     field: '_id',
