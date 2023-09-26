@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Context as StateContext } from '../contexts/StateContext';
 import { Context as EmployeeContext } from '../contexts/EmployeeContext';
 
-import { EmployeeTable, Header } from '../components';
+import { EditEmployeeModal, EmployeeTable, Header } from '../components';
 import { EMPLOYEE_COLUMNS } from '../constants';
 
 const Employees = () => {
@@ -53,6 +53,8 @@ const Employees = () => {
       </div>
 
       <EmployeeTable headers={EMPLOYEE_COLUMNS} dataSource={employees} />
+
+      <EditEmployeeModal />
     </div>
   );
 };

@@ -16,3 +16,4 @@ export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
 
 export { default as EmployeeTable } from './Employee/EmployeeTable';
+export { default as EditEmployeeModal } from './Employee/EditEmployeeModal';
