@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from 'react';
+import { Button, Checkbox, Table } from 'flowbite-react';
 
 import { Context as StateContext } from '../contexts/StateContext';
 import { Context as EmployeeContext } from '../contexts/EmployeeContext';
 
 import { EditEmployeeModal, EmployeeTable, Header } from '../components';
 import { EMPLOYEE_COLUMNS } from '../constants';
+import { BiEdit } from 'react-icons/bi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const Employees = () => {
   const { currentColor } = useContext(StateContext);
@@ -52,9 +55,47 @@ const Employees = () => {
         </div>
       </div>
 
-      <EmployeeTable headers={EMPLOYEE_COLUMNS} dataSource={employees} />
-
-      <EditEmployeeModal />
+      <Table hoverable>
+        <Table.Head>
+          <Table.HeadCell className="p-4">
+            <Checkbox style={{ color: currentColor }} />
+          </Table.HeadCell>
+          {EMPLOYEE_COLUMNS.map(column => (
+            <Table.HeadCell>{column.headerText}</Table.HeadCell>
+          ))}
+          <Table.HeadCell>
+            <span className="sr-only">Edit</span>
+          </Table.HeadCell>
+        </Table.Head>
+        <Table.Body className="divide-y">
+          {employees.map(employee => (
+            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+              <Table.Cell className="p-4">
+                <Checkbox style={{ color: currentColor }} />
+              </Table.Cell>
+              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                {employee._id}
+              </Table.Cell>
+              <Table.Cell>{employee.name}</Table.Cell>
+              <Table.Cell>{employee.email}</Table.Cell>
+              <Table.Cell>{employee.role}</Table.Cell>
+              <Table.Cell>{employee.active.toString()}</Table.Cell>
+              <Table.Cell>
+                <Button.Group>
+                  <Button style={{ background: currentColor }} size="sm">
+                    <BiEdit className="mr-2" />
+                    Update
+                  </Button>
+                  <Button size="sm" className="bg-red-700">
+                    <RiDeleteBin6Line className="mr-2" />
+                    Delete item
+                  </Button>
+                </Button.Group>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
     </div>
   );
 };
