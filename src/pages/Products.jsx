@@ -7,6 +7,7 @@ import {
   Label,
   TextInput,
   Dropdown,
+  Textarea,
 } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -155,11 +156,64 @@ const Products = () => {
               </div>
             </div>
 
+            <div className="grid gap-4 mb-4 sm:grid-cols-2">
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="sku" value="SKU" />
+                </div>
+                <TextInput id="sku" />
+              </div>
+
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="vendor" value="Vendor" />
+                </div>
+                <TextInput id="vendor" />
+              </div>
+            </div>
+
+            <div className="grid gap-4 mb-4 sm:grid-cols-2">
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="author" value="Author" />
+                </div>
+                <TextInput id="author" />
+              </div>
+
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="format" value="Format" />
+                </div>
+                <TextInput id="format" />
+              </div>
+            </div>
+
+            <div className="grid gap-4 mb-4 sm:grid-cols-2">
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="dimensions" value="Dimensions" />
+                </div>
+                <TextInput id="dimensions" />
+              </div>
+
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="pub_date" value="Publish date" />
+                </div>
+                <TextInput id="pub_date" />
+              </div>
+            </div>
+
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="sku" value="SKU" />
+                <Label htmlFor="description" value="Description" />
               </div>
-              <TextInput id="sku" />
+              <Textarea
+                id="description"
+                placeholder="Enter product description here"
+                required
+                rows={4}
+              />
             </div>
 
             <div className="w-full">
