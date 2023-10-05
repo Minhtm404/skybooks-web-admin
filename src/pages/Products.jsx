@@ -24,9 +24,8 @@ const Products = () => {
   const { collections, getAllCollections } = useContext(CollectionContext);
   const { products, getAllProducts } = useContext(ProductContext);
 
-  const [openModal, setOpenModal] = useState();
-  const [email, setEmail] = useState('');
-  const props = { openModal, setOpenModal, email, setEmail };
+  const [openAddProductModal, setOpenAddProductModal] = useState(false);
+  const [openUpdateProductModal, setOpenUpdateProductModal] = useState(false);
 
   useEffect(() => {
     getAllCollections();
@@ -41,23 +40,18 @@ const Products = () => {
         <div class="w-full mb-1">
           <div class="Dropdown.Items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
             <div class="flex Dropdown.Items-center mb-4 sm:mb-0">
-              <form class="sm:pr-3" action="#" method="GET">
-                <label for="products-search" class="sr-only">
-                  Search
-                </label>
-                <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
-                  <input
-                    type="text"
-                    name="email"
-                    id="products-search"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Search for products"
-                  />
-                </div>
-              </form>
+              <Label htmlFor="products-search" className="sr-only" />
+              <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
+                <TextInput
+                  name="products-search"
+                  id="products-search"
+                  placeholder="Search for products"
+                />
+              </div>
             </div>
+
             <Button
-              onClick={() => props.setOpenModal('form-elements')}
+              onClick={() => setOpenAddProductModal(true)}
               style={{ background: currentColor }}
             >
               Add new product
@@ -68,9 +62,6 @@ const Products = () => {
 
       <Table hoverable>
         <Table.Head>
-          <Table.HeadCell className="p-4">
-            <Checkbox style={{ color: currentColor }} />
-          </Table.HeadCell>
           {PRODUCT_COLUMNS.map(column => (
             <Table.HeadCell>{column.headerText}</Table.HeadCell>
           ))}
@@ -78,12 +69,10 @@ const Products = () => {
             <span className="sr-only">Edit</span>
           </Table.HeadCell>
         </Table.Head>
+
         <Table.Body className="divide-y">
           {products.map(product => (
             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-              <Table.Cell className="p-4">
-                <Checkbox style={{ color: currentColor }} />
-              </Table.Cell>
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {product._id}
               </Table.Cell>
@@ -99,7 +88,7 @@ const Products = () => {
                   </Button>
                   <Button size="sm" className="bg-red-700">
                     <RiDeleteBin6Line className="mr-2" />
-                    Delete Dropdown.Item
+                    Delete
                   </Button>
                 </Button.Group>
               </Table.Cell>
@@ -110,10 +99,10 @@ const Products = () => {
 
       <Modal
         dismissible
-        show={props.openModal === 'form-elements'}
+        show={openAddProductModal === true}
         size="2xl"
         popup
-        onClose={() => props.setOpenModal(undefined)}
+        onClose={() => setOpenAddProductModal(false)}
       >
         <Modal.Header />
         <Modal.Body>
