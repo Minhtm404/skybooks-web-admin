@@ -1,22 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {
   Button,
-  Checkbox,
   Table,
   Modal,
   Label,
   TextInput,
-  Dropdown,
-  Textarea,
 } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 import { Context as StateContext } from '../contexts/StateContext';
 import { Context as CollectionContext } from '../contexts/CollectionContext';
 import { Context as ProductContext } from '../contexts/ProductContext';
 
-import { Header } from '../components';
+import { AddProductForm, EditProductForm, Header } from '../components';
 import { PRODUCT_COLUMNS } from '../constants';
 
 const Products = () => {
@@ -26,6 +24,19 @@ const Products = () => {
 
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [openUpdateProductModal, setOpenUpdateProductModal] = useState(false);
+  const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
+
+  const [currentProduct, setCurrentProduct] = useState({});
+
+  const handleOpenUpdateModal = product => {
+    setCurrentProduct(product);
+    setOpenUpdateProductModal(true);
+  };
+
+  const handleOpenDeleteModal = product => {
+    setCurrentProduct(product);
+    setOpenDeleteProductModal(true);
+  };
 
   useEffect(() => {
     getAllCollections();
@@ -77,16 +88,26 @@ const Products = () => {
                 {product._id}
               </Table.Cell>
               <Table.Cell>{product.name.slice(0, 30)}...</Table.Cell>
-              <Table.Cell>{product.mainCollection}</Table.Cell>
+              <Table.Cell>
+                {collections.find(c => c._id === product.mainCollection)?.name}
+              </Table.Cell>
               <Table.Cell>{product.sku}</Table.Cell>
               <Table.Cell>{product.price}</Table.Cell>
               <Table.Cell>
                 <Button.Group>
-                  <Button style={{ background: currentColor }} size="sm">
+                  <Button
+                    onClick={() => handleOpenUpdateModal(product)}
+                    style={{ background: currentColor }}
+                    size="sm"
+                  >
                     <BiEdit className="mr-2" />
                     Update
                   </Button>
-                  <Button size="sm" className="bg-red-700">
+                  <Button
+                    onClick={() => handleOpenDeleteModal(product)}
+                    size="sm"
+                    className="bg-red-700"
+                  >
                     <RiDeleteBin6Line className="mr-2" />
                     Delete
                   </Button>
@@ -106,107 +127,44 @@ const Products = () => {
       >
         <Modal.Header />
         <Modal.Body>
-          <div className="space-y-6">
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Add product
+          <AddProductForm />
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        dismissible
+        show={openUpdateProductModal === true}
+        size="2xl"
+        popup
+        onClose={() => setOpenUpdateProductModal(false)}
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <EditProductForm product={currentProduct} />
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        dismissible
+        show={openDeleteProductModal === true}
+        size="md"
+        popup
+        onClose={() => setOpenDeleteProductModal(false)}
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this product?
             </h3>
-
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="name" value="Name" />
-              </div>
-              <TextInput id="name" placeholder="Type product name" required />
-            </div>
-
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="mainCollection" value="Main collection" />
-              </div>
-              <Dropdown label="Select main collection" color="gray">
-                {collections.map(collection => (
-                  <Dropdown.Item>{collection.name}</Dropdown.Item>
-                ))}
-              </Dropdown>
-            </div>
-
-            <div className="grid gap-4 mb-4 sm:grid-cols-2">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="price" value="Price" />
-                </div>
-                <TextInput id="price" placeholder="100000" required />
-              </div>
-
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="discount" value="Discount" />
-                </div>
-                <TextInput id="discount" />
-              </div>
-            </div>
-
-            <div className="grid gap-4 mb-4 sm:grid-cols-2">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="sku" value="SKU" />
-                </div>
-                <TextInput id="sku" />
-              </div>
-
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="vendor" value="Vendor" />
-                </div>
-                <TextInput id="vendor" />
-              </div>
-            </div>
-
-            <div className="grid gap-4 mb-4 sm:grid-cols-2">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="author" value="Author" />
-                </div>
-                <TextInput id="author" />
-              </div>
-
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="format" value="Format" />
-                </div>
-                <TextInput id="format" />
-              </div>
-            </div>
-
-            <div className="grid gap-4 mb-4 sm:grid-cols-2">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="dimensions" value="Dimensions" />
-                </div>
-                <TextInput id="dimensions" />
-              </div>
-
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="pub_date" value="Publish date" />
-                </div>
-                <TextInput id="pub_date" />
-              </div>
-            </div>
-
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="description" value="Description" />
-              </div>
-              <Textarea
-                id="description"
-                placeholder="Enter product description here"
-                required
-                rows={4}
-              />
-            </div>
-
-            <div className="w-full">
-              <Button style={{ background: currentColor }}>Add product</Button>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={() => setOpenDeleteProductModal(false)}>
+                Yes, I'm sure
+              </Button>
+              <Button color="gray" onClick={() => setOpenDeleteProductModal(false)}>
+                No, cancel
+              </Button>
             </div>
           </div>
         </Modal.Body>

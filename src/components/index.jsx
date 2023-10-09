@@ -17,3 +17,6 @@ export { default as Header } from './Header';
 
 export { default as EmployeeTable } from './Employee/EmployeeTable';
 export { default as EditEmployeeModal } from './Employee/EditEmployeeModal';
+
+export { default as AddProductForm } from './Products/AddProductForm';
+export { default as EditProductForm } from './Products/EditProductForm';
