@@ -3,10 +3,12 @@ import { Button, Label, TextInput, Dropdown, Textarea, Datepicker } from 'flowbi
 
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CollectionContext } from '../../contexts/CollectionContext';
+import { Context as ProductContext } from '../../contexts/ProductContext';
 
-const AddProductForm = () => {
+const AddProductForm = ({ closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
   const { collections, getAllCollections } = useContext(CollectionContext);
+  const { addProduct } = useContext(ProductContext);
 
   const [name, setName] = useState(undefined);
   const [mainCollection, setMainCollection] = useState(undefined);
@@ -24,6 +26,25 @@ const AddProductForm = () => {
   useEffect(() => {
     getAllCollections();
   }, []);
+
+  const handleCreate = async () => {
+    await addProduct({
+      name,
+      mainCollection,
+      subCollection,
+      price,
+      discount,
+      sku,
+      vendor,
+      author,
+      format,
+      dimensions,
+      publishDate,
+      description,
+    });
+
+    closeModalAfterSubmit();
+  };
 
   return (
     <div className="space-y-6">
@@ -189,7 +210,14 @@ const AddProductForm = () => {
       </div>
 
       <div className="w-full">
-        <Button style={{ background: currentColor }}>Add product</Button>
+        <Button
+          onClick={() => {
+            handleCreate();
+          }}
+          style={{ background: currentColor }}
+        >
+          Add product
+        </Button>
       </div>
     </div>
   );

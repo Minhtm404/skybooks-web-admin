@@ -1,11 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  Button,
-  Table,
-  Modal,
-  Label,
-  TextInput,
-} from 'flowbite-react';
+import { Button, Table, Modal, Label, TextInput } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
@@ -20,13 +14,18 @@ import { PRODUCT_COLUMNS } from '../constants';
 const Products = () => {
   const { currentColor } = useContext(StateContext);
   const { collections, getAllCollections } = useContext(CollectionContext);
-  const { products, getAllProducts } = useContext(ProductContext);
+  const { products, getAllProducts, deleteProduct } = useContext(ProductContext);
 
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [openUpdateProductModal, setOpenUpdateProductModal] = useState(false);
   const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
 
   const [currentProduct, setCurrentProduct] = useState({});
+
+  useEffect(() => {
+    getAllCollections();
+    getAllProducts();
+  }, []);
 
   const handleOpenUpdateModal = product => {
     setCurrentProduct(product);
@@ -38,10 +37,10 @@ const Products = () => {
     setOpenDeleteProductModal(true);
   };
 
-  useEffect(() => {
-    getAllCollections();
-    getAllProducts();
-  }, []);
+  const handleDelete = async () => {
+    await deleteProduct(currentProduct);
+    setOpenDeleteProductModal(false);
+  };
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -127,7 +126,7 @@ const Products = () => {
       >
         <Modal.Header />
         <Modal.Body>
-          <AddProductForm />
+          <AddProductForm closeModalAfterSubmit={() => setOpenAddProductModal(false)} />
         </Modal.Body>
       </Modal>
 
@@ -140,7 +139,10 @@ const Products = () => {
       >
         <Modal.Header />
         <Modal.Body>
-          <EditProductForm product={currentProduct} />
+          <EditProductForm
+            product={currentProduct}
+            closeModalAfterSubmit={() => setOpenUpdateProductModal(false)}
+          />
         </Modal.Body>
       </Modal>
 
@@ -159,7 +161,7 @@ const Products = () => {
               Are you sure you want to delete this product?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={() => setOpenDeleteProductModal(false)}>
+              <Button color="failure" onClick={() => handleDelete()}>
                 Yes, I'm sure
               </Button>
               <Button color="gray" onClick={() => setOpenDeleteProductModal(false)}>
