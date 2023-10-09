@@ -27,7 +27,7 @@ const AddProductForm = () => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white">Edit product</h3>
+      <h3 className="text-xl font-medium text-gray-900 dark:text-white">Add product</h3>
 
       <div>
         <div className="mb-2 block">
@@ -189,7 +189,7 @@ const AddProductForm = () => {
       </div>
 
       <div className="w-full">
-        <Button style={{ background: currentColor }}>Edit product</Button>
+        <Button style={{ background: currentColor }}>Add product</Button>
       </div>
     </div>
   );
