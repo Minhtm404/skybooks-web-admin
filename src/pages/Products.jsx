@@ -86,7 +86,9 @@ const Products = () => {
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {product._id}
               </Table.Cell>
-              <Table.Cell>{product.name.slice(0, 30)}...</Table.Cell>
+              <Table.Cell> {product.name.length > 30
+                  ? product.name.slice(0, 30).concat('...')
+                  : product.name}</Table.Cell>
               <Table.Cell>
                 {collections.find(c => c._id === product.mainCollection)?.name}
               </Table.Cell>

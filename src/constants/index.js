@@ -117,18 +117,22 @@ export const CONTEXT_MENU_ITEMS = [
   'NextPage',
 ];
 
-export const COLLECTIONS_GRID = [
+export const COLLECTIONS_COLUMNS = [
   {
     field: '_id',
     headerText: 'ID',
-    width: '150',
-    textAlign: 'Center',
   },
   {
     field: 'name',
     headerText: 'Name',
-    width: '300',
-    textAlign: 'Center',
+  },
+  {
+    field: 'mainCollection',
+    headerText: 'Main Collection',
+  },
+  {
+    field: 'parentCollection',
+    headerText: 'Parent Collection',
   },
 ];
 
