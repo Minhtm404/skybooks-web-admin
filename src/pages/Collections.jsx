@@ -154,7 +154,7 @@ const Collections = () => {
         show={openDeleteCollectionModal === true}
         size="md"
         popup
-        onClose={() => setOpenUpdateCollectionModal(false)}
+        onClose={() => setOpenDeleteCollectionModal(false)}
       >
         <Modal.Header />
         <Modal.Body>

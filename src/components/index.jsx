@@ -15,8 +15,8 @@ export { default as Pie } from './Charts/Pie';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
 
-export { default as EmployeeTable } from './Employee/EmployeeTable';
-export { default as EditEmployeeModal } from './Employee/EditEmployeeModal';
+export { default as AddEmployeeForm } from './Employee/AddEmployeeForm';
+export { default as EditEmployeeForm } from './Employee/EditEmployeeForm';
 
 export { default as AddCollectionForm } from './Collection/AddCollectionForm';
 export { default as EditCollectionForm } from './Collection/EditCollectionForm';
