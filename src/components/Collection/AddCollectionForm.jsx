@@ -40,7 +40,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
           id="name"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Type collection name"
+          placeholder="Type product name"
           required
         />
       </div>

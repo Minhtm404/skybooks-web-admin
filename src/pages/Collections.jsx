@@ -42,7 +42,7 @@ const Collections = () => {
   };
 
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-gray-800 dark:border-gray-700">
       <Header title="Collections" />
 
       <div class="p-4 bg-white block sm:flex Dropdown.Items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
@@ -93,7 +93,6 @@ const Collections = () => {
               <Table.Cell>
                 {collections.find(c => c._id === collection.parentCollection)?.name}
               </Table.Cell>
-              <Table.Cell>{collection.price}</Table.Cell>
               <Table.Cell>
                 <Button.Group>
                   <Button
