@@ -68,16 +68,17 @@ const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
         <Dropdown
           disabled={mainCollection}
           label={
-            collections.find(c => c._id === setParentCollection)?.name ??
-            'Select parent collection'
+            collections
+              .filter(c => c.mainCollection === true)
+              .find(c => c._id === parentCollection)?.name ?? 'Select parent collection'
           }
           color="gray"
         >
           {collections
             .filter(c => c.mainCollection)
-            .map(collection => (
-              <Dropdown.Item onClick={() => setParentCollection(collection._id)}>
-                {collection.name}
+            .map(c => (
+              <Dropdown.Item onClick={() => setParentCollection(c._id)}>
+                {c.name}
               </Dropdown.Item>
             ))}
         </Dropdown>

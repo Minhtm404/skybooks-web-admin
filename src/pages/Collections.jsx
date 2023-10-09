@@ -91,7 +91,7 @@ const Collections = () => {
               </Table.Cell>
               <Table.Cell>{collection.mainCollection === true ? 'Yes' : 'No'}</Table.Cell>
               <Table.Cell>
-                {collections.find(c => c._id === collection.parentCollection)}
+                {collections.find(c => c._id === collection.parentCollection)?.name}
               </Table.Cell>
               <Table.Cell>{collection.price}</Table.Cell>
               <Table.Cell>

@@ -17,12 +17,53 @@ const getAllCollections = dispacth => async () => {
   dispacth({ type: ACTIONS.SET_COLLECTIONS, payload: data.data.data });
 };
 
+const addCollection =
+  dispacth =>
+  async ({ name, mainCollection, parentCollection }) => {
+    const data = await apiHelper.post('/collections', {
+      name,
+      mainCollection,
+      parentCollection,
+    });
+
+    const newData = await apiHelper.get('/collections');
+
+    dispacth({ type: ACTIONS.SET_COLLECTIONS, payload: newData.data.data });
+  };
+
+const updateCollection =
+  dispacth =>
+  async ({ _id: id, name, mainCollection, parentCollection }) => {
+    const data = await apiHelper.patch(`/collections/${id}`, {
+      name,
+      mainCollection,
+      parentCollection,
+    });
+
+    const newData = await apiHelper.get('/collections');
+
+    dispacth({ type: ACTIONS.SET_COLLECTIONS, payload: newData.data.data });
+  };
+
+const deleteCollection =
+  dispacth =>
+  async ({ _id: id }) => {
+    const data = await apiHelper.delete(`/collections/${id}`);
+
+    const newData = await apiHelper.get('/collections');
+
+    dispacth({ type: ACTIONS.SET_COLLECTIONS, payload: newData.data.data });
+  };
+
 export const { Provider, Context } = contextFactory(
   collectionReducer,
   {
-    getAllCollections
+    getAllCollections,
+    addCollection,
+    updateCollection,
+    deleteCollection,
   },
   {
-    collections: []
-  }
+    collections: [],
+  },
 );
