@@ -76,11 +76,18 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
             }
             color="gray"
           >
-            {collections.slice(0, 3).map(collection => (
-              <Dropdown.Item onClick={() => setMainCollection(collection._id)}>
-                {collection.name}
-              </Dropdown.Item>
-            ))}
+            {collections
+              .filter(c => c.mainCollection)
+              .map(collection => (
+                <Dropdown.Item
+                  onClick={() => {
+                    setMainCollection(collection._id);
+                    setSubCollection(undefined);
+                  }}
+                >
+                  {collection.name}
+                </Dropdown.Item>
+              ))}
           </Dropdown>
         </div>
 
@@ -95,11 +102,13 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
             }
             color="gray"
           >
-            {collections.slice(3).map(collection => (
-              <Dropdown.Item onClick={() => setSubCollection(collection._id)}>
-                {collection.name}
-              </Dropdown.Item>
-            ))}
+            {collections
+              .filter(c => c.parentCollection === mainCollection)
+              .map(collection => (
+                <Dropdown.Item onClick={() => setSubCollection(collection._id)}>
+                  {collection.name}
+                </Dropdown.Item>
+              ))}
           </Dropdown>
         </div>
       </div>
@@ -155,7 +164,11 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
           <div className="mb-2 block">
             <Label htmlFor="author" value="Author" />
           </div>
-          <TextInput id="author" value={author} onChange={e => setAuthor} />
+          <TextInput
+            id="author"
+            value={author}
+            onChange={e => setAuthor(e.target.value)}
+          />
         </div>
 
         <div>

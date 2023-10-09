@@ -75,11 +75,18 @@ const AddProductForm = ({ closeModalAfterSubmit }) => {
             }
             color="gray"
           >
-            {collections.slice(0, 3).map(collection => (
-              <Dropdown.Item onClick={() => setMainCollection(collection._id)}>
-                {collection.name}
-              </Dropdown.Item>
-            ))}
+            {collections
+              .filter(c => c.mainCollection)
+              .map(collection => (
+                <Dropdown.Item
+                  onClick={() => {
+                    setMainCollection(collection._id);
+                    setSubCollection(undefined);
+                  }}
+                >
+                  {collection.name}
+                </Dropdown.Item>
+              ))}
           </Dropdown>
         </div>
 
@@ -88,17 +95,20 @@ const AddProductForm = ({ closeModalAfterSubmit }) => {
             <Label htmlFor="sub-collection" value="Sub collection" />
           </div>
           <Dropdown
+            disabled={!mainCollection}
             label={
               collections.find(c => c._id === subCollection)?.name ??
               'Select sub collection'
             }
             color="gray"
           >
-            {collections.slice(3).map(collection => (
-              <Dropdown.Item onClick={() => setSubCollection(collection._id)}>
-                {collection.name}
-              </Dropdown.Item>
-            ))}
+            {collections
+              .filter(c => c.parentCollection === mainCollection)
+              .map(collection => (
+                <Dropdown.Item onClick={() => setSubCollection(collection._id)}>
+                  {collection.name}
+                </Dropdown.Item>
+              ))}
           </Dropdown>
         </div>
       </div>

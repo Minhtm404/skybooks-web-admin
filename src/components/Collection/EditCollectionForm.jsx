@@ -69,7 +69,7 @@ const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
           disabled={mainCollection}
           label={
             collections
-              .filter(c => c.mainCollection === true)
+              .filter(c => c.mainCollection)
               .find(c => c._id === parentCollection)?.name ?? 'Select parent collection'
           }
           color="gray"
