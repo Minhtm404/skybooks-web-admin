@@ -40,7 +40,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
           id="name"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Type product name"
+          placeholder="Type collection name"
           required
         />
       </div>
@@ -53,7 +53,6 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
           checked={mainCollection}
           onChange={e => {
             setMainCollection(e);
-            console.log(mainCollection);
           }}
         />
       </div>
@@ -66,7 +65,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
         <Dropdown
           disabled={mainCollection}
           label={
-            collections.find(c => c._id === setParentCollection)?.name ??
+            collections.find(c => c._id === parentCollection)?.name ??
             'Select parent collection'
           }
           color="gray"
@@ -74,7 +73,11 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
           {collections
             .filter(c => c.mainCollection)
             .map(collection => (
-              <Dropdown.Item onClick={() => setParentCollection(collection._id)}>
+              <Dropdown.Item
+                onClick={() => {
+                  setParentCollection(collection._id);
+                }}
+              >
                 {collection.name}
               </Dropdown.Item>
             ))}

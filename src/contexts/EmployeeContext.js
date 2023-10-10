@@ -17,10 +17,53 @@ const getAllEmployees = dispacth => async () => {
   dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: data.data.data });
 };
 
+const addEmployee =
+  dispacth =>
+  async ({ name, email, role, active }) => {
+    const data = await apiHelper.post('/users', {
+      name,
+      email,
+      role,
+      active,
+    });
+
+    const newData = await apiHelper.get('/users');
+
+    dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
+  };
+
+const updateEmployee =
+  dispacth =>
+  async ({ _id: id, name, email, role, active }) => {
+    const data = await apiHelper.patch(`/users/${id}`, {
+      name,
+      email,
+      role,
+      active,
+    });
+
+    const newData = await apiHelper.get('/users');
+
+    dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
+  };
+
+const deleteEmployee =
+  dispacth =>
+  async ({ _id: id }) => {
+    const data = await apiHelper.delete(`/users/${id}`);
+
+    const newData = await apiHelper.get('/users');
+
+    dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
+  };
+
 export const { Provider, Context } = contextFactory(
   employeeReducer,
   {
     getAllEmployees,
+    addEmployee,
+    updateEmployee,
+    deleteEmployee,
   },
   {
     employees: [],

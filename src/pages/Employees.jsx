@@ -86,7 +86,7 @@ const Employees = () => {
               <Table.Cell>{employee.name}</Table.Cell>
               <Table.Cell>{employee.email}</Table.Cell>
               <Table.Cell>{employee.role === 'admin' ? 'Admin' : 'Staff'}</Table.Cell>
-              <Table.Cell>{employee.status ? 'Active' : 'Deactive'}</Table.Cell>
+              <Table.Cell>{employee.active ? 'Active' : 'Deactive'}</Table.Cell>
               <Table.Cell>
                 <Button.Group>
                   <Button

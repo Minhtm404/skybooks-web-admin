@@ -55,7 +55,6 @@ const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
           checked={mainCollection}
           onChange={e => {
             setMainCollection(e);
-            console.log(mainCollection);
           }}
         />
       </div>

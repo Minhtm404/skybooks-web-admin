@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Label, TextInput, Dropdown, ToggleSwitch } from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
@@ -6,22 +6,20 @@ import { Context as EmployeeContext } from '../../contexts/EmployeeContext';
 
 const EditEmployeeForm = ({ employee, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
-  const { employees, getAllEmployees, updateEmployee } = useContext(EmployeeContext);
+  const { updateEmployee } = useContext(EmployeeContext);
 
   const [name, setName] = useState(employee.name);
-  const [mainemployee, setMainemployee] = useState(employee.mainemployee);
-  const [parentemployee, setParentemployee] = useState(employee.parentemployee);
-
-  useEffect(() => {
-    getAllEmployees();
-  }, []);
+  const [email, setEmail] = useState(employee.email);
+  const [role, setRole] = useState(employee.role);
+  const [active, setActive] = useState(employee.active);
 
   const handleUpdate = async () => {
     await updateEmployee({
       _id: employee._id,
       name,
-      mainemployee,
-      parentemployee,
+      email,
+      role,
+      active,
     });
 
     closeModalAfterSubmit();
@@ -46,38 +44,40 @@ const EditEmployeeForm = ({ employee, closeModalAfterSubmit }) => {
 
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="main-employee" value="Main employee" />
+          <Label htmlFor="email" value="Email" />
         </div>
-        <ToggleSwitch
-          checked={mainemployee}
-          onChange={e => {
-            setMainemployee(e);
-            console.log(mainemployee);
-          }}
+        <TextInput
+          id="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Type employee email"
+          required
         />
       </div>
 
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="sub-employee" value="Sub employee" />
+          <Label htmlFor="role" value="Role" />
         </div>
-
         <Dropdown
-          disabled={mainemployee}
-          label={
-            employees.filter(c => c.mainemployee).find(c => c._id === parentemployee)
-              ?.name ?? 'Select parent employee'
-          }
+          label={(role === 'admin' ? 'Admin' : 'Staff') ?? 'Select role'}
           color="gray"
         >
-          {employees
-            .filter(c => c.mainemployee)
-            .map(c => (
-              <Dropdown.Item onClick={() => setParentemployee(c._id)}>
-                {c.name}
-              </Dropdown.Item>
-            ))}
+          <Dropdown.Item onClick={() => setRole('admin')}>Admin</Dropdown.Item>
+          <Dropdown.Item onClick={() => setRole('staff')}>Staff</Dropdown.Item>
         </Dropdown>
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="status" value="Status" />
+        </div>
+        <ToggleSwitch
+          checked={active}
+          onChange={e => {
+            setActive(e);
+          }}
+        />
       </div>
 
       <div className="w-full">
