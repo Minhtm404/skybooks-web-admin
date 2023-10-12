@@ -12,37 +12,41 @@ const employeeReducer = (state, action) => {
 };
 
 const getAllEmployees = dispacth => async () => {
-  const data = await apiHelper.get('/users');
+  const data = await apiHelper.get('/admins');
 
   dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: data.data.data });
 };
 
 const addEmployee =
   dispacth =>
-  async ({ name, email, role, active }) => {
-    const data = await apiHelper.post('/users', {
+  async ({ name, email, password, passwordConfirm, role, active }) => {
+    const data = await apiHelper.post('/admins', {
       name,
       email,
+      password,
+      passwordConfirm,
       role,
       active,
     });
 
-    const newData = await apiHelper.get('/users');
+    const newData = await apiHelper.get('/admins');
 
     dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
   };
 
 const updateEmployee =
   dispacth =>
-  async ({ _id: id, name, email, role, active }) => {
-    const data = await apiHelper.patch(`/users/${id}`, {
+  async ({ _id: id, name, email, password, passwordConfirm, role, active }) => {
+    const data = await apiHelper.patch(`/admins/${id}`, {
       name,
       email,
+      password,
+      passwordConfirm,
       role,
       active,
     });
 
-    const newData = await apiHelper.get('/users');
+    const newData = await apiHelper.get('/admins');
 
     dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
   };
@@ -50,9 +54,9 @@ const updateEmployee =
 const deleteEmployee =
   dispacth =>
   async ({ _id: id }) => {
-    const data = await apiHelper.delete(`/users/${id}`);
+    const data = await apiHelper.delete(`/admins/${id}`);
 
-    const newData = await apiHelper.get('/users');
+    const newData = await apiHelper.get('/admins');
 
     dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
   };
