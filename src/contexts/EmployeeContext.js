@@ -36,12 +36,10 @@ const addEmployee =
 
 const updateEmployee =
   dispacth =>
-  async ({ _id: id, name, email, password, passwordConfirm, role, active }) => {
+  async ({ _id: id, name, email, role, active }) => {
     const data = await apiHelper.patch(`/admins/${id}`, {
       name,
       email,
-      password,
-      passwordConfirm,
       role,
       active,
     });

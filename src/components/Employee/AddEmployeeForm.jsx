@@ -10,6 +10,8 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
 
   const [name, setName] = useState(undefined);
   const [email, setEmail] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
+  const [passwordConfirm, setPasswordConfirm] = useState(undefined);
   const [role, setRole] = useState('staff');
   const [active, setActive] = useState(true);
 
@@ -17,6 +19,8 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
     await addEmployee({
       name,
       email,
+      password,
+      passwordConfirm,
       role,
       active,
     });
@@ -50,6 +54,34 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
           value={email}
           onChange={e => setEmail(e.target.value)}
           placeholder="Type employee email"
+          required
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="password" value="Password" />
+        </div>
+        <TextInput
+          id="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          type="password"
+          placeholder="Type employee password"
+          required
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="passwordConfirm" value="Confirm Password" />
+        </div>
+        <TextInput
+          id="passwordConfirm"
+          value={passwordConfirm}
+          onChange={e => setPasswordConfirm(e.target.value)}
+          type="password"
+          placeholder="Type employee confirm password"
           required
         />
       </div>
