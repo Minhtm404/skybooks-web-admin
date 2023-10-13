@@ -16,7 +16,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
     getAllCollections();
   }, []);
 
-  const handleUpdate = async () => {
+  const handleCreate = async () => {
     await addCollection({
       name,
       mainCollection,
@@ -87,7 +87,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
       <div className="w-full">
         <Button
           onClick={() => {
-            handleUpdate();
+            handleCreate();
           }}
           style={{ background: currentColor }}
         >

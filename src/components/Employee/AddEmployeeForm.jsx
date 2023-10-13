@@ -15,7 +15,7 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
   const [role, setRole] = useState('staff');
   const [active, setActive] = useState(true);
 
-  const handleUpdate = async () => {
+  const handleCreate = async () => {
     await addEmployee({
       name,
       email,
@@ -115,7 +115,7 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
       <div className="w-full">
         <Button
           onClick={() => {
-            handleUpdate();
+            handleCreate();
           }}
           style={{ background: currentColor }}
         >
