@@ -23,3 +23,6 @@ export { default as EditCollectionForm } from './Collection/EditCollectionForm';
 
 export { default as AddProductForm } from './Product/AddProductForm';
 export { default as EditProductForm } from './Product/EditProductForm';
+
+
+export { default as EditCustomerForm } from './Customer/EditCustomerForm';

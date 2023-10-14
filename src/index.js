@@ -6,6 +6,8 @@ import { Provider as AuthProvider } from './contexts/AuthContext';
 import { Provider as EmployeeProvider } from './contexts/EmployeeContext';
 import { Provider as CollectionProvider } from './contexts/CollectionContext';
 import { Provider as ProductProvider } from './contexts/ProductContext';
+import { Provider as CustomerProvider } from './contexts/CustomerContext';
+
 import './index.css';
 import App from './App';
 
@@ -17,7 +19,9 @@ root.render(
       <EmployeeProvider>
         <CollectionProvider>
           <ProductProvider>
-            <App />
+            <CustomerProvider>
+              <App />
+            </CustomerProvider>
           </ProductProvider>
         </CollectionProvider>
       </EmployeeProvider>

@@ -182,6 +182,25 @@ export const PRODUCT_COLUMNS = [
   },
 ];
 
+export const CUSTOMER_COLUMNS = [
+  {
+    field: '_id',
+    headerText: 'ID',
+  },
+  {
+    field: 'name',
+    headerText: 'Name',
+  },
+  {
+    field: 'email',
+    headerText: 'Email',
+  },
+  {
+    field: 'active',
+    headerText: 'Status',
+  },
+];
+
 export const ACTIONS = {
   SET_MODE: 'SET_MODE',
   SET_COLOR: 'SET_COLOR',
@@ -202,4 +221,6 @@ export const ACTIONS = {
   ADD_PRODUCT: 'ADD_PRODUCT',
   UPDATE_PRODUCT: 'UPDATE_PRODUCT',
   DELETE_PRODUCT: 'DELETE_PRODUCT',
+
+  SET_CUSTOMERS: 'SET_CUSTOMERS',
 };
