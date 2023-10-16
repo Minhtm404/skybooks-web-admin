@@ -77,7 +77,7 @@ const App = () => {
             <Route path="/stacked" element={<Stacked />} />
           </Route>
 
-          <Route path="/*" element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
