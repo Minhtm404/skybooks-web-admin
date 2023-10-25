@@ -32,7 +32,7 @@ const authReducer = (state, action) => {
 const login =
   dispatch =>
   async ({ email, password }) => {
-    const { data } = await apiHelper.post('/users/login', {
+    const { data } = await apiHelper.post('/admins/login', {
       email,
       password
     });
