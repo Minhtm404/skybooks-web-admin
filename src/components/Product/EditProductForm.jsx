@@ -21,6 +21,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
   const [format, setFormat] = useState(product.format);
   const [dimensions, setDimensions] = useState(product.dimensions);
   const [publishDate, setPublishDate] = useState(product.publishDate);
+  const [quantity, setQuantity] = useState(undefined);
   const [description, setDescription] = useState(product.description);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
       format,
       dimensions,
       publishDate,
+      quantity,
       description,
     });
 
@@ -205,6 +207,19 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
             onSelectedDateChanged={e => {
               setPublishDate(e.toDateString());
             }}
+          />
+        </div>
+      </div>
+
+      <div className="grid gap-4 mb-4 sm:grid-cols-2">
+        <div>
+          <div className="mb-2 block">
+            <Label htmlFor="quantity" value="Quantity" />
+          </div>
+          <TextInput
+            id="quantity"
+            value={quantity}
+            onChange={e => setQuantity(e.target.value)}
           />
         </div>
       </div>

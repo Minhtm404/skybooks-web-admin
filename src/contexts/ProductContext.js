@@ -31,6 +31,7 @@ const addProduct =
     format,
     dimensions,
     publishDate,
+    quantity,
     description,
   }) => {
     const data = await apiHelper.post('/products', {
@@ -45,6 +46,7 @@ const addProduct =
       format,
       dimensions,
       publishDate,
+      quantity,
       description,
     });
 
@@ -68,6 +70,7 @@ const updateProduct =
     format,
     dimensions,
     publishDate,
+    quantity,
     description,
   }) => {
     const data = await apiHelper.patch(`/products/${id}`, {
@@ -82,6 +85,7 @@ const updateProduct =
       format,
       dimensions,
       publishDate,
+      quantity,
       description,
     });
 
