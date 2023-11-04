@@ -21,7 +21,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
   const [format, setFormat] = useState(product.format);
   const [dimensions, setDimensions] = useState(product.dimensions);
   const [publishDate, setPublishDate] = useState(product.publishDate);
-  const [quantity, setQuantity] = useState(undefined);
+  const [quantity, setQuantity] = useState(product.quantity);
   const [description, setDescription] = useState(product.description);
 
   useEffect(() => {
