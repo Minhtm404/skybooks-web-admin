@@ -43,7 +43,7 @@ const EditOrderForm = ({ order }) => {
 
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="paid" value="PaymentStatus" />
+            <Label htmlFor="paid" value="Payment Status" />
           </div>
           <TextInput id="paid" value={order.paid ? 'Paid' : 'Unpaid'} disabled />
         </div>
