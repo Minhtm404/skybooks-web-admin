@@ -57,7 +57,7 @@ const Sidebar = () => {
           <div className="mt-10">
             {LINKS.map(link => (
               <NavLink
-                to={`/${link.name}`}
+                to={`/${link.name !== 'dashboard' ? link.name : ''}`}
                 key={link.name}
                 onClick={handleCloseSideBar}
                 style={({ isActive }) => ({

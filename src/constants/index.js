@@ -1,15 +1,10 @@
-import {
-  AiOutlineShoppingCart,
-  AiOutlineAreaChart,
-  AiOutlineBarChart,
-  AiOutlineStock,
-} from 'react-icons/ai';
-import { FiShoppingBag, FiPieChart } from 'react-icons/fi';
-import { BsBarChart } from 'react-icons/bs';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+
 import { BiCategory } from 'react-icons/bi';
+import { FiShoppingBag } from 'react-icons/fi';
+import { GiBookshelf } from 'react-icons/gi';
 import { IoMdContacts } from 'react-icons/io';
-import { RiContactsLine, RiStockLine } from 'react-icons/ri';
-import { GiLouvrePyramid, GiBookshelf } from 'react-icons/gi';
+import { RiContactsLine } from 'react-icons/ri';
 
 export const THEME_COLORS = [
   {
@@ -62,39 +57,6 @@ export const LINKS = [
   {
     name: 'orders',
     icon: <AiOutlineShoppingCart />,
-  },
-  {
-    name: 'line',
-    icon: <AiOutlineStock />,
-  },
-  {
-    name: 'area',
-    icon: <AiOutlineAreaChart />,
-  },
-
-  {
-    name: 'bar',
-    icon: <AiOutlineBarChart />,
-  },
-  {
-    name: 'pie',
-    icon: <FiPieChart />,
-  },
-  {
-    name: 'financial',
-    icon: <RiStockLine />,
-  },
-  {
-    name: 'color-mapping',
-    icon: <BsBarChart />,
-  },
-  {
-    name: 'pyramid',
-    icon: <GiLouvrePyramid />,
-  },
-  {
-    name: 'stacked',
-    icon: <AiOutlineBarChart />,
   },
 ];
 
