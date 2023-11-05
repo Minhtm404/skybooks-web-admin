@@ -1,4 +1,5 @@
 import contextFactory from './ContextFactory';
+
 import { ACTIONS } from '../constants';
 import apiHelper from '../utils/apiHelper';
 
@@ -9,20 +10,20 @@ const authReducer = (state, action) => {
         ...state,
         token: action.payload.token,
         user: action.payload.user,
-        isAuthenticated: true
+        isAuthenticated: true,
       };
     case ACTIONS.SET_LOGIN_LOCAL:
       return {
         ...state,
         token: action.payload.token,
-        isAuthenticated: true
+        isAuthenticated: true,
       };
     case ACTIONS.SET_LOGOUT:
       return {
         ...state,
         token: undefined,
         user: undefined,
-        isAuthenticated: false
+        isAuthenticated: false,
       };
     default:
       return state;
@@ -34,14 +35,14 @@ const login =
   async ({ email, password }) => {
     const { data } = await apiHelper.post('/admins/login', {
       email,
-      password
+      password,
     });
 
     localStorage.setItem('token', data.token);
 
     dispatch({
       type: ACTIONS.SET_LOGIN,
-      payload: { token: data.token, user: data.data.user }
+      payload: { token: data.token, user: data.data.user },
     });
   };
 
@@ -64,11 +65,11 @@ export const { Provider, Context } = contextFactory(
   {
     login,
     localLogin,
-    logout
+    logout,
   },
   {
     token: undefined,
     user: undefined,
-    isAuthenticated: false
-  }
+    isAuthenticated: false,
+  },
 );

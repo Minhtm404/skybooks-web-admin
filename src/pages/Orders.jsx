@@ -5,9 +5,9 @@ import { BiEdit } from 'react-icons/bi';
 import { Context as StateContext } from '../contexts/StateContext';
 import { Context as OrderContext } from '../contexts/OrderContext';
 
-import { Header, EditOrderForm } from '../components';
-
 import { ORDER_COLUMNS } from '../constants';
+
+import { Header, EditOrderForm } from '../components';
 
 const Orders = () => {
   const { currentColor } = useContext(StateContext);

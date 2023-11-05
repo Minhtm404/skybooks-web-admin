@@ -1,28 +1,17 @@
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { SiSass } from 'react-icons/si';
 import { MdOutlineCancel } from 'react-icons/md';
+import { SiSass } from 'react-icons/si';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Context as StateContext } from '../contexts/StateContext';
+
 import { LINKS } from '../constants';
 
 const Sidebar = () => {
-  const {
-    currentColor,
-    currentMode,
-    activeMenu,
-    screenSize,
-    themeSettings,
-    setMode,
-    setColor,
-    setActiveMenu,
-    setScreenSize,
-    setThemeSettings,
-  } = useContext(StateContext);
+  const { currentColor, activeMenu, screenSize, setActiveMenu } = useContext(StateContext);
 
-  const activeLink =
-    'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white text-md m-2';
+  const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white text-md m-2';
   const normalLink =
     'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2';
 

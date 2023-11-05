@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Table, Modal, Label, TextInput } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import { Context as StateContext } from '../contexts/StateContext';
 import { Context as EmployeeContext } from '../contexts/EmployeeContext';
 
-import { Header, AddEmployeeForm, EditEmployeeForm } from '../components';
-
 import { EMPLOYEE_COLUMNS } from '../constants';
+
+import { Header, AddEmployeeForm, EditEmployeeForm } from '../components';
 
 const Employees = () => {
   const { currentColor } = useContext(StateContext);

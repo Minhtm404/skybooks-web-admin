@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Label, TextInput, Dropdown, ToggleSwitch } from 'flowbite-react';
+import { Button, Dropdown, Label, TextInput, ToggleSwitch } from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CollectionContext } from '../../contexts/CollectionContext';
@@ -28,9 +28,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-        Edit collection
-      </h3>
+      <h3 className="text-xl font-medium text-gray-900 dark:text-white">Edit collection</h3>
 
       <div>
         <div className="mb-2 block">
@@ -65,8 +63,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
         <Dropdown
           disabled={mainCollection}
           label={
-            collections.find(c => c._id === parentCollection)?.name ??
-            'Select parent collection'
+            collections.find(c => c._id === parentCollection)?.name ?? 'Select parent collection'
           }
           color="gray"
         >

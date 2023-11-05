@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Button, Label, TextInput, Dropdown, Textarea, Datepicker } from 'flowbite-react';
-
-import { Context as StateContext } from '../../contexts/StateContext';
+import React from 'react';
+import { Label, TextInput } from 'flowbite-react';
 
 const EditOrderForm = ({ order }) => {
   return (

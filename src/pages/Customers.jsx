@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Table, Modal, Label, TextInput } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import { Context as StateContext } from '../contexts/StateContext';
 import { Context as CustomerContext } from '../contexts/CustomerContext';
 
-import { Header, EditCustomerForm } from '../components';
-
 import { CUSTOMER_COLUMNS } from '../constants';
+import { Header, EditCustomerForm } from '../components';
 
 const Customers = () => {
   const { currentColor } = useContext(StateContext);

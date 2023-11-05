@@ -1,4 +1,5 @@
 import contextFactory from './ContextFactory';
+
 import { ACTIONS } from '../constants';
 
 const stateReducer = (state, action) => {

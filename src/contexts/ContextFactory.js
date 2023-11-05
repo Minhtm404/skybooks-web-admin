@@ -12,11 +12,7 @@ const contextFactory = (reducer, actions, defaultValue) => {
       boundActions[key] = actions[key](dispatch);
     }
 
-    return (
-      <Context.Provider value={{ ...state, ...boundActions }}>
-        {children}
-      </Context.Provider>
-    );
+    return <Context.Provider value={{ ...state, ...boundActions }}>{children}</Context.Provider>;
   };
 
   return { Context, Provider };

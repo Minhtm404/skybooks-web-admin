@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Label, TextInput, Dropdown, ToggleSwitch } from 'flowbite-react';
+import { Button, Dropdown, Label, TextInput, ToggleSwitch } from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CollectionContext } from '../../contexts/CollectionContext';
 
 const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
-  const { collections, getAllCollections, updateCollection } =
-    useContext(CollectionContext);
+  const { collections, getAllCollections, updateCollection } = useContext(CollectionContext);
 
   const [name, setName] = useState(collection.name);
   const [mainCollection, setMainCollection] = useState(collection.mainCollection);
@@ -30,9 +29,7 @@ const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-        Edit collection
-      </h3>
+      <h3 className="text-xl font-medium text-gray-900 dark:text-white">Edit collection</h3>
 
       <div>
         <div className="mb-2 block">
@@ -67,18 +64,15 @@ const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
         <Dropdown
           disabled={mainCollection}
           label={
-            collections
-              .filter(c => c.mainCollection)
-              .find(c => c._id === parentCollection)?.name ?? 'Select parent collection'
+            collections.filter(c => c.mainCollection).find(c => c._id === parentCollection)?.name ??
+            'Select parent collection'
           }
           color="gray"
         >
           {collections
             .filter(c => c.mainCollection)
             .map(c => (
-              <Dropdown.Item onClick={() => setParentCollection(c._id)}>
-                {c.name}
-              </Dropdown.Item>
+              <Dropdown.Item onClick={() => setParentCollection(c._id)}>{c.name}</Dropdown.Item>
             ))}
         </Dropdown>
       </div>

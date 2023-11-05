@@ -1,15 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
-import { SiSass } from 'react-icons/si';
-import { BsChatLeft } from 'react-icons/bs';
-import { RiNotification3Line } from 'react-icons/ri';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { RxAvatar } from 'react-icons/rx';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Context as StateContext } from '../contexts/StateContext';
-import { UserProfile } from '../components';
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => {
   return (
@@ -31,18 +26,8 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => {
 };
 
 const Navbar = () => {
-  const {
-    currentColor,
-    currentMode,
-    activeMenu,
-    screenSize,
-    themeSettings,
-    setMode,
-    setColor,
-    setActiveMenu,
-    setScreenSize,
-    setThemeSettings
-  } = useContext(StateContext);
+  const { currentColor, activeMenu, screenSize, setActiveMenu, setScreenSize } =
+    useContext(StateContext);
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);

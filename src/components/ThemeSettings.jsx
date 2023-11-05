@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { MdOutlineCancel } from 'react-icons/md';
 import { BsCheck } from 'react-icons/bs';
+import { MdOutlineCancel } from 'react-icons/md';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
-import { THEME_COLORS } from '../constants/index';
 import { Context as StateContext } from '../contexts/StateContext';
+
+import { THEME_COLORS } from '../constants/index';
 
 const ThemeSettings = () => {
   const { setColor, setMode, currentMode, currentColor, setThemeSettings } =

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Label, TextInput, Dropdown, ToggleSwitch } from 'flowbite-react';
+import { Button, Dropdown, Label, TextInput, ToggleSwitch } from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as EmployeeContext } from '../../contexts/EmployeeContext';
@@ -59,10 +59,7 @@ const EditEmployeeForm = ({ employee, closeModalAfterSubmit }) => {
         <div className="mb-2 block">
           <Label htmlFor="role" value="Role" />
         </div>
-        <Dropdown
-          label={(role === 'admin' ? 'Admin' : 'Staff') ?? 'Select role'}
-          color="gray"
-        >
+        <Dropdown label={(role === 'admin' ? 'Admin' : 'Staff') ?? 'Select role'} color="gray">
           <Dropdown.Item onClick={() => setRole('admin')}>Admin</Dropdown.Item>
           <Dropdown.Item onClick={() => setRole('staff')}>Staff</Dropdown.Item>
         </Dropdown>

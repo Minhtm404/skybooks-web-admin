@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Label, TextInput, Dropdown, Textarea, Datepicker } from 'flowbite-react';
+import { Button, Datepicker, Dropdown, Label, Textarea, TextInput } from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CollectionContext } from '../../contexts/CollectionContext';
@@ -73,8 +73,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
           </div>
           <Dropdown
             label={
-              collections.find(c => c._id === mainCollection)?.name ??
-              'Select main collection'
+              collections.find(c => c._id === mainCollection)?.name ?? 'Select main collection'
             }
             color="gray"
           >
@@ -98,10 +97,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
             <Label htmlFor="sub-collection" value="Sub collection" />
           </div>
           <Dropdown
-            label={
-              collections.find(c => c._id === subCollection)?.name ??
-              'Select sub collection'
-            }
+            label={collections.find(c => c._id === subCollection)?.name ?? 'Select sub collection'}
             color="gray"
           >
             {collections
@@ -133,11 +129,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
           <div className="mb-2 block">
             <Label htmlFor="discount" value="Discount" />
           </div>
-          <TextInput
-            id="discount"
-            value={discount}
-            onChange={e => setDiscount(e.target.value)}
-          />
+          <TextInput id="discount" value={discount} onChange={e => setDiscount(e.target.value)} />
         </div>
       </div>
 
@@ -153,11 +145,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
           <div className="mb-2 block">
             <Label htmlFor="vendor" value="Vendor" />
           </div>
-          <TextInput
-            id="vendor"
-            value={vendor}
-            onChange={e => setVendor(e.target.value)}
-          />
+          <TextInput id="vendor" value={vendor} onChange={e => setVendor(e.target.value)} />
         </div>
       </div>
 
@@ -166,22 +154,14 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
           <div className="mb-2 block">
             <Label htmlFor="author" value="Author" />
           </div>
-          <TextInput
-            id="author"
-            value={author}
-            onChange={e => setAuthor(e.target.value)}
-          />
+          <TextInput id="author" value={author} onChange={e => setAuthor(e.target.value)} />
         </div>
 
         <div>
           <div className="mb-2 block">
             <Label htmlFor="format" value="Format" />
           </div>
-          <TextInput
-            id="format"
-            value={format}
-            onChange={e => setFormat(e.target.value)}
-          />
+          <TextInput id="format" value={format} onChange={e => setFormat(e.target.value)} />
         </div>
       </div>
 
@@ -216,11 +196,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
           <div className="mb-2 block">
             <Label htmlFor="quantity" value="Quantity" />
           </div>
-          <TextInput
-            id="quantity"
-            value={quantity}
-            onChange={e => setQuantity(e.target.value)}
-          />
+          <TextInput id="quantity" value={quantity} onChange={e => setQuantity(e.target.value)} />
         </div>
       </div>
 

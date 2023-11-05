@@ -1,23 +1,14 @@
 import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Context as StateContext } from '../contexts/StateContext';
-import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { FiSettings } from 'react-icons/fi';
+import { TooltipComponent } from '@syncfusion/ej2-react-popups';
+
+import { Context as StateContext } from '../contexts/StateContext';
+
 import { Sidebar, Navbar, ThemeSettings } from '../components/index';
 
 const AppLayout = () => {
-  const {
-    currentColor,
-    currentMode,
-    activeMenu,
-    screenSize,
-    themeSettings,
-    setMode,
-    setColor,
-    setActiveMenu,
-    setScreenSize,
-    setThemeSettings,
-  } = useContext(StateContext);
+  const { currentColor, activeMenu, themeSettings, setThemeSettings } = useContext(StateContext);
 
   return (
     <div className="flex relative dark:bg-main-dark-bg">

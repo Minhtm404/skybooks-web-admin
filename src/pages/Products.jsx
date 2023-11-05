@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Table, Modal, Label, TextInput } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import { Context as StateContext } from '../contexts/StateContext';
 import { Context as CollectionContext } from '../contexts/CollectionContext';
 import { Context as ProductContext } from '../contexts/ProductContext';
 
-import { AddProductForm, EditProductForm, Header } from '../components';
 import { PRODUCT_COLUMNS } from '../constants';
+import { AddProductForm, EditProductForm, Header } from '../components';
 
 const Products = () => {
   const { currentColor } = useContext(StateContext);
@@ -86,9 +86,10 @@ const Products = () => {
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {product._id}
               </Table.Cell>
-              <Table.Cell> {product.name.length > 30
-                  ? product.name.slice(0, 50).concat('...')
-                  : product.name}</Table.Cell>
+              <Table.Cell>
+                {' '}
+                {product.name.length > 30 ? product.name.slice(0, 50).concat('...') : product.name}
+              </Table.Cell>
               <Table.Cell>
                 {collections.find(c => c._id === product.mainCollection)?.name}
               </Table.Cell>

@@ -1,20 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Table, Modal, Label, TextInput } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import { Context as StateContext } from '../contexts/StateContext';
 import { Context as CollectionContext } from '../contexts/CollectionContext';
 
-import { Header, AddCollectionForm, EditCollectionForm } from '../components';
-
 import { COLLECTIONS_COLUMNS } from '../constants';
+import { Header, AddCollectionForm, EditCollectionForm } from '../components';
 
 const Collections = () => {
   const { currentColor } = useContext(StateContext);
-  const { collections, getAllCollections, deleteCollection } =
-    useContext(CollectionContext);
+  const { collections, getAllCollections, deleteCollection } = useContext(CollectionContext);
 
   const [openAddCollectionModal, setOpenAddCollectionModal] = useState(false);
   const [openUpdateCollectionModal, setOpenUpdateCollectionModal] = useState(false);
@@ -127,9 +125,7 @@ const Collections = () => {
       >
         <Modal.Header />
         <Modal.Body>
-          <AddCollectionForm
-            closeModalAfterSubmit={() => setOpenAddCollectionModal(false)}
-          />
+          <AddCollectionForm closeModalAfterSubmit={() => setOpenAddCollectionModal(false)} />
         </Modal.Body>
       </Modal>
 

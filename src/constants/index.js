@@ -1,5 +1,4 @@
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-
 import { BiCategory } from 'react-icons/bi';
 import { FiShoppingBag } from 'react-icons/fi';
 import { GiBookshelf } from 'react-icons/gi';

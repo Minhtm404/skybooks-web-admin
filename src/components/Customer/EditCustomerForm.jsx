@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Label, TextInput, Dropdown, ToggleSwitch } from 'flowbite-react';
+import { Button, Label, TextInput, ToggleSwitch } from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CustomerContext } from '../../contexts/CustomerContext';
@@ -10,7 +10,6 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
 
   const [name, setName] = useState(customer.name);
   const [email, setEmail] = useState(customer.email);
-  const [role, setRole] = useState(customer.role);
   const [active, setActive] = useState(customer.active);
 
   const handleUpdate = async () => {
