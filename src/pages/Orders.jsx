@@ -21,8 +21,8 @@ const Orders = () => {
     getAllOrders();
   }, []);
 
-  const handleOpenUpdateModal = Order => {
-    setCurrentOrder(Order);
+  const handleOpenUpdateModal = order => {
+    setCurrentOrder(order);
     setOpenUpdateOrderModal(true);
   };
 
@@ -34,12 +34,12 @@ const Orders = () => {
         <div class="w-full mb-1">
           <div class="Dropdown.Items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
             <div class="flex Dropdown.Items-center mb-4 sm:mb-0">
-              <Label htmlFor="Orders-search" className="sr-only" />
+              <Label htmlFor="orders-search" className="sr-only" />
               <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
                 <TextInput
-                  name="Orders-search"
-                  id="Orders-search"
-                  placeholder="Search for Orders"
+                  name="orders-search"
+                  id="orders-search"
+                  placeholder="Search for orders"
                 />
               </div>
             </div>
@@ -62,9 +62,9 @@ const Orders = () => {
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                 {order._id}
               </Table.Cell>
-              <Table.Cell>{order.user}</Table.Cell>
+              <Table.Cell>{order.user.name}</Table.Cell>
               <Table.Cell>
-                {order.products.map(({ product }) => product).join(', ')}
+                {order.products.map(({ product }) => product.name).join(', ')}
               </Table.Cell>
               <Table.Cell>{order.price}</Table.Cell>
               <Table.Cell>{order.paid ? 'Paid' : 'Unpaid'}</Table.Cell>
@@ -75,7 +75,7 @@ const Orders = () => {
                   size="sm"
                 >
                   <BiEdit className="mr-2" />
-                  Edit
+                  View
                 </Button>
               </Table.Cell>
             </Table.Row>
@@ -92,10 +92,7 @@ const Orders = () => {
       >
         <Modal.Header />
         <Modal.Body>
-          <EditOrderForm
-            Order={currentOrder}
-            closeModalAfterSubmit={() => setOpenUpdateOrderModal(false)}
-          />
+          <EditOrderForm order={currentOrder} />
         </Modal.Body>
       </Modal>
     </div>
