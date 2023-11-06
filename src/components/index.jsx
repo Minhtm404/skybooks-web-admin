@@ -3,7 +3,6 @@ export { default as ProtectedRoute } from './ProtectedRoute';
 export { default as AppLayout } from './AppLayout';
 export { default as ThemeSettings } from './ThemeSettings';
 
-export { default as MiniSpinner } from './MiniSpinner';
 export { default as Sidebar } from './Sidebar';
 export { default as Navbar } from './Navbar';
 export { default as UserProfile } from './UserProfile';
