@@ -8,6 +8,7 @@ import { Provider as CollectionProvider } from './contexts/CollectionContext';
 import { Provider as ProductProvider } from './contexts/ProductContext';
 import { Provider as CustomerProvider } from './contexts/CustomerContext';
 import { Provider as OrderProvider } from './contexts/OrderContext';
+import { Provider as StatsProvider } from './contexts/StatsContext';
 
 import App from './App';
 import './index.css';
@@ -22,7 +23,9 @@ root.render(
           <ProductProvider>
             <CustomerProvider>
               <OrderProvider>
-                <App />
+                <StatsProvider>
+                  <App />
+                </StatsProvider>
               </OrderProvider>
             </CustomerProvider>
           </ProductProvider>

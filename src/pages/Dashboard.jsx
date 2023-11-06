@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button } from 'flowbite-react';
 import { BsBoxSeam, BsCurrencyDollar } from 'react-icons/bs';
 import { FiBarChart } from 'react-icons/fi';
 import { MdOutlineSupervisorAccount } from 'react-icons/md';
 
 import { Context as StateContext } from '../contexts/StateContext';
+import { Context as StatsContext } from '../contexts/StatsContext';
 
 const Dashboard = () => {
   const { currentColor } = useContext(StateContext);
+  const { stats, getStats } = useContext(StatsContext);
+
+  useEffect(() => {
+    getStats();
+  }, []);
 
   return (
     <div className="mt-24">
@@ -16,7 +22,7 @@ const Dashboard = () => {
           <div className="flex justify-between items-center">
             <div>
               <p className="font-bold text-gray-400">Earnings</p>
-              <p className="text-2xl">63,448,000₫</p>
+              <p className="text-2xl">{stats.totalPrice?.toLocaleString().concat('₫')}</p>
             </div>
             <button
               type="button"
@@ -43,7 +49,7 @@ const Dashboard = () => {
               <MdOutlineSupervisorAccount />
             </button>
             <p className="mt-3">
-              <span className="text-lg font-semibold">39,354</span>
+              <span className="text-lg font-semibold">{stats.totalCustomer?.toLocaleString()}</span>
             </p>
             <p className="text-sm text-gray-400 mt-1">Customers</p>
           </div>
@@ -59,7 +65,7 @@ const Dashboard = () => {
               <BsBoxSeam />
             </button>
             <p className="mt-3">
-              <span className="text-lg font-semibold">4,396</span>
+              <span className="text-lg font-semibold">{stats.totalProduct?.toLocaleString()}</span>
             </p>
             <p className="text-sm text-gray-400 mt-1">Products</p>
           </div>
@@ -75,7 +81,7 @@ const Dashboard = () => {
               <FiBarChart />
             </button>
             <p className="mt-3">
-              <span className="text-lg font-semibold">423,39</span>
+              <span className="text-lg font-semibold">{stats.totalOrder?.toLocaleString()}</span>
             </p>
             <p className="text-sm text-gray-400 mt-1">Orders</p>
           </div>

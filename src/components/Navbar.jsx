@@ -32,7 +32,7 @@ const Navbar = () => {
   const { currentColor, activeMenu, screenSize, setActiveMenu, setScreenSize } =
     useContext(StateContext);
 
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const [openUserProfile, setOpenUserProfile] = useState(false);
 
@@ -73,7 +73,7 @@ const Navbar = () => {
             <Avatar rounded size="sm" />
             <p>
               <span className="text-gray-400 text-14">Hi,</span>
-              <span className="text-gray-400 font-bold ml-1 text-14">{user.name}</span>
+              <span className="text-gray-400 font-semibold ml-1 text-14">{user.name}</span>
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>
