@@ -12,12 +12,6 @@ const authReducer = (state, action) => {
         user: action.payload.user,
         isAuthenticated: true,
       };
-    case ACTIONS.SET_LOGIN_LOCAL:
-      return {
-        ...state,
-        token: action.payload.token,
-        isAuthenticated: true,
-      };
     case ACTIONS.SET_LOGOUT:
       return {
         ...state,
@@ -50,14 +44,16 @@ const localLogin = dispatch => async () => {
   const token = localStorage.getItem('token');
 
   if (token) {
-    dispatch({ type: ACTIONS.SET_LOGIN_LOCAL, payload: { token } });
+    const data = await apiHelper.get('/admins/me');
+
+    dispatch({ type: ACTIONS.SET_LOGIN, payload: { token, user: data.data.data } });
   }
 };
 
 const logout = dispatch => async () => {
   localStorage.removeItem('token');
 
-  dispatch({ type: ACTIONS.SET_LOGIN_LOCAL });
+  dispatch({ type: ACTIONS.SET_LOGOUT });
 };
 
 export const { Provider, Context } = contextFactory(

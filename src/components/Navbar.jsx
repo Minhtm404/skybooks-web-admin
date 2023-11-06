@@ -1,10 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Avatar } from 'flowbite-react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { RxAvatar } from 'react-icons/rx';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Context as StateContext } from '../contexts/StateContext';
+import { Context as AuthContext } from '../contexts/AuthContext';
+
+import UserProfile from '../components/UserProfile';
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => {
   return (
@@ -28,6 +31,10 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => {
 const Navbar = () => {
   const { currentColor, activeMenu, screenSize, setActiveMenu, setScreenSize } =
     useContext(StateContext);
+
+  const { user, logout } = useContext(AuthContext);
+
+  const [openUserProfile, setOpenUserProfile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -61,16 +68,18 @@ const Navbar = () => {
         <TooltipComponent content="Profile" position="BottomCenter">
           <div
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
-            onClick={() => {}}
+            onClick={() => setOpenUserProfile(true)}
           >
-            <RxAvatar className="rounded-full w-8 h-8" />
+            <Avatar rounded size="sm" />
             <p>
-              <span className="text-gray-400 text-14">Hi,</span>{' '}
-              <span className="text-gray-400 font-bold ml-1 text-14">Admin</span>
+              <span className="text-gray-400 text-14">Hi,</span>
+              <span className="text-gray-400 font-bold ml-1 text-14">{user.name}</span>
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>
         </TooltipComponent>
+
+        {openUserProfile && <UserProfile closeUserProfile={() => setOpenUserProfile(false)} />}
       </div>
     </div>
   );
