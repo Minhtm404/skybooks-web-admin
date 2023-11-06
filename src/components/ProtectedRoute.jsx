@@ -7,16 +7,19 @@ import { Context as AuthContext } from '../contexts/AuthContext';
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
 
-  const { setIsLoading, isLoading } = useContext(StateContext);
+  const { isLoading, setIsLoading } = useContext(StateContext);
   const { localLogin, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
+    setIsLoading(false);
+
+    setIsLoading(true);
     localLogin();
 
     if (!isAuthenticated) navigate('/login');
   }, [isAuthenticated, navigate]);
 
-  if (isAuthenticated) return children;
+  if (isAuthenticated) return <>{children}</>;
 };
 
 export default ProtectedRoute;

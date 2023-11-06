@@ -42,6 +42,7 @@ const setThemeSettings = dispatch => async themeSettings => {
 };
 
 const setIsLoading = dispatch => async isLoading => {
+  console.log(isLoading);
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: { isLoading } });
 };
 
