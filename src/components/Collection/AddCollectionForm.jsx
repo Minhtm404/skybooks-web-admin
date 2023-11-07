@@ -36,18 +36,22 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="name"
+          name="name"
+          placeholder="Type collection name"
+          type="text"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Type collection name"
           required
         />
       </div>
 
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="main-collection" value="Main collection" />
+          <Label htmlFor="mainCollection" value="Main collection" />
         </div>
         <ToggleSwitch
+          id="mainCollection"
+          name="mainCollection"
           checked={mainCollection}
           onChange={e => {
             setMainCollection(e);
@@ -57,15 +61,16 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
 
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="sub-collection" value="Sub collection" />
+          <Label htmlFor="parentCollection" value="Parent collection" />
         </div>
-
         <Dropdown
+          id="parentCollection"
+          name="parentCollection"
+          color="gray"
           disabled={mainCollection}
           label={
             collections.find(c => c._id === parentCollection)?.name ?? 'Select parent collection'
           }
-          color="gray"
         >
           {collections
             .filter(c => c.mainCollection)
@@ -83,10 +88,10 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
 
       <div className="w-full">
         <Button
+          style={{ background: currentColor }}
           onClick={() => {
             handleCreate();
           }}
-          style={{ background: currentColor }}
         >
           Edit collection
         </Button>

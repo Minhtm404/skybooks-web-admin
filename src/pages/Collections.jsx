@@ -8,6 +8,7 @@ import { Context as StateContext } from '../contexts/StateContext';
 import { Context as CollectionContext } from '../contexts/CollectionContext';
 
 import { COLLECTIONS_COLUMNS } from '../constants';
+
 import { AddCollectionForm, EditCollectionForm, Header } from '../components';
 
 const Collections = () => {
@@ -76,8 +77,8 @@ const Collections = () => {
               </div>
 
               <Button
-                onClick={() => setOpenAddCollectionModal(true)}
                 style={{ background: currentColor }}
+                onClick={() => setOpenAddCollectionModal(true)}
               >
                 Add new collection
               </Button>
@@ -100,11 +101,7 @@ const Collections = () => {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {collection._id}
                 </Table.Cell>
-                <Table.Cell>
-                  {collection.name.length > 30
-                    ? collection.name.slice(0, 30).concat('...')
-                    : collection.name}
-                </Table.Cell>
+                <Table.Cell>{collection.name}</Table.Cell>
                 <Table.Cell>{collection.mainCollection === true ? 'Yes' : 'No'}</Table.Cell>
                 <Table.Cell>
                   {collections.find(c => c._id === collection.parentCollection)?.name}
@@ -112,17 +109,17 @@ const Collections = () => {
                 <Table.Cell>
                   <Button.Group>
                     <Button
-                      onClick={() => handleOpenUpdateModal(collection)}
-                      style={{ background: currentColor }}
                       size="sm"
+                      style={{ background: currentColor }}
+                      onClick={() => handleOpenUpdateModal(collection)}
                     >
                       <BiEdit className="mr-2" />
                       Update
                     </Button>
                     <Button
-                      onClick={() => handleOpenDeleteModal(collection)}
                       size="sm"
                       className="bg-red-700"
+                      onClick={() => handleOpenDeleteModal(collection)}
                     >
                       <RiDeleteBin6Line className="mr-2" />
                       Delete
@@ -136,9 +133,9 @@ const Collections = () => {
 
         <Modal
           dismissible
+          popup
           show={openAddCollectionModal === true}
           size="2xl"
-          popup
           onClose={() => setOpenAddCollectionModal(false)}
         >
           <Modal.Header />
@@ -149,9 +146,9 @@ const Collections = () => {
 
         <Modal
           dismissible
+          popup
           show={openUpdateCollectionModal === true}
           size="2xl"
-          popup
           onClose={() => setOpenUpdateCollectionModal(false)}
         >
           <Modal.Header />
@@ -165,9 +162,9 @@ const Collections = () => {
 
         <Modal
           dismissible
+          popup
           show={openDeleteCollectionModal === true}
           size="md"
-          popup
           onClose={() => setOpenDeleteCollectionModal(false)}
         >
           <Modal.Header />
