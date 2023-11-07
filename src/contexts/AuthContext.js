@@ -5,9 +5,15 @@ import apiHelper from '../utils/apiHelper';
 
 const authReducer = (state, action) => {
   switch (action.type) {
+    case ACTIONS.SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
     case ACTIONS.SET_LOGIN:
       return {
         ...state,
+        isLoading: false,
         token: action.payload.token,
         user: action.payload.user,
         isAuthenticated: true,
@@ -15,6 +21,7 @@ const authReducer = (state, action) => {
     case ACTIONS.SET_LOGOUT:
       return {
         ...state,
+        isLoading: false,
         token: undefined,
         user: undefined,
         isAuthenticated: false,
@@ -22,6 +29,10 @@ const authReducer = (state, action) => {
     default:
       return state;
   }
+};
+
+const setIsLoading = dispatch => async isLoading => {
+  dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
 const login =
@@ -59,11 +70,13 @@ const logout = dispatch => async () => {
 export const { Provider, Context } = contextFactory(
   authReducer,
   {
+    setIsLoading,
     login,
     localLogin,
     logout,
   },
   {
+    isLoading: false,
     token: undefined,
     user: undefined,
     isAuthenticated: false,

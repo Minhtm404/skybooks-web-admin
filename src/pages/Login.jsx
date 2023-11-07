@@ -3,15 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
 import { SiSass } from 'react-icons/si';
 
-import { Context as StateContext } from '../contexts/StateContext';
 import { Context as AuthContext } from '../contexts/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { isLoading, setIsLoading } = useContext(StateContext);
-  const { login, isAuthenticated } = useContext(AuthContext);
+  const { login, isAuthenticated, isLoading, setIsLoading } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -25,10 +23,7 @@ const Login = () => {
     if (!email || !password) return;
 
     setIsLoading(true);
-
     await login({ email, password });
-
-    setIsLoading(false);
 
     navigate('/');
   };
