@@ -5,11 +5,17 @@ import apiHelper from '../utils/apiHelper';
 
 const CustomerReducer = (state, action) => {
   switch (action.type) {
+    case ACTIONS.SET_IS_LOADING:
+      return { ...state, isLoading: action.payload };
     case ACTIONS.SET_CUSTOMERS:
-      return { ...state, customers: action.payload };
+      return { ...state, isLoading: false, customers: action.payload };
     default:
       return state;
   }
+};
+
+const setIsLoading = dispacth => async isLoading => {
+  dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
 const getAllCustomers = dispacth => async () => {
@@ -46,11 +52,13 @@ const deleteCustomer =
 export const { Provider, Context } = contextFactory(
   CustomerReducer,
   {
+    setIsLoading,
     getAllCustomers,
     updateCustomer,
     deleteCustomer,
   },
   {
-    customers: [],
+    isLoading: false,
+    customers: undefined,
   },
 );

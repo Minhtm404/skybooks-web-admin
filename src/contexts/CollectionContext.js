@@ -5,11 +5,17 @@ import apiHelper from '../utils/apiHelper';
 
 const collectionReducer = (state, action) => {
   switch (action.type) {
+    case ACTIONS.SET_IS_LOADING:
+      return { ...state, isLoading: action.payload };
     case ACTIONS.SET_COLLECTIONS:
-      return { ...state, collections: action.payload };
+      return { ...state, isLoading: false, collections: action.payload };
     default:
       return state;
   }
+};
+
+const setIsLoading = dispacth => async isLoading => {
+  dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
 const getAllCollections = dispacth => async () => {
@@ -59,12 +65,14 @@ const deleteCollection =
 export const { Provider, Context } = contextFactory(
   collectionReducer,
   {
+    setIsLoading,
     getAllCollections,
     addCollection,
     updateCollection,
     deleteCollection,
   },
   {
-    collections: [],
+    isLoading: false,
+    collections: undefined,
   },
 );

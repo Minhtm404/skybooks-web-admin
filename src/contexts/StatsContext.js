@@ -26,7 +26,10 @@ const getStats = dispacth => async () => {
 
 export const { Provider, Context } = contextFactory(
   StatsReducer,
-  { setIsLoading, getStats },
+  {
+    setIsLoading,
+    getStats,
+  },
   {
     isLoading: false,
     stats: undefined,

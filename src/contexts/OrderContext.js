@@ -5,11 +5,17 @@ import apiHelper from '../utils/apiHelper';
 
 const OrderReducer = (state, action) => {
   switch (action.type) {
+    case ACTIONS.SET_IS_LOADING:
+      return { ...state, isLoading: action.payload };
     case ACTIONS.SET_ORDERS:
-      return { ...state, orders: action.payload };
+      return { ...state, isLoading: false, orders: action.payload };
     default:
       return state;
   }
+};
+
+const setIsLoading = dispacth => async isLoading => {
+  dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
 const getAllOrders = dispacth => async () => {
@@ -21,9 +27,11 @@ const getAllOrders = dispacth => async () => {
 export const { Provider, Context } = contextFactory(
   OrderReducer,
   {
+    setIsLoading,
     getAllOrders,
   },
   {
-    orders: [],
+    isLoading: false,
+    orders: undefined,
   },
 );

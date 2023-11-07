@@ -5,11 +5,17 @@ import apiHelper from '../utils/apiHelper';
 
 const employeeReducer = (state, action) => {
   switch (action.type) {
+    case ACTIONS.SET_IS_LOADING:
+      return { ...state, isLoading: action.payload };
     case ACTIONS.SET_EMPLOYEES:
-      return { ...state, employees: action.payload };
+      return { ...state, isLoading: false, employees: action.payload };
     default:
       return state;
   }
+};
+
+const setIsLoading = dispacth => async isLoading => {
+  dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
 const getAllEmployees = dispacth => async () => {
@@ -63,12 +69,14 @@ const deleteEmployee =
 export const { Provider, Context } = contextFactory(
   employeeReducer,
   {
+    setIsLoading,
     getAllEmployees,
     addEmployee,
     updateEmployee,
     deleteEmployee,
   },
   {
-    employees: [],
+    isLoading: false,
+    employees: undefined,
   },
 );
