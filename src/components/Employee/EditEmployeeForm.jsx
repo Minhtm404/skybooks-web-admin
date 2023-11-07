@@ -26,7 +26,13 @@ const EditEmployeeForm = ({ employee, closeModalAfterSubmit }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <form
+      className="space-y-6"
+      onSubmit={e => {
+        e.preventDefault();
+        handleUpdate();
+      }}
+    >
       <h3 className="text-xl font-medium text-gray-900 dark:text-white">Edit employee</h3>
 
       <div>
@@ -35,9 +41,11 @@ const EditEmployeeForm = ({ employee, closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="name"
+          name="name"
+          placeholder="Type employee name"
+          type="text"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Type employee name"
           required
         />
       </div>
@@ -48,9 +56,11 @@ const EditEmployeeForm = ({ employee, closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="email"
+          name="email"
+          placeholder="Type employee email"
+          type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          placeholder="Type employee email"
           required
         />
       </div>
@@ -78,16 +88,11 @@ const EditEmployeeForm = ({ employee, closeModalAfterSubmit }) => {
       </div>
 
       <div className="w-full">
-        <Button
-          onClick={() => {
-            handleUpdate();
-          }}
-          style={{ background: currentColor }}
-        >
+        <Button style={{ background: currentColor }} type="submit">
           Edit employee
         </Button>
       </div>
-    </div>
+    </form>
   );
 };
 

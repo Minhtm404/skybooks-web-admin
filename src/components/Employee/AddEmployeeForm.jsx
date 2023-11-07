@@ -29,7 +29,13 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <form
+      className="space-y-6"
+      onSubmit={e => {
+        e.preventDefault();
+        handleCreate();
+      }}
+    >
       <h3 className="text-xl font-medium text-gray-900 dark:text-white">Add employee</h3>
 
       <div>
@@ -38,9 +44,11 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="name"
+          name="name"
+          placeholder="Type employee name"
+          type="text"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Type employee name"
           required
         />
       </div>
@@ -51,9 +59,11 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="email"
+          name="email"
+          placeholder="Type employee email"
+          type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          placeholder="Type employee email"
           required
         />
       </div>
@@ -64,10 +74,11 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="password"
+          name="password"
+          placeholder="Type employee password"
+          type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
-          type="password"
-          placeholder="Type employee password"
           required
         />
       </div>
@@ -78,10 +89,11 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="passwordConfirm"
+          name="passwordConfirm"
+          placeholder="Type employee confirm password"
+          type="password"
           value={passwordConfirm}
           onChange={e => setPasswordConfirm(e.target.value)}
-          type="password"
-          placeholder="Type employee confirm password"
           required
         />
       </div>
@@ -110,16 +122,11 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
       </div>
 
       <div className="w-full">
-        <Button
-          onClick={() => {
-            handleCreate();
-          }}
-          style={{ background: currentColor }}
-        >
+        <Button style={{ background: currentColor }} type="submit">
           Add employee
         </Button>
       </div>
-    </div>
+    </form>
   );
 };
 
