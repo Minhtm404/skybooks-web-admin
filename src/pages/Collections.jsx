@@ -19,6 +19,7 @@ const Collections = () => {
   const [openUpdateCollectionModal, setOpenUpdateCollectionModal] = useState(false);
   const [openDeleteCollectionModal, setOpenDeleteCollectionModal] = useState(false);
 
+  const [keyword, setKeyword] = useState('');
   const [currentCollection, setCurrentCollection] = useState(undefined);
 
   useEffect(() => {
@@ -61,9 +62,15 @@ const Collections = () => {
                 <Label htmlFor="collections-search" className="sr-only" />
                 <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
                   <TextInput
-                    name="collections-search"
                     id="collections-search"
-                    placeholder="Search for collections"
+                    name="collections-search"
+                    placeholder="Enter a name to search"
+                    type="search"
+                    value={keyword}
+                    onChange={e => {
+                      setKeyword(e.target.value);
+                      getAllCollections(e.target.value);
+                    }}
                   />
                 </div>
               </div>

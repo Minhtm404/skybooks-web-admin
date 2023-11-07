@@ -18,6 +18,7 @@ const Customers = () => {
   const [openUpdateCustomerModal, setOpenUpdateCustomerModal] = useState(false);
   const [openDeleteCustomerModal, setOpenDeleteCustomerModal] = useState(false);
 
+  const [keyword, setKeyword] = useState('');
   const [currentCustomer, setCurrentCustomer] = useState({});
 
   useEffect(() => {
@@ -60,9 +61,15 @@ const Customers = () => {
                 <Label htmlFor="customers-search" className="sr-only" />
                 <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
                   <TextInput
-                    name="customers-search"
                     id="customers-search"
-                    placeholder="Search for customers"
+                    name="customers-search"
+                    placeholder="Enter a name or email to search"
+                    type="search"
+                    value={keyword}
+                    onChange={e => {
+                      setKeyword(e.target.value);
+                      getAllCustomers(e.target.value);
+                    }}
                   />
                 </div>
               </div>

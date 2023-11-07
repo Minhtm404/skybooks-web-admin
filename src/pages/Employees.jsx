@@ -20,6 +20,7 @@ const Employees = () => {
   const [openUpdateEmployeeModal, setOpenUpdateEmployeeModal] = useState(false);
   const [openDeleteEmployeeModal, setOpenDeleteEmployeeModal] = useState(false);
 
+  const [keyword, setKeyword] = useState('');
   const [currentEmployee, setCurrentEmployee] = useState(undefined);
 
   useEffect(() => {
@@ -62,9 +63,15 @@ const Employees = () => {
                 <Label htmlFor="employees-search" className="sr-only" />
                 <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
                   <TextInput
-                    name="employees-search"
                     id="employees-search"
-                    placeholder="Search for employees"
+                    name="employees-search"
+                    placeholder="Enter a name or email to search"
+                    type="search"
+                    value={keyword}
+                    onChange={e => {
+                      setKeyword(e.target.value);
+                      getAllEmployees(e.target.value);
+                    }}
                   />
                 </div>
               </div>

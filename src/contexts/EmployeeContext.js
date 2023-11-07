@@ -18,8 +18,10 @@ const setIsLoading = dispacth => async isLoading => {
   dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllEmployees = dispacth => async () => {
-  const data = await apiHelper.get('/admins');
+const getAllEmployees = dispacth => async keyword => {
+  const data = keyword
+    ? await apiHelper.get(`/admins?keyword=${keyword}`)
+    : await apiHelper.get('/admins');
 
   dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: data.data.data });
 };

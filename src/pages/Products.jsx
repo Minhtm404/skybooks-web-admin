@@ -31,6 +31,7 @@ const Products = () => {
   const [openUpdateProductModal, setOpenUpdateProductModal] = useState(false);
   const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
 
+  const [keyword, setKeyword] = useState('');
   const [currentProduct, setCurrentProduct] = useState(undefined);
 
   useEffect(() => {
@@ -75,9 +76,15 @@ const Products = () => {
                 <Label htmlFor="products-search" className="sr-only" />
                 <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
                   <TextInput
-                    name="products-search"
                     id="products-search"
-                    placeholder="Search for products"
+                    name="products-search"
+                    placeholder="Enter a name to search"
+                    type="search"
+                    value={keyword}
+                    onChange={e => {
+                      setKeyword(e.target.value);
+                      getAllProducts(e.target.value);
+                    }}
                   />
                 </div>
               </div>
