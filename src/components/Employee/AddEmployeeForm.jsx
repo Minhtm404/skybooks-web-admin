@@ -103,7 +103,7 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
           <Label htmlFor="role" value="Role" />
         </div>
 
-        <Dropdown label={(role === 'admin' ? 'Admin' : 'Staff') ?? 'Select role'} color="gray">
+        <Dropdown color="gray" label={(role === 'admin' ? 'Admin' : 'Staff') ?? 'Select role'}>
           <Dropdown.Item onClick={() => setRole('admin')}>Admin</Dropdown.Item>
           <Dropdown.Item onClick={() => setRole('staff')}>Staff</Dropdown.Item>
         </Dropdown>

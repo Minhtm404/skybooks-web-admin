@@ -77,8 +77,8 @@ const Employees = () => {
               </div>
 
               <Button
-                onClick={() => setOpenAddEmployeeModal(true)}
                 style={{ background: currentColor }}
+                onClick={() => setOpenAddEmployeeModal(true)}
               >
                 Add new employee
               </Button>
@@ -108,17 +108,17 @@ const Employees = () => {
                 <Table.Cell>
                   <Button.Group>
                     <Button
-                      onClick={() => handleOpenUpdateModal(employee)}
-                      style={{ background: currentColor }}
                       size="sm"
+                      style={{ background: currentColor }}
+                      onClick={() => handleOpenUpdateModal(employee)}
                     >
                       <BiEdit className="mr-2" />
                       Update
                     </Button>
                     <Button
-                      onClick={() => handleOpenDeleteModal(employee)}
                       size="sm"
                       className="bg-red-700"
+                      onClick={() => handleOpenDeleteModal(employee)}
                     >
                       <RiDeleteBin6Line className="mr-2" />
                       Delete
@@ -132,9 +132,9 @@ const Employees = () => {
 
         <Modal
           dismissible
+          popup
           show={openAddEmployeeModal === true}
           size="2xl"
-          popup
           onClose={() => setOpenAddEmployeeModal(false)}
         >
           <Modal.Header />
@@ -145,9 +145,9 @@ const Employees = () => {
 
         <Modal
           dismissible
+          popup
           show={openUpdateEmployeeModal === true}
           size="2xl"
-          popup
           onClose={() => setOpenUpdateEmployeeModal(false)}
         >
           <Modal.Header />
@@ -161,9 +161,9 @@ const Employees = () => {
 
         <Modal
           dismissible
+          popup
           show={openDeleteEmployeeModal === true}
           size="md"
-          popup
           onClose={() => setOpenDeleteEmployeeModal(false)}
         >
           <Modal.Header />
