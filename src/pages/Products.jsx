@@ -9,6 +9,7 @@ import { Context as CollectionContext } from '../contexts/CollectionContext';
 import { Context as ProductContext } from '../contexts/ProductContext';
 
 import { PRODUCT_COLUMNS } from '../constants';
+
 import { AddProductForm, EditProductForm, Header } from '../components';
 
 const Products = () => {
@@ -78,7 +79,7 @@ const Products = () => {
                   <TextInput
                     id="products-search"
                     name="products-search"
-                    placeholder="Enter a name to search"
+                    placeholder="Enter a name or sku to search"
                     type="search"
                     value={keyword}
                     onChange={e => {
@@ -90,8 +91,8 @@ const Products = () => {
               </div>
 
               <Button
-                onClick={() => setOpenAddProductModal(true)}
                 style={{ background: currentColor }}
+                onClick={() => setOpenAddProductModal(true)}
               >
                 Add new product
               </Button>
@@ -115,26 +116,26 @@ const Products = () => {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {product._id}
                 </Table.Cell>
-                <Table.Cell>{product.name.length > 30 ? product.name : product.name}</Table.Cell>
+                <Table.Cell>{product.name}</Table.Cell>
                 <Table.Cell>
-                  {collections.find(c => c._id === product.mainCollection)?.name}
+                  {collections.find(c => c._id === product.mainCollection).name}
                 </Table.Cell>
                 <Table.Cell>{product.sku}</Table.Cell>
                 <Table.Cell>{product.price}</Table.Cell>
                 <Table.Cell>
                   <Button.Group>
                     <Button
-                      onClick={() => handleOpenUpdateModal(product)}
-                      style={{ background: currentColor }}
                       size="sm"
+                      style={{ background: currentColor }}
+                      onClick={() => handleOpenUpdateModal(product)}
                     >
                       <BiEdit className="mr-2" />
                       Update
                     </Button>
                     <Button
-                      onClick={() => handleOpenDeleteModal(product)}
                       size="sm"
                       className="bg-red-700"
+                      onClick={() => handleOpenDeleteModal(product)}
                     >
                       <RiDeleteBin6Line className="mr-2" />
                       Delete
@@ -148,9 +149,9 @@ const Products = () => {
 
         <Modal
           dismissible
+          popup
           show={openAddProductModal === true}
           size="2xl"
-          popup
           onClose={() => setOpenAddProductModal(false)}
         >
           <Modal.Header />
@@ -161,9 +162,9 @@ const Products = () => {
 
         <Modal
           dismissible
+          popup
           show={openUpdateProductModal === true}
           size="2xl"
-          popup
           onClose={() => setOpenUpdateProductModal(false)}
         >
           <Modal.Header />
@@ -177,9 +178,9 @@ const Products = () => {
 
         <Modal
           dismissible
+          popup
           show={openDeleteProductModal === true}
           size="md"
-          popup
           onClose={() => setOpenDeleteProductModal(false)}
         >
           <Modal.Header />

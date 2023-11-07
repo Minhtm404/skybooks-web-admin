@@ -24,7 +24,13 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <form
+      className="space-y-6"
+      onSubmit={e => {
+        e.preventDefault();
+        handleUpdate();
+      }}
+    >
       <h3 className="text-xl font-medium text-gray-900 dark:text-white">Edit customer</h3>
 
       <div>
@@ -33,9 +39,11 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="name"
+          name="name"
+          placeholder="Type customer name"
+          type="text"
           value={name}
           onChange={e => setName(e.target.value)}
-          placeholder="Type customer name"
           required
         />
       </div>
@@ -46,9 +54,11 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
         </div>
         <TextInput
           id="email"
+          name="email"
+          placeholder="Type customer email"
+          type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          placeholder="Type customer email"
           required
         />
       </div>
@@ -58,6 +68,8 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
           <Label htmlFor="status" value="Status" />
         </div>
         <ToggleSwitch
+          id="status"
+          name="status"
           checked={active}
           onChange={e => {
             setActive(e);
@@ -66,16 +78,11 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
       </div>
 
       <div className="w-full">
-        <Button
-          onClick={() => {
-            handleUpdate();
-          }}
-          style={{ background: currentColor }}
-        >
+        <Button style={{ background: currentColor }} type="submit">
           Edit customer
         </Button>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -27,7 +27,13 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <form
+      className="space-y-6"
+      onSubmit={e => {
+        e.preventDefault();
+        handleCreate();
+      }}
+    >
       <h3 className="text-xl font-medium text-gray-900 dark:text-white">Edit collection</h3>
 
       <div>
@@ -87,16 +93,11 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
       </div>
 
       <div className="w-full">
-        <Button
-          style={{ background: currentColor }}
-          onClick={() => {
-            handleCreate();
-          }}
-        >
+        <Button style={{ background: currentColor }} type="submit">
           Edit collection
         </Button>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -85,6 +85,7 @@ const Employees = () => {
             </div>
           </div>
         </div>
+
         <Table hoverable>
           <Table.Head>
             {EMPLOYEE_COLUMNS.map(column => (

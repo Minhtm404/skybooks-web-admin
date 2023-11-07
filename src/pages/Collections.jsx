@@ -85,6 +85,7 @@ const Collections = () => {
             </div>
           </div>
         </div>
+
         <Table hoverable>
           <Table.Head>
             {COLLECTIONS_COLUMNS.map(column => (

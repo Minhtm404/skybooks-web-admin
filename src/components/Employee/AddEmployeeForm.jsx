@@ -102,8 +102,12 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
         <div className="mb-2 block">
           <Label htmlFor="role" value="Role" />
         </div>
-
-        <Dropdown color="gray" label={(role === 'admin' ? 'Admin' : 'Staff') ?? 'Select role'}>
+        <Dropdown
+          id="role"
+          name="role"
+          color="gray"
+          label={(role === 'admin' ? 'Admin' : 'Staff') ?? 'Select role'}
+        >
           <Dropdown.Item onClick={() => setRole('admin')}>Admin</Dropdown.Item>
           <Dropdown.Item onClick={() => setRole('staff')}>Staff</Dropdown.Item>
         </Dropdown>
@@ -114,6 +118,8 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
           <Label htmlFor="status" value="Status" />
         </div>
         <ToggleSwitch
+          id="status"
+          name="status"
           checked={active}
           onChange={e => {
             setActive(e);

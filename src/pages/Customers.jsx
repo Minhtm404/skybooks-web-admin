@@ -8,6 +8,7 @@ import { Context as StateContext } from '../contexts/StateContext';
 import { Context as CustomerContext } from '../contexts/CustomerContext';
 
 import { CUSTOMER_COLUMNS } from '../constants';
+
 import { EditCustomerForm, Header } from '../components';
 
 const Customers = () => {
@@ -76,6 +77,7 @@ const Customers = () => {
             </div>
           </div>
         </div>
+
         <Table hoverable>
           <Table.Head>
             {CUSTOMER_COLUMNS.map(column => (
@@ -98,17 +100,17 @@ const Customers = () => {
                 <Table.Cell>
                   <Button.Group>
                     <Button
-                      onClick={() => handleOpenUpdateModal(customer)}
-                      style={{ background: currentColor }}
                       size="sm"
+                      style={{ background: currentColor }}
+                      onClick={() => handleOpenUpdateModal(customer)}
                     >
                       <BiEdit className="mr-2" />
                       Update
                     </Button>
                     <Button
-                      onClick={() => handleOpenDeleteModal(customer)}
                       size="sm"
                       className="bg-red-700"
+                      onClick={() => handleOpenDeleteModal(customer)}
                     >
                       <RiDeleteBin6Line className="mr-2" />
                       Delete
@@ -122,9 +124,9 @@ const Customers = () => {
 
         <Modal
           dismissible
+          popup
           show={openUpdateCustomerModal === true}
           size="2xl"
-          popup
           onClose={() => setOpenUpdateCustomerModal(false)}
         >
           <Modal.Header />
@@ -138,9 +140,9 @@ const Customers = () => {
 
         <Modal
           dismissible
+          popup
           show={openDeleteCustomerModal === true}
           size="md"
-          popup
           onClose={() => setOpenDeleteCustomerModal(false)}
         >
           <Modal.Header />

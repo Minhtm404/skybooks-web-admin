@@ -56,6 +56,7 @@ const Orders = () => {
             </div>
           </div>
         </div>
+
         <Table hoverable>
           <Table.Head>
             {ORDER_COLUMNS.map(column => (
@@ -80,9 +81,9 @@ const Orders = () => {
                 <Table.Cell>{order.paid ? 'Paid' : 'Unpaid'}</Table.Cell>
                 <Table.Cell>
                   <Button
-                    onClick={() => handleOpenUpdateModal(order)}
-                    style={{ background: currentColor }}
                     size="sm"
+                    style={{ background: currentColor }}
+                    onClick={() => handleOpenUpdateModal(order)}
                   >
                     <BiEdit className="mr-2" />
                     View
@@ -95,9 +96,9 @@ const Orders = () => {
 
         <Modal
           dismissible
+          popup
           show={openUpdateOrderModal === true}
           size="2xl"
-          popup
           onClose={() => setOpenUpdateOrderModal(false)}
         >
           <Modal.Header />
