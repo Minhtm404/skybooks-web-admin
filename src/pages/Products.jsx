@@ -34,16 +34,11 @@ const Products = () => {
   const [currentProduct, setCurrentProduct] = useState(undefined);
 
   useEffect(() => {
-    if (!collections) {
-      setIsLoadingCollection(true);
-      getAllCollections();
-    }
-
-    if (!products) {
-      setIsLoadingProduct(true);
-      getAllProducts();
-    }
-  }, [collections, products]);
+    setIsLoadingCollection(true);
+    getAllCollections();
+    setIsLoadingProduct(true);
+    getAllProducts();
+  }, []);
 
   const handleOpenUpdateModal = product => {
     setCurrentProduct(product);

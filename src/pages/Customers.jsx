@@ -21,11 +21,9 @@ const Customers = () => {
   const [currentCustomer, setCurrentCustomer] = useState({});
 
   useEffect(() => {
-    if (!customers) {
-      setIsLoading(true);
-      getAllCustomers();
-    }
-  }, [customers]);
+    setIsLoading(true);
+    getAllCustomers();
+  }, []);
 
   const handleOpenUpdateModal = customer => {
     setCurrentCustomer(customer);

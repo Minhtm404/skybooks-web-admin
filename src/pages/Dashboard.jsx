@@ -12,11 +12,9 @@ const Dashboard = () => {
   const { stats, getStats, isLoading, setIsLoading } = useContext(StatsContext);
 
   useEffect(() => {
-    if (!stats) {
-      setIsLoading(true);
-      getStats();
-    }
-  }, [stats]);
+    setIsLoading(true);
+    getStats();
+  }, []);
 
   if (isLoading) {
     return (

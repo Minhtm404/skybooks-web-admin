@@ -18,11 +18,9 @@ const Orders = () => {
   const [currentOrder, setCurrentOrder] = useState(undefined);
 
   useEffect(() => {
-    if (!orders) {
-      setIsLoading(true);
-      getAllOrders();
-    }
-  }, [orders]);
+    setIsLoading(true);
+    getAllOrders();
+  }, []);
 
   const handleOpenUpdateModal = order => {
     setCurrentOrder(order);

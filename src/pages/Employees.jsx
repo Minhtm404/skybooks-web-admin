@@ -23,11 +23,9 @@ const Employees = () => {
   const [currentEmployee, setCurrentEmployee] = useState(undefined);
 
   useEffect(() => {
-    if (!employees) {
-      setIsLoading(true);
-      getAllEmployees();
-    }
-  }, [employees]);
+    setIsLoading(true);
+    getAllEmployees();
+  }, []);
 
   const handleOpenUpdateModal = employee => {
     setCurrentEmployee(employee);

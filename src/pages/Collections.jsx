@@ -22,11 +22,9 @@ const Collections = () => {
   const [currentCollection, setCurrentCollection] = useState(undefined);
 
   useEffect(() => {
-    if (!collections) {
-      setIsLoading(true);
-      getAllCollections();
-    }
-  }, [collections]);
+    setIsLoading(true);
+    getAllCollections();
+  }, []);
 
   const handleOpenUpdateModal = collection => {
     setCurrentCollection(collection);
