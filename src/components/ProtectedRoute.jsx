@@ -6,9 +6,10 @@ import { Context as AuthContext } from '../contexts/AuthContext';
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
 
-  const { localLogin, isAuthenticated } = useContext(AuthContext);
+  const { localLogin, isAuthenticated, setIsLoading } = useContext(AuthContext);
 
   useEffect(() => {
+    setIsLoading(true);
     localLogin();
 
     if (!isAuthenticated) {

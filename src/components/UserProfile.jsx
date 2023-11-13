@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Avatar, Button } from 'flowbite-react';
+import { BsShield } from 'react-icons/bs';
 import { MdOutlineCancel } from 'react-icons/md';
 
 import { Context as StateContext } from '../contexts/StateContext';
@@ -37,6 +39,26 @@ const UserProfile = ({ closeUserProfile }) => {
           </p>
           <p className="text-gray-500 text-sm font-semibold dark:text-gray-400">{user.email}</p>
         </div>
+      </div>
+
+      <div>
+        <NavLink
+          to={`/my-profile`}
+          onClick={() => closeUserProfile()}
+          className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer  dark:hover:bg-[#42464D]"
+        >
+          <div
+            style={{ color: '#00c292', backgroundColor: '#ebfaf2' }}
+            className=" text-xl rounded-lg p-3 hover:bg-light-gray"
+          >
+            <BsShield />
+          </div>
+
+          <div>
+            <p className="font-semibold dark:text-gray-200 ">My Profile</p>
+            <p className="text-gray-500 text-sm dark:text-gray-400">Account Settings</p>
+          </div>
+        </NavLink>
       </div>
 
       <div className="mt-5">

@@ -13,6 +13,7 @@ import {
   Orders,
   PageNotFound,
   Posts,
+  UserProfile,
 } from './pages';
 import { ProtectedRoute, AppLayout } from './components/index';
 import './App.css';
@@ -40,6 +41,8 @@ const App = () => {
             <Route path="/customers" element={<Customers />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/posts" element={<Posts />} />
+
+            <Route path="/my-profile" element={<UserProfile />} />
           </Route>
 
           <Route path="/*" element={<PageNotFound />} />
