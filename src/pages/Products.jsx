@@ -118,7 +118,7 @@ const Products = () => {
                 </Table.Cell>
                 <Table.Cell>{product.name}</Table.Cell>
                 <Table.Cell>
-                  {collections.find(c => c._id === product.mainCollection).name}
+                  {collections.find(c => c._id === product.mainCollection)?.name}
                 </Table.Cell>
                 <Table.Cell>{product.sku}</Table.Cell>
                 <Table.Cell>{product.price}</Table.Cell>

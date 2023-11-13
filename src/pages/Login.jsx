@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Spinner } from 'flowbite-react';
+import { Spinner, Toast } from 'flowbite-react';
+import { HiExclamation } from 'react-icons/hi';
 import { SiSass } from 'react-icons/si';
 
 import { Context as AuthContext } from '../contexts/AuthContext';
@@ -9,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { login, isAuthenticated, isLoading, setIsLoading } = useContext(AuthContext);
+  const { login, isAuthenticated, isLoading, setIsLoading, error } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -33,6 +34,18 @@ const Login = () => {
       className="min-h-screen grid content-center justify-center gap-9 bg-gray-50"
       style={{ 'grid-template-columns': '30rem' }}
     >
+      {error ? (
+        <Toast className="absolute top-4 left-4">
+          <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-500 dark:bg-orange-700 dark:text-orange-200">
+            <HiExclamation className="h-5 w-5" />
+          </div>
+          <div className="ml-3 text-sm font-normal">{error}</div>
+          <Toast.Toggle />
+        </Toast>
+      ) : (
+        <></>
+      )}
+
       <div className="text-center">
         <SiSass className="h-28 w-auto m-auto" />
       </div>

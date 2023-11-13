@@ -14,9 +14,16 @@ const authReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        error: undefined,
         token: action.payload.token,
         user: action.payload.user,
         isAuthenticated: true,
+      };
+    case ACTIONS.SET_LOGIN_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
       };
     case ACTIONS.SET_LOGOUT:
       return {
@@ -38,17 +45,24 @@ const setIsLoading = dispatch => async isLoading => {
 const login =
   dispatch =>
   async ({ email, password }) => {
-    const { data } = await apiHelper.post('/admins/login', {
-      email,
-      password,
-    });
+    try {
+      const { data } = await apiHelper.post('/admins/login', {
+        email,
+        password,
+      });
 
-    localStorage.setItem('token', data.token);
+      localStorage.setItem('token', data.token);
 
-    dispatch({
-      type: ACTIONS.SET_LOGIN,
-      payload: { token: data.token, user: data.data.user },
-    });
+      dispatch({
+        type: ACTIONS.SET_LOGIN,
+        payload: { token: data.token, user: data.data.user },
+      });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_LOGIN_FAILED,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 const localLogin = dispatch => async () => {
@@ -77,6 +91,7 @@ export const { Provider, Context } = contextFactory(
   },
   {
     isLoading: false,
+    error: undefined,
     token: undefined,
     user: undefined,
     isAuthenticated: false,
