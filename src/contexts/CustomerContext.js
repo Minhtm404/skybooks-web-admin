@@ -7,6 +7,8 @@ const CustomerReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.SET_IS_LOADING:
       return { ...state, isLoading: action.payload };
+    case ACTIONS.SET_ERROR:
+      return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_CUSTOMERS:
       return { ...state, isLoading: false, customers: action.payload };
     default:
@@ -14,41 +16,62 @@ const CustomerReducer = (state, action) => {
   }
 };
 
-const setIsLoading = dispacth => async isLoading => {
-  dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
+const setIsLoading = dispatch => async isLoading => {
+  dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllCustomers = dispacth => async keyword => {
-  const data = keyword
-    ? await apiHelper.get(`/users?keyword=${keyword}`)
-    : await apiHelper.get('/users');
+const getAllCustomers = dispatch => async keyword => {
+  try {
+    const { data } = keyword
+      ? await apiHelper.get(`/users?keyword=${keyword}`)
+      : await apiHelper.get('/users');
 
-  dispacth({ type: ACTIONS.SET_CUSTOMERS, payload: data.data.data });
+    dispatch({ type: ACTIONS.SET_CUSTOMERS, payload: data.data });
+  } catch (err) {
+    dispatch({
+      type: ACTIONS.SET_ERROR,
+      payload: err.response ? err.response.data.message : err.message,
+    });
+  }
 };
 
 const updateCustomer =
-  dispacth =>
+  dispatch =>
   async ({ _id: id, name, email, role, active }) => {
-    const data = await apiHelper.patch(`/users/${id}`, {
-      name,
-      email,
-      role,
-      active,
-    });
+    try {
+      await apiHelper.patch(`/users/${id}`, {
+        name,
+        email,
+        role,
+        active,
+      });
 
-    const newData = await apiHelper.get('/users');
+      const { data } = await apiHelper.get('/users');
 
-    dispacth({ type: ACTIONS.SET_CUSTOMERS, payload: newData.data.data });
+      dispatch({ type: ACTIONS.SET_CUSTOMERS, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 const deleteCustomer =
-  dispacth =>
+  dispatch =>
   async ({ _id: id }) => {
-    const data = await apiHelper.delete(`/users/${id}`);
+    try {
+      await apiHelper.delete(`/users/${id}`);
 
-    const newData = await apiHelper.get('/users');
+      const { data } = await apiHelper.get('/users');
 
-    dispacth({ type: ACTIONS.SET_CUSTOMERS, payload: newData.data.data });
+      dispatch({ type: ACTIONS.SET_CUSTOMERS, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 export const { Provider, Context } = contextFactory(
@@ -61,6 +84,7 @@ export const { Provider, Context } = contextFactory(
   },
   {
     isLoading: false,
+    error: undefined,
     customers: undefined,
   },
 );

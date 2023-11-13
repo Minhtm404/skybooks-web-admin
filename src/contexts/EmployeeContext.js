@@ -16,8 +16,8 @@ const employeeReducer = (state, action) => {
   }
 };
 
-const setIsLoading = dispacth => async isLoading => {
-  dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
+const setIsLoading = dispatch => async isLoading => {
+  dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
 const getAllEmployees = dispatch => async keyword => {

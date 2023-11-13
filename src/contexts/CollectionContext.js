@@ -7,6 +7,8 @@ const collectionReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.SET_IS_LOADING:
       return { ...state, isLoading: action.payload };
+    case ACTIONS.SET_ERROR:
+      return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_COLLECTIONS:
       return { ...state, isLoading: false, collections: action.payload };
     default:
@@ -14,54 +16,82 @@ const collectionReducer = (state, action) => {
   }
 };
 
-const setIsLoading = dispacth => async isLoading => {
-  dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
+const setIsLoading = dispatch => async isLoading => {
+  dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllCollections = dispacth => async keyword => {
-  const data = keyword
-    ? await apiHelper.get(`/collections?keyword=${keyword}`)
-    : await apiHelper.get('/collections');
+const getAllCollections = dispatch => async keyword => {
+  try {
+    const { data } = keyword
+      ? await apiHelper.get(`/collections?keyword=${keyword}`)
+      : await apiHelper.get('/collections');
 
-  dispacth({ type: ACTIONS.SET_COLLECTIONS, payload: data.data.data });
+    dispatch({ type: ACTIONS.SET_COLLECTIONS, payload: data.data });
+  } catch (err) {
+    dispatch({
+      type: ACTIONS.SET_ERROR,
+      payload: err.response ? err.response.data.message : err.message,
+    });
+  }
 };
 
 const addCollection =
-  dispacth =>
+  dispatch =>
   async ({ name, mainCollection, parentCollection }) => {
-    const data = await apiHelper.post('/collections', {
-      name,
-      mainCollection,
-      parentCollection,
-    });
+    try {
+      await apiHelper.post('/collections', {
+        name,
+        mainCollection,
+        parentCollection,
+      });
 
-    const newData = await apiHelper.get('/collections');
+      const { data } = await apiHelper.get('/collections');
 
-    dispacth({ type: ACTIONS.SET_COLLECTIONS, payload: newData.data.data });
+      dispatch({ type: ACTIONS.SET_COLLECTIONS, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 const updateCollection =
-  dispacth =>
+  dispatch =>
   async ({ _id: id, name, mainCollection, parentCollection }) => {
-    const data = await apiHelper.patch(`/collections/${id}`, {
-      name,
-      mainCollection,
-      parentCollection,
-    });
+    try {
+      await apiHelper.patch(`/collections/${id}`, {
+        name,
+        mainCollection,
+        parentCollection,
+      });
 
-    const newData = await apiHelper.get('/collections');
+      const { data } = await apiHelper.get('/collections');
 
-    dispacth({ type: ACTIONS.SET_COLLECTIONS, payload: newData.data.data });
+      dispatch({ type: ACTIONS.SET_COLLECTIONS, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 const deleteCollection =
-  dispacth =>
+  dispatch =>
   async ({ _id: id }) => {
-    const data = await apiHelper.delete(`/collections/${id}`);
+    try {
+      await apiHelper.delete(`/collections/${id}`);
 
-    const newData = await apiHelper.get('/collections');
+      const { data } = await apiHelper.get('/collections');
 
-    dispacth({ type: ACTIONS.SET_COLLECTIONS, payload: newData.data.data });
+      dispatch({ type: ACTIONS.SET_COLLECTIONS, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 export const { Provider, Context } = contextFactory(
@@ -75,6 +105,7 @@ export const { Provider, Context } = contextFactory(
   },
   {
     isLoading: false,
+    error: undefined,
     collections: undefined,
   },
 );

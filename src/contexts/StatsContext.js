@@ -7,6 +7,8 @@ const StatsReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.SET_IS_LOADING:
       return { ...state, isLoading: action.payload };
+    case ACTIONS.SET_ERROR:
+      return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_STATS:
       return { ...state, isLoading: false, stats: action.payload };
     default:
@@ -14,14 +16,21 @@ const StatsReducer = (state, action) => {
   }
 };
 
-const setIsLoading = dispacth => async isLoading => {
-  dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
+const setIsLoading = dispatch => async isLoading => {
+  dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getStats = dispacth => async () => {
-  const data = await apiHelper.get('/stats');
+const getStats = dispatch => async () => {
+  try {
+    const { data } = await apiHelper.get('/stats');
 
-  dispacth({ type: ACTIONS.SET_STATS, payload: data.data.data });
+    dispatch({ type: ACTIONS.SET_STATS, payload: data.data });
+  } catch (err) {
+    dispatch({
+      type: ACTIONS.SET_ERROR,
+      payload: err.response ? err.response.data.message : err.message,
+    });
+  }
 };
 
 export const { Provider, Context } = contextFactory(
@@ -32,6 +41,7 @@ export const { Provider, Context } = contextFactory(
   },
   {
     isLoading: false,
+    error: undefined,
     stats: undefined,
   },
 );
