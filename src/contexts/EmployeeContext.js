@@ -7,6 +7,8 @@ const employeeReducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.SET_IS_LOADING:
       return { ...state, isLoading: action.payload };
+    case ACTIONS.SET_ERROR:
+      return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_EMPLOYEES:
       return { ...state, isLoading: false, employees: action.payload };
     default:
@@ -18,54 +20,82 @@ const setIsLoading = dispacth => async isLoading => {
   dispacth({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllEmployees = dispacth => async keyword => {
-  const data = keyword
-    ? await apiHelper.get(`/admins?keyword=${keyword}`)
-    : await apiHelper.get('/admins');
+const getAllEmployees = dispatch => async keyword => {
+  try {
+    const { data } = keyword
+      ? await apiHelper.get(`/admins?keyword=${keyword}`)
+      : await apiHelper.get('/admins');
 
-  dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: data.data.data });
+    dispatch({ type: ACTIONS.SET_EMPLOYEES, payload: data.data });
+  } catch (err) {
+    dispatch({
+      type: ACTIONS.SET_ERROR,
+      payload: err.response ? err.response.data.message : err.message,
+    });
+  }
 };
 
 const addEmployee =
-  dispacth =>
+  dispatch =>
   async ({ name, email, password, passwordConfirm, role, active }) => {
-    const data = await apiHelper.post('/admins', {
-      name,
-      email,
-      password,
-      passwordConfirm,
-      role,
-      active,
-    });
+    try {
+      await apiHelper.post('/admins', {
+        name,
+        email,
+        password,
+        passwordConfirm,
+        role,
+        active,
+      });
 
-    const newData = await apiHelper.get('/admins');
+      const { data } = await apiHelper.get('/admins');
 
-    dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
+      dispatch({ type: ACTIONS.SET_EMPLOYEES, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 const updateEmployee =
-  dispacth =>
+  dispatch =>
   async ({ _id: id, name, email, role, active }) => {
-    const data = await apiHelper.patch(`/admins/${id}`, {
-      name,
-      email,
-      role,
-      active,
-    });
+    try {
+      await apiHelper.patch(`/admins/${id}`, {
+        name,
+        email,
+        role,
+        active,
+      });
 
-    const newData = await apiHelper.get('/admins');
+      const { data } = await apiHelper.get('/admins');
 
-    dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
+      dispatch({ type: ACTIONS.SET_EMPLOYEES, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 const deleteEmployee =
-  dispacth =>
+  dispatch =>
   async ({ _id: id }) => {
-    const data = await apiHelper.delete(`/admins/${id}`);
+    try {
+      await apiHelper.delete(`/admins/${id}`);
 
-    const newData = await apiHelper.get('/admins');
+      const { data } = await apiHelper.get('/admins');
 
-    dispacth({ type: ACTIONS.SET_EMPLOYEES, payload: newData.data.data });
+      dispatch({ type: ACTIONS.SET_EMPLOYEES, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
   };
 
 export const { Provider, Context } = contextFactory(
@@ -79,6 +109,7 @@ export const { Provider, Context } = contextFactory(
   },
   {
     isLoading: false,
+    error: undefined,
     employees: undefined,
   },
 );

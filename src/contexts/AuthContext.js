@@ -10,6 +10,12 @@ const authReducer = (state, action) => {
         ...state,
         isLoading: action.payload,
       };
+    case ACTIONS.SET_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     case ACTIONS.SET_LOGIN:
       return {
         ...state,
@@ -18,12 +24,6 @@ const authReducer = (state, action) => {
         token: action.payload.token,
         user: action.payload.user,
         isAuthenticated: true,
-      };
-    case ACTIONS.SET_LOGIN_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload,
       };
     case ACTIONS.SET_LOGOUT:
       return {
@@ -59,7 +59,7 @@ const login =
       });
     } catch (err) {
       dispatch({
-        type: ACTIONS.SET_LOGIN_FAILED,
+        type: ACTIONS.SET_ERROR,
         payload: err.response ? err.response.data.message : err.message,
       });
     }
