@@ -78,6 +78,7 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
           placeholder="Type employee password"
           type="password"
           value={password}
+          minLength="8"
           onChange={e => setPassword(e.target.value)}
           required
         />
@@ -93,6 +94,7 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
           placeholder="Type employee confirm password"
           type="password"
           value={passwordConfirm}
+          minLength="8"
           onChange={e => setPasswordConfirm(e.target.value)}
           required
         />

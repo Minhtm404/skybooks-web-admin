@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Modal, Label, TextInput, Spinner } from 'flowbite-react';
+import { Button, Table, Modal, Label, TextInput, Spinner, Toast } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 
 import { Context as StateContext } from '../contexts/StateContext';
@@ -8,10 +8,11 @@ import { Context as OrderContext } from '../contexts/OrderContext';
 import { ORDER_COLUMNS } from '../constants';
 
 import { EditOrderForm, Header } from '../components';
+import { HiExclamation } from 'react-icons/hi';
 
 const Orders = () => {
   const { currentColor } = useContext(StateContext);
-  const { orders, getAllOrders, isLoading, setIsLoading } = useContext(OrderContext);
+  const { orders, getAllOrders, isLoading, setIsLoading, error } = useContext(OrderContext);
 
   const [openUpdateOrderModal, setOpenUpdateOrderModal] = useState(false);
 
@@ -38,6 +39,18 @@ const Orders = () => {
   if (orders) {
     return (
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-gray-800 dark:border-gray-700">
+        {error ? (
+          <Toast className="absolute top-4 left-4">
+            <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-500 dark:bg-orange-700 dark:text-orange-200">
+              <HiExclamation className="h-5 w-5" />
+            </div>
+            <div className="ml-3 text-sm font-normal">{error}</div>
+            <Toast.Toggle />
+          </Toast>
+        ) : (
+          <></>
+        )}
+
         <Header title="Orders" />
 
         <div class="p-4 bg-white block sm:flex Dropdown.Items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
