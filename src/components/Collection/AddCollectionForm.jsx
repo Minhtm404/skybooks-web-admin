@@ -34,7 +34,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
         handleCreate();
       }}
     >
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white">Edit collection</h3>
+      <h3 className="text-xl font-medium text-gray-900 dark:text-white">Add collection</h3>
 
       <div>
         <div className="mb-2 block">
@@ -94,7 +94,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
 
       <div className="w-full">
         <Button style={{ background: currentColor }} type="submit">
-          Edit collection
+          Add collection
         </Button>
       </div>
     </form>

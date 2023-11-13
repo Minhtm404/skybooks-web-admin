@@ -20,3 +20,6 @@ export { default as EditProductForm } from './Product/EditProductForm';
 export { default as EditCustomerForm } from './Customer/EditCustomerForm';
 
 export { default as EditOrderForm } from './Order/EditOrderForm';
+
+export { default as AddPostForm } from './Post/AddPostForm';
+export { default as EditPostForm } from './Post/EditPostForm';

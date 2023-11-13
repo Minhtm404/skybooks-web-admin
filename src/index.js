@@ -8,6 +8,7 @@ import { Provider as CollectionProvider } from './contexts/CollectionContext';
 import { Provider as ProductProvider } from './contexts/ProductContext';
 import { Provider as CustomerProvider } from './contexts/CustomerContext';
 import { Provider as OrderProvider } from './contexts/OrderContext';
+import { Provider as PostProvider } from './contexts/PostContext';
 import { Provider as StatsProvider } from './contexts/StatsContext';
 
 import App from './App';
@@ -23,9 +24,11 @@ root.render(
           <ProductProvider>
             <CustomerProvider>
               <OrderProvider>
-                <StatsProvider>
-                  <App />
-                </StatsProvider>
+                <PostProvider>
+                  <StatsProvider>
+                    <App />
+                  </StatsProvider>
+                </PostProvider>
               </OrderProvider>
             </CustomerProvider>
           </ProductProvider>

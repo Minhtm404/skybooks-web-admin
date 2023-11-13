@@ -6,5 +6,6 @@ export { default as Collections } from './Collections';
 export { default as Products } from './Products';
 export { default as Customers } from './Customers';
 export { default as Orders } from './Orders';
+export { default as Posts } from './Posts';
 
 export { default as PageNotFound } from './PageNotFound';

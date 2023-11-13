@@ -5,60 +5,45 @@ import { HiExclamation, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import { Context as StateContext } from '../contexts/StateContext';
-import { Context as CollectionContext } from '../contexts/CollectionContext';
-import { Context as ProductContext } from '../contexts/ProductContext';
+import { Context as PostContext } from '../contexts/PostContext';
 
-import { PRODUCT_COLUMNS } from '../constants';
+import { POST_COLUMNS } from '../constants';
 
-import { AddProductForm, EditProductForm, Header } from '../components';
+import { AddPostForm, EditPostForm, Header } from '../components';
 
-const Products = () => {
+const Posts = () => {
   const { currentColor } = useContext(StateContext);
-  const {
-    collections,
-    getAllCollections,
-    isLoading: isLoadingCollection,
-    setIsLoading: setIsLoadingCollection,
-  } = useContext(CollectionContext);
-  const {
-    products,
-    getAllProducts,
-    deleteProduct,
-    isLoading: isLoadingProduct,
-    setIsLoading: setIsLoadingProduct,
-    error,
-  } = useContext(ProductContext);
+  const { posts, getAllPosts, deletePost, isLoading, setIsLoading, error } =
+    useContext(PostContext);
 
-  const [openAddProductModal, setOpenAddProductModal] = useState(false);
-  const [openUpdateProductModal, setOpenUpdateProductModal] = useState(false);
-  const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
+  const [openAddPostModal, setOpenAddPostModal] = useState(false);
+  const [openUpdatePostModal, setOpenUpdatePostModal] = useState(false);
+  const [openDeletePostModal, setOpenDeletePostModal] = useState(false);
 
   const [keyword, setKeyword] = useState('');
-  const [currentProduct, setCurrentProduct] = useState(undefined);
+  const [currentPost, setCurrentPost] = useState(undefined);
 
   useEffect(() => {
-    setIsLoadingCollection(true);
-    getAllCollections();
-    setIsLoadingProduct(true);
-    getAllProducts();
+    setIsLoading(true);
+    getAllPosts();
   }, []);
 
-  const handleOpenUpdateModal = product => {
-    setCurrentProduct(product);
-    setOpenUpdateProductModal(true);
+  const handleOpenUpdateModal = post => {
+    setCurrentPost(post);
+    setOpenUpdatePostModal(true);
   };
 
-  const handleOpenDeleteModal = product => {
-    setCurrentProduct(product);
-    setOpenDeleteProductModal(true);
+  const handleOpenDeleteModal = post => {
+    setCurrentPost(post);
+    setOpenDeletePostModal(true);
   };
 
   const handleDelete = async () => {
-    await deleteProduct(currentProduct);
-    setOpenDeleteProductModal(false);
+    await deletePost(currentPost);
+    setOpenDeletePostModal(false);
   };
 
-  if (isLoadingCollection || isLoadingProduct) {
+  if (isLoading) {
     return (
       <div className="relative w-full h-screen flex justify-center items-center">
         <Spinner size="xl" />
@@ -66,7 +51,7 @@ const Products = () => {
     );
   }
 
-  if (collections && products) {
+  if (posts) {
     return (
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-gray-800 dark:border-gray-700">
         {error ? (
@@ -81,23 +66,23 @@ const Products = () => {
           <></>
         )}
 
-        <Header title="Products" />
+        <Header title="Posts" />
 
         <div class="p-4 bg-white block sm:flex Dropdown.Items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
           <div class="w-full mb-1">
             <div class="Dropdown.Items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
               <div class="flex Dropdown.Items-center mb-4 sm:mb-0">
-                <Label htmlFor="products-search" className="sr-only" />
+                <Label htmlFor="Posts-search" className="sr-only" />
                 <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
                   <TextInput
-                    id="products-search"
-                    name="products-search"
-                    placeholder="Enter a name or sku to search"
+                    id="posts-search"
+                    name="posts-search"
+                    placeholder="Enter a title to search"
                     type="search"
                     value={keyword}
                     onChange={e => {
                       setKeyword(e.target.value);
-                      getAllProducts(e.target.value);
+                      getAllPosts(e.target.value);
                     }}
                   />
                 </div>
@@ -105,9 +90,9 @@ const Products = () => {
 
               <Button
                 style={{ background: currentColor }}
-                onClick={() => setOpenAddProductModal(true)}
+                onClick={() => setOpenAddPostModal(true)}
               >
-                Add new product
+                Add new post
               </Button>
             </div>
           </div>
@@ -115,7 +100,7 @@ const Products = () => {
 
         <Table hoverable>
           <Table.Head>
-            {PRODUCT_COLUMNS.map(column => (
+            {POST_COLUMNS.map(column => (
               <Table.HeadCell>{column.headerText}</Table.HeadCell>
             ))}
             <Table.HeadCell>
@@ -124,21 +109,19 @@ const Products = () => {
           </Table.Head>
 
           <Table.Body className="divide-y">
-            {products.map(product => (
+            {posts.map(post => (
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {product._id}
+                  {post._id}
                 </Table.Cell>
-                <Table.Cell>{product.name}</Table.Cell>
-                <Table.Cell>{product.mainCollection.name}</Table.Cell>
-                <Table.Cell>{product.sku}</Table.Cell>
-                <Table.Cell>{product.price}</Table.Cell>
+                <Table.Cell>{post.title}</Table.Cell>
+                <Table.Cell>{post.user.name}</Table.Cell>
                 <Table.Cell>
                   <Button.Group>
                     <Button
                       size="sm"
                       style={{ background: currentColor }}
-                      onClick={() => handleOpenUpdateModal(product)}
+                      onClick={() => handleOpenUpdateModal(post)}
                     >
                       <BiEdit className="mr-2" />
                       Update
@@ -146,7 +129,7 @@ const Products = () => {
                     <Button
                       size="sm"
                       className="bg-red-700"
-                      onClick={() => handleOpenDeleteModal(product)}
+                      onClick={() => handleOpenDeleteModal(post)}
                     >
                       <RiDeleteBin6Line className="mr-2" />
                       Delete
@@ -161,28 +144,28 @@ const Products = () => {
         <Modal
           dismissible
           popup
-          show={openAddProductModal === true}
+          show={openAddPostModal === true}
           size="2xl"
-          onClose={() => setOpenAddProductModal(false)}
+          onClose={() => setOpenAddPostModal(false)}
         >
           <Modal.Header />
           <Modal.Body>
-            <AddProductForm closeModalAfterSubmit={() => setOpenAddProductModal(false)} />
+            <AddPostForm closeModalAfterSubmit={() => setOpenAddPostModal(false)} />
           </Modal.Body>
         </Modal>
 
         <Modal
           dismissible
           popup
-          show={openUpdateProductModal === true}
+          show={openUpdatePostModal === true}
           size="2xl"
-          onClose={() => setOpenUpdateProductModal(false)}
+          onClose={() => setOpenUpdatePostModal(false)}
         >
           <Modal.Header />
           <Modal.Body>
-            <EditProductForm
-              product={currentProduct}
-              closeModalAfterSubmit={() => setOpenUpdateProductModal(false)}
+            <EditPostForm
+              post={currentPost}
+              closeModalAfterSubmit={() => setOpenUpdatePostModal(false)}
             />
           </Modal.Body>
         </Modal>
@@ -190,22 +173,22 @@ const Products = () => {
         <Modal
           dismissible
           popup
-          show={openDeleteProductModal === true}
+          show={openDeletePostModal === true}
           size="md"
-          onClose={() => setOpenDeleteProductModal(false)}
+          onClose={() => setOpenDeletePostModal(false)}
         >
           <Modal.Header />
           <Modal.Body>
             <div className="text-center">
               <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
               <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                Are you sure you want to delete this product?
+                Are you sure you want to delete this post?
               </h3>
               <div className="flex justify-center gap-4">
                 <Button color="failure" onClick={() => handleDelete()}>
                   Yes, I'm sure
                 </Button>
-                <Button color="gray" onClick={() => setOpenDeleteProductModal(false)}>
+                <Button color="gray" onClick={() => setOpenDeletePostModal(false)}>
                   No, cancel
                 </Button>
               </div>
@@ -217,4 +200,4 @@ const Products = () => {
   }
 };
 
-export default Products;
+export default Posts;

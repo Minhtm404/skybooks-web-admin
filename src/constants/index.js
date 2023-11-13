@@ -1,5 +1,6 @@
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { BiCategory } from 'react-icons/bi';
+import { BsFilePost } from 'react-icons/bs';
 import { FiShoppingBag } from 'react-icons/fi';
 import { GiBookshelf } from 'react-icons/gi';
 import { IoMdContacts } from 'react-icons/io';
@@ -56,6 +57,10 @@ export const LINKS = [
   {
     name: 'orders',
     icon: <AiOutlineShoppingCart />,
+  },
+  {
+    name: 'posts',
+    icon: <BsFilePost />,
   },
 ];
 
@@ -182,6 +187,21 @@ export const ORDER_COLUMNS = [
   {
     field: 'paid',
     headerText: 'Payment Status',
+  },
+];
+
+export const POST_COLUMNS = [
+  {
+    field: '_id',
+    headerText: 'ID',
+  },
+  {
+    field: 'title',
+    headerText: 'Title',
+  },
+  {
+    field: 'user',
+    headerText: 'Creator',
   },
 ];
 
