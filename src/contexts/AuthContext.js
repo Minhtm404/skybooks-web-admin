@@ -66,12 +66,18 @@ const login =
   };
 
 const localLogin = dispatch => async () => {
-  const token = localStorage.getItem('token');
+  try {
+    const token = localStorage.getItem('token');
 
-  if (token) {
-    const data = await apiHelper.get('/admins/me');
+    if (token) {
+      const data = await apiHelper.get('/admins/me');
 
-    dispatch({ type: ACTIONS.SET_LOGIN, payload: { token, user: data.data.data } });
+      dispatch({ type: ACTIONS.SET_LOGIN, payload: { token, user: data.data.data } });
+    }
+  } catch (err) {
+    localStorage.removeItem('token');
+
+    dispatch({ type: ACTIONS.SET_LOGOUT });
   }
 };
 
