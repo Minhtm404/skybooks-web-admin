@@ -77,7 +77,7 @@ const Posts = () => {
                   <TextInput
                     id="posts-search"
                     name="posts-search"
-                    placeholder="Enter a title to search"
+                    placeholder="Search by title or creator"
                     type="search"
                     value={keyword}
                     onChange={e => {

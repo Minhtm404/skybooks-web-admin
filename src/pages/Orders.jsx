@@ -16,6 +16,7 @@ const Orders = () => {
 
   const [openUpdateOrderModal, setOpenUpdateOrderModal] = useState(false);
 
+  const [keyword, setKeyword] = useState('');
   const [currentOrder, setCurrentOrder] = useState(undefined);
 
   useEffect(() => {
@@ -60,9 +61,15 @@ const Orders = () => {
                 <Label htmlFor="orders-search" className="sr-only" />
                 <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
                   <TextInput
-                    name="orders-search"
                     id="orders-search"
-                    placeholder="Search for orders"
+                    name="orders-search"
+                    placeholder="Search by customer or product"
+                    type="search"
+                    value={keyword}
+                    onChange={e => {
+                      setKeyword(e.target.value);
+                      getAllOrders(e.target.value);
+                    }}
                   />
                 </div>
               </div>

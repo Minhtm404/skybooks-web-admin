@@ -92,7 +92,7 @@ const Products = () => {
                   <TextInput
                     id="products-search"
                     name="products-search"
-                    placeholder="Enter a name or sku to search"
+                    placeholder="Search by name, collection or sku"
                     type="search"
                     value={keyword}
                     onChange={e => {

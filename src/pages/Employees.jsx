@@ -77,7 +77,7 @@ const Employees = () => {
                   <TextInput
                     id="employees-search"
                     name="employees-search"
-                    placeholder="Enter a name or email to search"
+                    placeholder="Search by name, email or role"
                     type="search"
                     value={keyword}
                     onChange={e => {

@@ -20,9 +20,11 @@ const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllOrders = dispatch => async () => {
+const getAllOrders = dispatch => async keyword => {
   try {
-    const { data } = await apiHelper.get('/orders');
+    const { data } = keyword
+      ? await apiHelper.get(`/orders?keyword=${keyword}`)
+      : await apiHelper.get('/orders');
 
     dispatch({ type: ACTIONS.SET_ORDERS, payload: data.data });
   } catch (err) {

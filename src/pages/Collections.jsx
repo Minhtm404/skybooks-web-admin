@@ -77,7 +77,7 @@ const Collections = () => {
                   <TextInput
                     id="collections-search"
                     name="collections-search"
-                    placeholder="Enter a name to search"
+                    placeholder="Search by name or parent collection"
                     type="search"
                     value={keyword}
                     onChange={e => {
@@ -116,9 +116,7 @@ const Collections = () => {
                 </Table.Cell>
                 <Table.Cell>{collection.name}</Table.Cell>
                 <Table.Cell>{collection.mainCollection === true ? 'Yes' : 'No'}</Table.Cell>
-                <Table.Cell>
-                  {collections.find(c => c._id === collection.parentCollection)?.name}
-                </Table.Cell>
+                <Table.Cell>{collection.parentCollection?.name}</Table.Cell>
                 <Table.Cell>
                   <Button.Group>
                     <Button

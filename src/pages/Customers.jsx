@@ -76,7 +76,7 @@ const Customers = () => {
                   <TextInput
                     id="customers-search"
                     name="customers-search"
-                    placeholder="Enter a name or email to search"
+                    placeholder="Search by name or email"
                     type="search"
                     value={keyword}
                     onChange={e => {
