@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react';
 import { Button, Label, Spinner, TextInput, Toast } from 'flowbite-react';
 import { HiExclamation } from 'react-icons/hi';
 
+import { Context as StateContext } from '../contexts/StateContext';
 import { Context as AuthContext } from '../contexts/AuthContext';
 
 const UserProfile = () => {
+  const { currentColor } = useContext(StateContext);
   const { user, updateMe, updatePassword, isLoading, setIsLoading, error } =
     useContext(AuthContext);
 
@@ -89,7 +91,7 @@ const UserProfile = () => {
               </div>
 
               <div className="flex flex-row justify-end">
-                <Button type="submit" className="self-end">
+                <Button type="submit" style={{ background: currentColor }}>
                   Update data
                 </Button>
               </div>
@@ -146,7 +148,9 @@ const UserProfile = () => {
               </div>
 
               <div className="flex flex-row justify-end">
-                <Button type="submit">Update password</Button>
+                <Button type="submit" style={{ background: currentColor }}>
+                  Update password
+                </Button>
               </div>
             </form>
           </div>
