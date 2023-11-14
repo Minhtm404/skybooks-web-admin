@@ -29,9 +29,25 @@ const authReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        error: undefined,
         token: undefined,
         user: undefined,
         isAuthenticated: false,
+      };
+    case ACTIONS.UPDATE_DATA:
+      return {
+        ...state,
+        isLoading: false,
+        error: undefined,
+        user: action.payload,
+      };
+    case ACTIONS.UPDATE_PASSWORD:
+      return {
+        ...state,
+        isLoading: false,
+        error: undefined,
+        token: action.payload.token,
+        user: action.payload.user,
       };
     default:
       return state;
@@ -70,9 +86,9 @@ const localLogin = dispatch => async () => {
     const token = localStorage.getItem('token');
 
     if (token) {
-      const data = await apiHelper.get('/admins/me');
+      const { data } = await apiHelper.get('/admins/me');
 
-      dispatch({ type: ACTIONS.SET_LOGIN, payload: { token, user: data.data.data } });
+      dispatch({ type: ACTIONS.SET_LOGIN, payload: { token, user: data.data } });
     }
   } catch (err) {
     localStorage.removeItem('token');
@@ -87,6 +103,48 @@ const logout = dispatch => async () => {
   dispatch({ type: ACTIONS.SET_LOGOUT });
 };
 
+const updateMe =
+  dispatch =>
+  async ({ name, email }) => {
+    try {
+      const { data } = await apiHelper.patch('/admins/me', {
+        name,
+        email,
+      });
+
+      dispatch({ type: ACTIONS.UPDATE_DATA, payload: data.data.user });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
+  };
+
+const updatePassword =
+  dispatch =>
+  async ({ passwordCurrent, password, passwordConfirm }) => {
+    try {
+      const { data } = await apiHelper.post('/admins/update-password', {
+        passwordCurrent,
+        password,
+        passwordConfirm,
+      });
+
+      localStorage.setItem('token', data.token);
+
+      dispatch({
+        type: ACTIONS.UPDATE_PASSWORD,
+        payload: { token: data.token, user: data.data.user },
+      });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
+  };
+
 export const { Provider, Context } = contextFactory(
   authReducer,
   {
@@ -94,6 +152,8 @@ export const { Provider, Context } = contextFactory(
     login,
     localLogin,
     logout,
+    updateMe,
+    updatePassword,
   },
   {
     isLoading: false,
