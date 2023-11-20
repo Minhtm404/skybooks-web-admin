@@ -76,7 +76,7 @@ const Customers = () => {
                   <TextInput
                     id="customers-search"
                     name="customers-search"
-                    placeholder="Search by name or email"
+                    placeholder="Search by name, email or phone number"
                     type="search"
                     value={keyword}
                     onChange={e => {
@@ -108,6 +108,7 @@ const Customers = () => {
                 </Table.Cell>
                 <Table.Cell>{customer.name}</Table.Cell>
                 <Table.Cell>{customer.email}</Table.Cell>
+                <Table.Cell>{customer.phoneNumber}</Table.Cell>
                 <Table.Cell>{customer.active ? 'Active' : 'Deactive'}</Table.Cell>
                 <Table.Cell>
                   <Button.Group>

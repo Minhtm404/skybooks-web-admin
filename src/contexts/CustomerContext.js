@@ -37,11 +37,13 @@ const getAllCustomers = dispatch => async keyword => {
 
 const updateCustomer =
   dispatch =>
-  async ({ _id: id, name, email, role, active }) => {
+  async ({ _id: id, name, email, phoneNumber, address, role, active }) => {
     try {
       await apiHelper.patch(`/users/${id}`, {
         name,
         email,
+        phoneNumber,
+        address,
         role,
         active,
       });

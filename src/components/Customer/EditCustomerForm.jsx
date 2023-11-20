@@ -10,6 +10,8 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
 
   const [name, setName] = useState(customer.name);
   const [email, setEmail] = useState(customer.email);
+  const [phoneNumber, setPhoneNumber] = useState(customer.phoneNumber);
+  const [address, setAddress] = useState(customer.address);
   const [active, setActive] = useState(customer.active);
 
   const handleUpdate = async () => {
@@ -17,6 +19,8 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
       _id: customer._id,
       name,
       email,
+      phoneNumber,
+      address,
       active,
     });
 
@@ -59,6 +63,36 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
           type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="phoneNumber" value="Phone number" />
+        </div>
+        <TextInput
+          id="phoneNumber"
+          name="phoneNumber"
+          placeholder="Type customer phone number"
+          type="text"
+          value={phoneNumber}
+          onChange={e => setPhoneNumber(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="address" value="Address" />
+        </div>
+        <TextInput
+          id="address"
+          name="address"
+          placeholder="Type customer address"
+          type="text"
+          value={address}
+          onChange={e => setAddress(e.target.value)}
           required
         />
       </div>

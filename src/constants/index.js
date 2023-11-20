@@ -162,6 +162,10 @@ export const CUSTOMER_COLUMNS = [
     headerText: 'Email',
   },
   {
+    field: 'phoneNumber',
+    headerText: 'Phone Number',
+  },
+  {
     field: 'active',
     headerText: 'Status',
   },
