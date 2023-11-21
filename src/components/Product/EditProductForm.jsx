@@ -114,7 +114,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
             color="gray"
           >
             {collections
-              .filter(c => c.parentCollection === mainCollection)
+              .filter(c => c.parentCollection?._id === mainCollection)
               .map(collection => (
                 <Dropdown.Item onClick={() => setSubCollection(collection._id)}>
                   {collection.name}
