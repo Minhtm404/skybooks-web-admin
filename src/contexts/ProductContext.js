@@ -53,7 +53,7 @@ const addProduct =
     description,
   }) => {
     try {
-      await apiHelper.patch('/products', {
+      await apiHelper.post('/products', {
         name,
         mainCollection,
         subCollection,
