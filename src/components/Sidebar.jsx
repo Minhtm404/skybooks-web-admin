@@ -5,11 +5,13 @@ import { SiSass } from 'react-icons/si';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Context as StateContext } from '../contexts/StateContext';
+import { Context as AuthContext } from '../contexts/AuthContext';
 
 import { LINKS } from '../constants';
 
 const Sidebar = () => {
   const { currentColor, activeMenu, screenSize, setActiveMenu } = useContext(StateContext);
+  const { user } = useContext(AuthContext);
 
   const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2';
   const normalLink =
@@ -45,7 +47,7 @@ const Sidebar = () => {
 
           <div className="mt-10">
             {LINKS.map(link => {
-              if (link.staff) {
+              if (user.role !== 'staff' || link.staff) {
                 return (
                   <NavLink
                     to={`/${link.name !== 'dashboard' ? link.name : ''}`}
