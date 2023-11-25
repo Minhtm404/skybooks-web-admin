@@ -67,6 +67,7 @@ const Products = () => {
   }
 
   if (collections && products) {
+    console.log(collections, products);
     return (
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-gray-800 dark:border-gray-700">
         {error ? (
@@ -130,7 +131,7 @@ const Products = () => {
                   {product._id}
                 </Table.Cell>
                 <Table.Cell>{product.name}</Table.Cell>
-                <Table.Cell>{product.mainCollection.name}</Table.Cell>
+                <Table.Cell>{product.mainCollection?.name}</Table.Cell>
                 <Table.Cell>{product.sku}</Table.Cell>
                 <Table.Cell>{product.price}</Table.Cell>
                 <Table.Cell>

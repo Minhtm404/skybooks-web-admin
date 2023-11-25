@@ -11,7 +11,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
   const { updateProduct } = useContext(ProductContext);
 
   const [name, setName] = useState(product.name);
-  const [mainCollection, setMainCollection] = useState(product.mainCollection._id);
+  const [mainCollection, setMainCollection] = useState(product.mainCollection?._id);
   const [subCollection, setSubCollection] = useState(product.subCollection?._id);
   const [price, setPrice] = useState(product.price);
   const [discount, setDiscount] = useState(product.discount);
