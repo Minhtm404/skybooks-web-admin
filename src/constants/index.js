@@ -196,8 +196,12 @@ export const ORDER_COLUMNS = [
     headerText: 'Price',
   },
   {
-    field: 'paid',
+    field: 'paymentStatus',
     headerText: 'Payment Status',
+  },
+  {
+    field: 'orderStatus',
+    headerText: 'Order Status',
   },
 ];
 

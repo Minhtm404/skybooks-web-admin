@@ -35,11 +35,31 @@ const getAllOrders = dispatch => async keyword => {
   }
 };
 
+const updateOrder =
+  dispatch =>
+  async ({ orderId, paymentStatus, orderStatus }) => {
+    try {
+      await apiHelper.patch(`/orders/${orderId}`, { paymentStatus, orderStatus });
+
+      const { data } = await apiHelper.get('/orders');
+
+      dispatch({ type: ACTIONS.SET_ORDERS, payload: data.data });
+
+      dispatch({ type: ACTIONS.SET_ORDERS, payload: data.data });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
+  };
+
 export const { Provider, Context } = contextFactory(
   OrderReducer,
   {
     setIsLoading,
     getAllOrders,
+    updateOrder,
   },
   {
     isLoading: false,

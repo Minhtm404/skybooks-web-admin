@@ -98,7 +98,8 @@ const Orders = () => {
                   {order.products.map(({ product }) => product.name).join(', ')}
                 </Table.Cell>
                 <Table.Cell>{order.price}</Table.Cell>
-                <Table.Cell>{order.paid ? 'Paid' : 'Unpaid'}</Table.Cell>
+                <Table.Cell>{order.paymentStatus ? 'Paid' : 'Unpaid'}</Table.Cell>
+                <Table.Cell className="capitalize">{order.orderStatus}</Table.Cell>
                 <Table.Cell>
                   <Button
                     size="sm"
@@ -106,7 +107,7 @@ const Orders = () => {
                     onClick={() => handleOpenUpdateModal(order)}
                   >
                     <BiEdit className="mr-2" />
-                    View
+                    Update
                   </Button>
                 </Table.Cell>
               </Table.Row>
@@ -123,7 +124,10 @@ const Orders = () => {
         >
           <Modal.Header />
           <Modal.Body>
-            <EditOrderForm order={currentOrder} />
+            <EditOrderForm
+              order={currentOrder}
+              closeModalAfterSubmit={() => setOpenUpdateOrderModal(false)}
+            />
           </Modal.Body>
         </Modal>
       </div>

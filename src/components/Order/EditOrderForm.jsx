@@ -1,9 +1,29 @@
-import React from 'react';
-import { Label, TextInput } from 'flowbite-react';
+import React, { useContext, useState } from 'react';
+import { Button, Label, Select, TextInput } from 'flowbite-react';
 
-const EditOrderForm = ({ order }) => {
+import { Context as StateContext } from '../../contexts/StateContext';
+import { Context as OrderContext } from '../../contexts/OrderContext';
+
+const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
+  const { currentColor } = useContext(StateContext);
+  const { updateOrder, isLoading, setIsLoading, error } = useContext(OrderContext);
+
+  const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus);
+  const [orderStatus, setOrderStatus] = useState(order.orderStatus);
+
+  const handleUpdate = async () => {
+    await updateOrder({ orderId: order._id, paymentStatus, orderStatus });
+  };
+
   return (
-    <form className="space-y-6">
+    <form
+      className="space-y-6"
+      onSubmit={e => {
+        e.preventDefault();
+        handleUpdate();
+        closeModalAfterSubmit();
+      }}
+    >
       <h3 className="text-xl font-medium text-gray-900 dark:text-white">View order</h3>
 
       <div>
@@ -43,26 +63,64 @@ const EditOrderForm = ({ order }) => {
         </div>
       ))}
 
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="price" value="Price" />
+        </div>
+        <TextInput id="price" name="price" type="number" value={order.price} readOnly />
+      </div>
+
       <div className="grid gap-4 mb-4 sm:grid-cols-2">
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="price" value="Price" />
+            <Label htmlFor="paymentStatus" value="Payment Status" />
           </div>
-          <TextInput id="price" name="price" type="number" value={order.price} readOnly />
+          <Select
+            id="paymentStatus"
+            name="paymentStatus"
+            onChange={e => {
+              setPaymentStatus(e.target.value);
+            }}
+            required
+          >
+            <option value={false} selected={paymentStatus === false}>
+              Unpaid
+            </option>
+            <option value={true} selected={paymentStatus === true}>
+              Paid
+            </option>
+          </Select>
         </div>
 
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="paid" value="Payment Status" />
+            <Label htmlFor="orderStatus" value="Order Status" />
           </div>
-          <TextInput
-            id="paid"
-            name="paid"
-            type="text"
-            value={order.paid ? 'Paid' : 'Unpaid'}
-            readOnly
-          />
+          <Select
+            id="orderStatus"
+            name="orderStatus"
+            onChange={e => {
+              setOrderStatus(e.target.value);
+            }}
+            required
+          >
+            <option value="new" selected={orderStatus === 'new'}>
+              New
+            </option>
+            <option value="delivery" selected={orderStatus === 'delivery'}>
+              Delivery
+            </option>
+            <option value="complete" selected={orderStatus === 'complete'}>
+              Complete
+            </option>
+          </Select>
         </div>
+      </div>
+
+      <div className="w-full">
+        <Button style={{ background: currentColor }} type="submit">
+          Edit order
+        </Button>
       </div>
     </form>
   );
