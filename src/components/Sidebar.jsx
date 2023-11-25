@@ -44,20 +44,26 @@ const Sidebar = () => {
           </div>
 
           <div className="mt-10">
-            {LINKS.map(link => (
-              <NavLink
-                to={`/${link.name !== 'dashboard' ? link.name : ''}`}
-                key={link.name}
-                onClick={handleCloseSideBar}
-                style={({ isActive }) => ({
-                  background: isActive ? currentColor : '',
-                })}
-                className={({ isActive }) => (isActive ? activeLink : normalLink)}
-              >
-                {link.icon}
-                <span className="capitalize">{link.name}</span>
-              </NavLink>
-            ))}
+            {LINKS.map(link => {
+              if (link.staff) {
+                return (
+                  <NavLink
+                    to={`/${link.name !== 'dashboard' ? link.name : ''}`}
+                    key={link.name}
+                    onClick={!link.staff ? handleCloseSideBar : () => {}}
+                    style={({ isActive }) => ({
+                      background: isActive ? currentColor : '',
+                    })}
+                    className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                  >
+                    {link.icon}
+                    <span className="capitalize">{link.name}</span>
+                  </NavLink>
+                );
+              }
+
+              return <></>;
+            })}
           </div>
         </>
       )}

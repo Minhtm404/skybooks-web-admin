@@ -37,30 +37,37 @@ export const LINKS = [
   {
     name: 'dashboard',
     icon: <FiShoppingBag />,
+    staff: false,
   },
   {
     name: 'employees',
     icon: <IoMdContacts />,
+    staff: false,
   },
   {
     name: 'collections',
     icon: <BiCategory />,
+    staff: true,
   },
   {
     name: 'products',
     icon: <GiBookshelf />,
+    staff: true,
   },
   {
     name: 'customers',
     icon: <RiContactsLine />,
+    staff: true,
   },
   {
     name: 'orders',
     icon: <AiOutlineShoppingCart />,
+    staff: true,
   },
   {
     name: 'posts',
     icon: <BsFilePost />,
+    staff: true,
   },
 ];
 

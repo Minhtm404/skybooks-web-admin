@@ -1,17 +1,26 @@
 import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Spinner } from 'flowbite-react';
 import { BsBoxSeam, BsCurrencyDollar } from 'react-icons/bs';
 import { FiBarChart } from 'react-icons/fi';
 import { MdOutlineSupervisorAccount } from 'react-icons/md';
 
 import { Context as StateContext } from '../contexts/StateContext';
+import { Context as AuthContext } from '../contexts/AuthContext';
+
 import { Context as StatsContext } from '../contexts/StatsContext';
 
 const Dashboard = () => {
   const { currentColor } = useContext(StateContext);
+  const { user } = useContext(AuthContext);
   const { stats, getStats, isLoading, setIsLoading } = useContext(StatsContext);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    if (user.role === 'staff') {
+      navigate('/collections');
+    }
     setIsLoading(true);
     getStats();
   }, []);
