@@ -67,7 +67,6 @@ const Products = () => {
   }
 
   if (collections && products) {
-    console.log(collections, products);
     return (
       <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl dark:bg-gray-800 dark:border-gray-700">
         {error ? (
@@ -129,6 +128,12 @@ const Products = () => {
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {product._id}
+                </Table.Cell>
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  <img
+                    src={`${product.imageCover}/-/scale_crop/300x300/-/format/auto/-/quality/smart_retina/`}
+                    alt=""
+                  />
                 </Table.Cell>
                 <Table.Cell>{product.name}</Table.Cell>
                 <Table.Cell>{product.mainCollection?.name}</Table.Cell>

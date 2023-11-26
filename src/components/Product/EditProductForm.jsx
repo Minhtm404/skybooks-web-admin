@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Datepicker, Dropdown, Label, Textarea, TextInput } from 'flowbite-react';
+import {
+  Button,
+  Datepicker,
+  Dropdown,
+  FileInput,
+  Label,
+  Textarea,
+  TextInput,
+} from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CollectionContext } from '../../contexts/CollectionContext';
@@ -23,6 +31,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
   const [publishDate, setPublishDate] = useState(product.publishDate);
   const [quantity, setQuantity] = useState(product.quantity);
   const [description, setDescription] = useState(product.description);
+  const [imageCover, setImageCover] = useState(undefined);
 
   useEffect(() => {
     getAllCollections();
@@ -44,6 +53,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
       publishDate,
       quantity,
       description,
+      imageCover,
     });
 
     closeModalAfterSubmit();
@@ -275,6 +285,19 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
           value={description}
           onChange={e => setDescription(e.target.value)}
           required
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="imageCover" value="Upload cover image" />
+        </div>
+        <FileInput
+          id="imageCover"
+          name="imageCover"
+          onChange={e => {
+            setImageCover(e.target.files[0]);
+          }}
         />
       </div>
 

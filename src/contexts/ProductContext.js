@@ -16,6 +16,70 @@ const productReducer = (state, action) => {
   }
 };
 
+const parseFormData = ({
+  name,
+  mainCollection,
+  subCollection,
+  price,
+  discount,
+  sku,
+  vendor,
+  author,
+  format,
+  dimensions,
+  publishDate,
+  quantity,
+  description,
+  imageCover,
+}) => {
+  const formData = new FormData();
+
+  if (name) {
+    formData.append('name', name);
+  }
+  if (mainCollection) {
+    formData.append('mainCollection', mainCollection);
+  }
+  if (subCollection) {
+    formData.append('subCollection', subCollection);
+  }
+  if (price) {
+    formData.append('price', price);
+  }
+  if (discount) {
+    formData.append('discount', discount);
+  }
+  if (sku) {
+    formData.append('sku', sku);
+  }
+  if (vendor) {
+    formData.append('vendor', vendor);
+  }
+  if (author) {
+    formData.append('author', author);
+  }
+  if (format) {
+    formData.append('format', format);
+  }
+  if (dimensions) {
+    formData.append('dimensions', dimensions);
+  }
+  if (publishDate) {
+    formData.append('publishDate', publishDate);
+  }
+  if (quantity) {
+    formData.append('quantity', quantity);
+  }
+  if (description) {
+    formData.append('description', description);
+  }
+  if (imageCover) {
+    formData.append('imageCover', imageCover);
+  }
+
+  return formData;
+};
+
 const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
@@ -51,23 +115,28 @@ const addProduct =
     publishDate,
     quantity,
     description,
+    imageCover,
   }) => {
     try {
-      await apiHelper.post('/products', {
-        name,
-        mainCollection,
-        subCollection,
-        price,
-        discount,
-        sku,
-        vendor,
-        author,
-        format,
-        dimensions,
-        publishDate,
-        quantity,
-        description,
-      });
+      await apiHelper.post(
+        '/products',
+        parseFormData({
+          name,
+          mainCollection,
+          subCollection,
+          price,
+          discount,
+          sku,
+          vendor,
+          author,
+          format,
+          dimensions,
+          publishDate,
+          quantity,
+          description,
+          imageCover,
+        }),
+      );
 
       const { data } = await apiHelper.get('/products');
 
@@ -97,23 +166,28 @@ const updateProduct =
     publishDate,
     quantity,
     description,
+    imageCover,
   }) => {
     try {
-      await apiHelper.patch(`/products/${id}`, {
-        name,
-        mainCollection,
-        subCollection,
-        price,
-        discount,
-        sku,
-        vendor,
-        author,
-        format,
-        dimensions,
-        publishDate,
-        quantity,
-        description,
-      });
+      await apiHelper.patch(
+        `/products/${id}`,
+        parseFormData({
+          name,
+          mainCollection,
+          subCollection,
+          price,
+          discount,
+          sku,
+          vendor,
+          author,
+          format,
+          dimensions,
+          publishDate,
+          quantity,
+          description,
+          imageCover,
+        }),
+      );
 
       const { data } = await apiHelper.get('/products');
 

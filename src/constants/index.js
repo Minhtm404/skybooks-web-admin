@@ -138,6 +138,10 @@ export const PRODUCT_COLUMNS = [
     headerText: 'ID',
   },
   {
+    field: 'imageCover',
+    headerText: 'Cover Image',
+  },
+  {
     field: 'name',
     headerText: 'Name',
   },
