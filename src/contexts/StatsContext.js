@@ -22,7 +22,9 @@ const setIsLoading = dispatch => async isLoading => {
 
 const getStats = dispatch => async range => {
   try {
-    const { data } = range ? await apiHelper.get(`/stats/${range}`) : await apiHelper.get('/stats');
+    const { data } = range
+      ? await apiHelper.get(`/stats?range=${range}`)
+      : await apiHelper.get('/stats');
 
     dispatch({ type: ACTIONS.SET_STATS, payload: data.data });
   } catch (err) {
