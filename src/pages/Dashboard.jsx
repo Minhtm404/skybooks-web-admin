@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Spinner } from 'flowbite-react';
 import { BsBoxSeam, BsCurrencyDollar } from 'react-icons/bs';
@@ -15,6 +15,8 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const { stats, getStats, isLoading, setIsLoading } = useContext(StatsContext);
 
+  const [range, setRange] = useState('All time');
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +26,26 @@ const Dashboard = () => {
     setIsLoading(true);
     getStats();
   }, []);
+
+  const handleClick = async key => {
+    if (key === 'today') {
+      setRange('Today');
+      setIsLoading(true);
+      getStats(key);
+    } else if (key === 'last-7-days') {
+      setRange('Last 7 days');
+      setIsLoading(true);
+      getStats(key);
+    } else if (key === 'last-month') {
+      setRange('Last month');
+      setIsLoading(true);
+      getStats(key);
+    } else {
+      setRange('All time');
+      setIsLoading(true);
+      getStats();
+    }
+  };
 
   if (isLoading) {
     return (
@@ -36,6 +58,27 @@ const Dashboard = () => {
   if (stats) {
     return (
       <div className="mt-24">
+        <div className="flex justify-between items-center mb-4 mx-28">
+          <p className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            {range}
+          </p>
+
+          <Button.Group>
+            <Button color="light" onClick={() => handleClick('today')}>
+              Today
+            </Button>
+            <Button color="light" onClick={() => handleClick('last-7-days')}>
+              Last 7 Days
+            </Button>
+            <Button color="light" onClick={() => handleClick('last-month')}>
+              Last Month
+            </Button>
+            <Button color="light" onClick={() => handleClick()}>
+              All Time
+            </Button>
+          </Button.Group>
+        </div>
+
         <div className="flex flex-wrap lg:flex-nowrap justify-center">
           <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3">
             <div className="flex justify-between items-center">

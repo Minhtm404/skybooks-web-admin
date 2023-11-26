@@ -20,9 +20,9 @@ const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getStats = dispatch => async () => {
+const getStats = dispatch => async range => {
   try {
-    const { data } = await apiHelper.get('/stats');
+    const { data } = range ? await apiHelper.get(`/stats/${range}`) : await apiHelper.get('/stats');
 
     dispatch({ type: ACTIONS.SET_STATS, payload: data.data });
   } catch (err) {
