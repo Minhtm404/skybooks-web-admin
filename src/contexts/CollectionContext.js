@@ -10,7 +10,12 @@ const collectionReducer = (state, action) => {
     case ACTIONS.SET_ERROR:
       return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_COLLECTIONS:
-      return { ...state, isLoading: false, collections: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        collections: action.payload.collections,
+        totalCollections: action.payload.totalCollections,
+      };
     default:
       return state;
   }
@@ -20,20 +25,25 @@ const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllCollections = dispatch => async keyword => {
-  try {
-    const { data } = keyword
-      ? await apiHelper.get(`/collections?keyword=${keyword}`)
-      : await apiHelper.get('/collections');
+const getAllCollections =
+  dispatch =>
+  async ({ keyword = '', page = 1, limit = 100 }) => {
+    try {
+      const { data } = await apiHelper.get(
+        `/collections?keyword=${keyword}&page=${page}&limit=${limit}`,
+      );
 
-    dispatch({ type: ACTIONS.SET_COLLECTIONS, payload: data.data });
-  } catch (err) {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: err.response ? err.response.data.message : err.message,
-    });
-  }
-};
+      dispatch({
+        type: ACTIONS.SET_COLLECTIONS,
+        payload: { collections: data.data, totalCollections: data.results },
+      });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
+  };
 
 const addCollection =
   dispatch =>
@@ -47,7 +57,10 @@ const addCollection =
 
       const { data } = await apiHelper.get('/collections');
 
-      dispatch({ type: ACTIONS.SET_COLLECTIONS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_COLLECTIONS,
+        payload: { collections: data.data, totalCollections: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -68,7 +81,10 @@ const updateCollection =
 
       const { data } = await apiHelper.get('/collections');
 
-      dispatch({ type: ACTIONS.SET_COLLECTIONS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_COLLECTIONS,
+        payload: { collections: data.data, totalCollections: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -85,7 +101,10 @@ const deleteCollection =
 
       const { data } = await apiHelper.get('/collections');
 
-      dispatch({ type: ACTIONS.SET_COLLECTIONS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_COLLECTIONS,
+        payload: { collections: data.data, totalCollections: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -107,5 +126,6 @@ export const { Provider, Context } = contextFactory(
     isLoading: false,
     error: undefined,
     collections: undefined,
+    totalCollections: undefined,
   },
 );

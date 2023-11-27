@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Modal, Label, TextInput, Spinner, Toast } from 'flowbite-react';
+import { Button, Table, Modal, Label, TextInput, Spinner, Toast, Pagination } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 import { HiExclamation, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -13,20 +13,28 @@ import { AddEmployeeForm, EditEmployeeForm, Header } from '../components';
 
 const Employees = () => {
   const { currentColor } = useContext(StateContext);
-  const { employees, getAllEmployees, deleteEmployee, isLoading, setIsLoading, error } =
-    useContext(EmployeeContext);
+  const {
+    employees,
+    totalEmployees,
+    getAllEmployees,
+    deleteEmployee,
+    isLoading,
+    setIsLoading,
+    error,
+  } = useContext(EmployeeContext);
 
   const [openAddEmployeeModal, setOpenAddEmployeeModal] = useState(false);
   const [openUpdateEmployeeModal, setOpenUpdateEmployeeModal] = useState(false);
   const [openDeleteEmployeeModal, setOpenDeleteEmployeeModal] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
   const [currentEmployee, setCurrentEmployee] = useState(undefined);
 
   useEffect(() => {
     setIsLoading(true);
-    getAllEmployees();
-  }, []);
+    getAllEmployees({ keyword, page: currentPage, limit: 5 });
+  }, [currentPage]);
 
   const handleOpenUpdateModal = employee => {
     setCurrentEmployee(employee);
@@ -82,7 +90,8 @@ const Employees = () => {
                     value={keyword}
                     onChange={e => {
                       setKeyword(e.target.value);
-                      getAllEmployees(e.target.value);
+                      setCurrentPage(1);
+                      getAllEmployees({ keyword: e.target.value, page: 1, limit: 5 });
                     }}
                   />
                 </div>
@@ -142,6 +151,15 @@ const Employees = () => {
             ))}
           </Table.Body>
         </Table>
+
+        <div className="flex justify-end">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(totalEmployees / 5)}
+            onPageChange={page => setCurrentPage(page)}
+            showIcons
+          />
+        </div>
 
         <Modal
           dismissible

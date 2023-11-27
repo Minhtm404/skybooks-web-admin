@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Modal, Label, TextInput, Spinner, Toast } from 'flowbite-react';
+import { Button, Table, Modal, Label, TextInput, Spinner, Toast, Pagination } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 import { HiExclamation, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -13,20 +13,28 @@ import { AddCollectionForm, EditCollectionForm, Header } from '../components';
 
 const Collections = () => {
   const { currentColor } = useContext(StateContext);
-  const { collections, getAllCollections, deleteCollection, isLoading, setIsLoading, error } =
-    useContext(CollectionContext);
+  const {
+    collections,
+    totalCollections,
+    getAllCollections,
+    deleteCollection,
+    isLoading,
+    setIsLoading,
+    error,
+  } = useContext(CollectionContext);
 
   const [openAddCollectionModal, setOpenAddCollectionModal] = useState(false);
   const [openUpdateCollectionModal, setOpenUpdateCollectionModal] = useState(false);
   const [openDeleteCollectionModal, setOpenDeleteCollectionModal] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
   const [currentCollection, setCurrentCollection] = useState(undefined);
 
   useEffect(() => {
     setIsLoading(true);
-    getAllCollections();
-  }, []);
+    getAllCollections({ keyword, page: currentPage, limit: 5 });
+  }, [currentPage]);
 
   const handleOpenUpdateModal = collection => {
     setCurrentCollection(collection);
@@ -82,7 +90,8 @@ const Collections = () => {
                     value={keyword}
                     onChange={e => {
                       setKeyword(e.target.value);
-                      getAllCollections(e.target.value);
+                      setCurrentPage(1);
+                      getAllCollections({ keyword: e.target.value, page: 1, limit: 5 });
                     }}
                   />
                 </div>
@@ -141,6 +150,15 @@ const Collections = () => {
             ))}
           </Table.Body>
         </Table>
+
+        <div className="flex justify-end">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(totalCollections / 5)}
+            onPageChange={page => setCurrentPage(page)}
+            showIcons
+          />
+        </div>
 
         <Modal
           dismissible

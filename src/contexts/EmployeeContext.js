@@ -10,7 +10,12 @@ const employeeReducer = (state, action) => {
     case ACTIONS.SET_ERROR:
       return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_EMPLOYEES:
-      return { ...state, isLoading: false, employees: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        employees: action.payload.employees,
+        totalEmployees: action.payload.totalEmployees,
+      };
     default:
       return state;
   }
@@ -20,20 +25,25 @@ const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllEmployees = dispatch => async keyword => {
-  try {
-    const { data } = keyword
-      ? await apiHelper.get(`/admins?keyword=${keyword}`)
-      : await apiHelper.get('/admins');
+const getAllEmployees =
+  dispatch =>
+  async ({ keyword = '', page = 1, limit = 100 }) => {
+    try {
+      const { data } = await apiHelper.get(
+        `/admins?keyword=${keyword}&page=${page}&limit=${limit}`,
+      );
 
-    dispatch({ type: ACTIONS.SET_EMPLOYEES, payload: data.data });
-  } catch (err) {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: err.response ? err.response.data.message : err.message,
-    });
-  }
-};
+      dispatch({
+        type: ACTIONS.SET_EMPLOYEES,
+        payload: { employees: data.data, totalEmployees: data.results },
+      });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
+  };
 
 const addEmployee =
   dispatch =>
@@ -50,7 +60,10 @@ const addEmployee =
 
       const { data } = await apiHelper.get('/admins');
 
-      dispatch({ type: ACTIONS.SET_EMPLOYEES, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_EMPLOYEES,
+        payload: { employees: data.data, totalEmployees: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -72,7 +85,10 @@ const updateEmployee =
 
       const { data } = await apiHelper.get('/admins');
 
-      dispatch({ type: ACTIONS.SET_EMPLOYEES, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_EMPLOYEES,
+        payload: { employees: data.data, totalEmployees: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -89,7 +105,10 @@ const deleteEmployee =
 
       const { data } = await apiHelper.get('/admins');
 
-      dispatch({ type: ACTIONS.SET_EMPLOYEES, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_EMPLOYEES,
+        payload: { employees: data.data, totalEmployees: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -111,5 +130,6 @@ export const { Provider, Context } = contextFactory(
     isLoading: false,
     error: undefined,
     employees: undefined,
+    totalEmployees: undefined,
   },
 );

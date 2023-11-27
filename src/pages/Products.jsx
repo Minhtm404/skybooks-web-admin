@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Modal, Label, TextInput, Spinner, Toast } from 'flowbite-react';
+import { Button, Table, Modal, Label, TextInput, Spinner, Toast, Pagination } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 import { HiExclamation, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -22,6 +22,7 @@ const Products = () => {
   } = useContext(CollectionContext);
   const {
     products,
+    totalProducts,
     getAllProducts,
     deleteProduct,
     isLoading: isLoadingProduct,
@@ -33,15 +34,16 @@ const Products = () => {
   const [openUpdateProductModal, setOpenUpdateProductModal] = useState(false);
   const [openDeleteProductModal, setOpenDeleteProductModal] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
   const [currentProduct, setCurrentProduct] = useState(undefined);
 
   useEffect(() => {
     setIsLoadingCollection(true);
-    getAllCollections();
+    getAllCollections({});
     setIsLoadingProduct(true);
-    getAllProducts();
-  }, []);
+    getAllProducts({ keyword, page: currentPage, limit: 5 });
+  }, [currentPage]);
 
   const handleOpenUpdateModal = product => {
     setCurrentProduct(product);
@@ -97,7 +99,8 @@ const Products = () => {
                     value={keyword}
                     onChange={e => {
                       setKeyword(e.target.value);
-                      getAllProducts(e.target.value);
+                      setCurrentPage(1);
+                      getAllProducts({ keyword: e.target.value, page: 1, limit: 5 });
                     }}
                   />
                 </div>
@@ -163,6 +166,15 @@ const Products = () => {
             ))}
           </Table.Body>
         </Table>
+
+        <div className="flex justify-end">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(totalProducts / 5)}
+            onPageChange={page => setCurrentPage(page)}
+            showIcons
+          />
+        </div>
 
         <Modal
           dismissible

@@ -10,7 +10,12 @@ const productReducer = (state, action) => {
     case ACTIONS.SET_ERROR:
       return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_PRODUCTS:
-      return { ...state, isLoading: false, products: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        products: action.payload.products,
+        totalProducts: action.payload.totalProducts,
+      };
     default:
       return state;
   }
@@ -84,20 +89,25 @@ const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllProducts = dispatch => async keyword => {
-  try {
-    const { data } = keyword
-      ? await apiHelper.get(`/products?keyword=${keyword}`)
-      : await apiHelper.get('/products');
+const getAllProducts =
+  dispatch =>
+  async ({ keyword = '', page = 1, limit = 100 }) => {
+    try {
+      const { data } = await apiHelper.get(
+        `/products?keyword=${keyword}&page=${page}&limit=${limit}`,
+      );
 
-    dispatch({ type: ACTIONS.SET_PRODUCTS, payload: data.data });
-  } catch (err) {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: err.response ? err.response.data.message : err.message,
-    });
-  }
-};
+      dispatch({
+        type: ACTIONS.SET_PRODUCTS,
+        payload: { products: data.data, totalProducts: data.results },
+      });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
+  };
 
 const addProduct =
   dispatch =>
@@ -140,7 +150,10 @@ const addProduct =
 
       const { data } = await apiHelper.get('/products');
 
-      dispatch({ type: ACTIONS.SET_PRODUCTS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_PRODUCTS,
+        payload: { products: data.data, totalProducts: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -191,7 +204,10 @@ const updateProduct =
 
       const { data } = await apiHelper.get('/products');
 
-      dispatch({ type: ACTIONS.SET_PRODUCTS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_PRODUCTS,
+        payload: { products: data.data, totalProducts: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -208,7 +224,10 @@ const deleteProduct =
 
       const { data } = await apiHelper.get('/products');
 
-      dispatch({ type: ACTIONS.SET_PRODUCTS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_PRODUCTS,
+        payload: { products: data.data, totalProducts: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -230,5 +249,6 @@ export const { Provider, Context } = contextFactory(
     isLoading: false,
     error: undefined,
     products: undefined,
+    totalProducts: undefined,
   },
 );

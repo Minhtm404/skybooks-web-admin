@@ -10,7 +10,12 @@ const postReducer = (state, action) => {
     case ACTIONS.SET_ERROR:
       return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_POSTS:
-      return { ...state, isLoading: false, posts: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        posts: action.payload.posts,
+        totalPosts: action.payload.totalPosts,
+      };
     default:
       return state;
   }
@@ -20,20 +25,26 @@ const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllPosts = dispatch => async keyword => {
-  try {
-    const { data } = keyword
-      ? await apiHelper.get(`/posts?keyword=${keyword}`)
-      : await apiHelper.get('/posts');
+const getAllPosts =
+  dispatch =>
+  async ({ keyword = '', page = 1, limit = 100 }) => {
+    try {
+      const { data } = await apiHelper.get(`/posts?keyword=${keyword}&page=${page}&limit=${limit}`);
 
-    dispatch({ type: ACTIONS.SET_POSTS, payload: data.data });
-  } catch (err) {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: err.response ? err.response.data.message : err.message,
-    });
-  }
-};
+      dispatch({
+        type: ACTIONS.SET_POSTS,
+        payload: {
+          posts: data.data,
+          totalPosts: data.results,
+        },
+      });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
+  };
 
 const addPost =
   dispatch =>
@@ -46,7 +57,13 @@ const addPost =
 
       const { data } = await apiHelper.get('/posts');
 
-      dispatch({ type: ACTIONS.SET_POSTS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_POSTS,
+        payload: {
+          posts: data.data,
+          totalPosts: data.results,
+        },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -66,7 +83,13 @@ const updatePost =
 
       const { data } = await apiHelper.get('/posts');
 
-      dispatch({ type: ACTIONS.SET_POSTS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_POSTS,
+        payload: {
+          posts: data.data,
+          totalPosts: data.results,
+        },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -83,7 +106,13 @@ const deletePost =
 
       const { data } = await apiHelper.get('/posts');
 
-      dispatch({ type: ACTIONS.SET_POSTS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_POSTS,
+        payload: {
+          posts: data.data,
+          totalPosts: data.results,
+        },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -105,5 +134,6 @@ export const { Provider, Context } = contextFactory(
     isLoading: false,
     error: undefined,
     posts: undefined,
+    totalPosts: undefined,
   },
 );

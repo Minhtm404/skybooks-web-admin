@@ -10,7 +10,12 @@ const CustomerReducer = (state, action) => {
     case ACTIONS.SET_ERROR:
       return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_CUSTOMERS:
-      return { ...state, isLoading: false, customers: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        customers: action.payload.customers,
+        totalCustomers: action.payload.totalCustomers,
+      };
     default:
       return state;
   }
@@ -20,20 +25,23 @@ const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
 
-const getAllCustomers = dispatch => async keyword => {
-  try {
-    const { data } = keyword
-      ? await apiHelper.get(`/users?keyword=${keyword}`)
-      : await apiHelper.get('/users');
+const getAllCustomers =
+  dispatch =>
+  async ({ keyword = '', page = 1, limit = 100 }) => {
+    try {
+      const { data } = await apiHelper.get(`/users?keyword=${keyword}&page=${page}&limit=${limit}`);
 
-    dispatch({ type: ACTIONS.SET_CUSTOMERS, payload: data.data });
-  } catch (err) {
-    dispatch({
-      type: ACTIONS.SET_ERROR,
-      payload: err.response ? err.response.data.message : err.message,
-    });
-  }
-};
+      dispatch({
+        type: ACTIONS.SET_CUSTOMERS,
+        payload: { customers: data.data, totalCustomers: data.results },
+      });
+    } catch (err) {
+      dispatch({
+        type: ACTIONS.SET_ERROR,
+        payload: err.response ? err.response.data.message : err.message,
+      });
+    }
+  };
 
 const updateCustomer =
   dispatch =>
@@ -50,7 +58,10 @@ const updateCustomer =
 
       const { data } = await apiHelper.get('/users');
 
-      dispatch({ type: ACTIONS.SET_CUSTOMERS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_CUSTOMERS,
+        payload: { customers: data.data, totalCustomers: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -67,7 +78,10 @@ const deleteCustomer =
 
       const { data } = await apiHelper.get('/users');
 
-      dispatch({ type: ACTIONS.SET_CUSTOMERS, payload: data.data });
+      dispatch({
+        type: ACTIONS.SET_CUSTOMERS,
+        payload: { customers: data.data, totalCustomers: data.results },
+      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
@@ -88,5 +102,6 @@ export const { Provider, Context } = contextFactory(
     isLoading: false,
     error: undefined,
     customers: undefined,
+    totalCustomers: undefined,
   },
 );

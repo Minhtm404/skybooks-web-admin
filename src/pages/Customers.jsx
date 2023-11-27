@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Modal, Label, TextInput, Spinner, Toast } from 'flowbite-react';
+import { Button, Table, Modal, Label, TextInput, Spinner, Toast, Pagination } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 import { HiExclamation, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -13,19 +13,27 @@ import { EditCustomerForm, Header } from '../components';
 
 const Customers = () => {
   const { currentColor } = useContext(StateContext);
-  const { customers, getAllCustomers, deleteCustomer, isLoading, setIsLoading, error } =
-    useContext(CustomerContext);
+  const {
+    customers,
+    totalCustomers,
+    getAllCustomers,
+    deleteCustomer,
+    isLoading,
+    setIsLoading,
+    error,
+  } = useContext(CustomerContext);
 
   const [openUpdateCustomerModal, setOpenUpdateCustomerModal] = useState(false);
   const [openDeleteCustomerModal, setOpenDeleteCustomerModal] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
   const [currentCustomer, setCurrentCustomer] = useState({});
 
   useEffect(() => {
     setIsLoading(true);
-    getAllCustomers();
-  }, []);
+    getAllCustomers({ keyword, page: currentPage, limit: 5 });
+  }, [currentPage]);
 
   const handleOpenUpdateModal = customer => {
     setCurrentCustomer(customer);
@@ -81,7 +89,8 @@ const Customers = () => {
                     value={keyword}
                     onChange={e => {
                       setKeyword(e.target.value);
-                      getAllCustomers(e.target.value);
+                      setCurrentPage(1);
+                      getAllCustomers({ keyword: e.target.value, page: 1, limit: 5 });
                     }}
                   />
                 </div>
@@ -134,6 +143,15 @@ const Customers = () => {
             ))}
           </Table.Body>
         </Table>
+
+        <div className="flex justify-end">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(totalCustomers / 5)}
+            onPageChange={page => setCurrentPage(page)}
+            showIcons
+          />
+        </div>
 
         <Modal
           dismissible

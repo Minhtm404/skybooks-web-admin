@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Modal, Label, TextInput, Spinner, Toast } from 'flowbite-react';
+import { Button, Table, Modal, Label, TextInput, Spinner, Toast, Pagination } from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 import { HiExclamation, HiOutlineExclamationCircle } from 'react-icons/hi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -13,20 +13,21 @@ import { AddPostForm, EditPostForm, Header } from '../components';
 
 const Posts = () => {
   const { currentColor } = useContext(StateContext);
-  const { posts, getAllPosts, deletePost, isLoading, setIsLoading, error } =
+  const { posts, totalPosts, getAllPosts, deletePost, isLoading, setIsLoading, error } =
     useContext(PostContext);
 
   const [openAddPostModal, setOpenAddPostModal] = useState(false);
   const [openUpdatePostModal, setOpenUpdatePostModal] = useState(false);
   const [openDeletePostModal, setOpenDeletePostModal] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
   const [currentPost, setCurrentPost] = useState(undefined);
 
   useEffect(() => {
     setIsLoading(true);
-    getAllPosts();
-  }, []);
+    getAllPosts({ keyword, page: currentPage, limit: 5 });
+  }, [currentPage]);
 
   const handleOpenUpdateModal = post => {
     setCurrentPost(post);
@@ -82,7 +83,8 @@ const Posts = () => {
                     value={keyword}
                     onChange={e => {
                       setKeyword(e.target.value);
-                      getAllPosts(e.target.value);
+                      setCurrentPage(1);
+                      getAllPosts({ keyword: e.target.value, page: 1, limit: 5 });
                     }}
                   />
                 </div>
@@ -140,6 +142,15 @@ const Posts = () => {
             ))}
           </Table.Body>
         </Table>
+
+        <div className="flex justify-end">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(totalPosts / 5)}
+            onPageChange={page => setCurrentPage(page)}
+            showIcons
+          />
+        </div>
 
         <Modal
           dismissible

@@ -1,5 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Table, Modal, Label, TextInput, Spinner, Toast } from 'flowbite-react';
+import {
+  Button,
+  Table,
+  Modal,
+  Label,
+  TextInput,
+  Spinner,
+  Toast,
+  Badge,
+  Pagination,
+} from 'flowbite-react';
 import { BiEdit } from 'react-icons/bi';
 
 import { Context as StateContext } from '../contexts/StateContext';
@@ -12,17 +22,19 @@ import { HiExclamation } from 'react-icons/hi';
 
 const Orders = () => {
   const { currentColor } = useContext(StateContext);
-  const { orders, getAllOrders, isLoading, setIsLoading, error } = useContext(OrderContext);
+  const { orders, totalOrders, getAllOrders, isLoading, setIsLoading, error } =
+    useContext(OrderContext);
 
   const [openUpdateOrderModal, setOpenUpdateOrderModal] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
   const [currentOrder, setCurrentOrder] = useState(undefined);
 
   useEffect(() => {
     setIsLoading(true);
-    getAllOrders();
-  }, []);
+    getAllOrders({ keyword, page: currentPage, limit: 5 });
+  }, [currentPage]);
 
   const handleOpenUpdateModal = order => {
     setCurrentOrder(order);
@@ -68,7 +80,8 @@ const Orders = () => {
                     value={keyword}
                     onChange={e => {
                       setKeyword(e.target.value);
-                      getAllOrders(e.target.value);
+                      setCurrentPage(1);
+                      getAllOrders({ keyword: e.target.value, page: 1, limit: 5 });
                     }}
                   />
                 </div>
@@ -98,8 +111,25 @@ const Orders = () => {
                   {order.products.map(({ product }) => product.name).join(', ')}
                 </Table.Cell>
                 <Table.Cell>{order.price}</Table.Cell>
-                <Table.Cell>{order.paymentStatus ? 'Paid' : 'Unpaid'}</Table.Cell>
-                <Table.Cell className="capitalize">{order.orderStatus}</Table.Cell>
+                <Table.Cell>
+                  <Badge color={order.paymentStatus ? 'success' : 'failure'} className="w-fit">
+                    {order.paymentStatus ? 'Paid' : 'Unpaid'}
+                  </Badge>
+                </Table.Cell>
+                <Table.Cell className="capitalize">
+                  <Badge
+                    color={
+                      order.orderStatus === 'new'
+                        ? 'info'
+                        : order.orderStatus === 'delivery'
+                        ? 'indigo'
+                        : 'success'
+                    }
+                    className="w-fit"
+                  >
+                    {order.orderStatus}
+                  </Badge>
+                </Table.Cell>
                 <Table.Cell>
                   <Button
                     size="sm"
@@ -114,6 +144,15 @@ const Orders = () => {
             ))}
           </Table.Body>
         </Table>
+
+        <div className="flex justify-end">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(totalOrders / 5)}
+            onPageChange={page => setCurrentPage(page)}
+            showIcons
+          />
+        </div>
 
         <Modal
           dismissible
