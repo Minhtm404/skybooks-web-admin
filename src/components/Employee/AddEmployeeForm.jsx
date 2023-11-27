@@ -12,20 +12,23 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [passwordConfirm, setPasswordConfirm] = useState(undefined);
+  const [comparePassword, setComparePassword] = useState(true);
   const [role, setRole] = useState('staff');
   const [active, setActive] = useState(true);
 
   const handleCreate = async () => {
-    await addEmployee({
-      name,
-      email,
-      password,
-      passwordConfirm,
-      role,
-      active,
-    });
+    if (comparePassword) {
+      await addEmployee({
+        name,
+        email,
+        password,
+        passwordConfirm,
+        role,
+        active,
+      });
 
-    closeModalAfterSubmit();
+      closeModalAfterSubmit();
+    }
   };
 
   return (
@@ -95,7 +98,15 @@ const AddEmployeeForm = ({ closeModalAfterSubmit }) => {
           type="password"
           value={passwordConfirm}
           minLength="8"
-          onChange={e => setPasswordConfirm(e.target.value)}
+          onChange={e => {
+            setPasswordConfirm(e.target.value);
+            setComparePassword(e.target.value === password);
+          }}
+          helperText={
+            comparePassword ? undefined : (
+              <span className="text-red-600">Your password and confirm password must match.</span>
+            )
+          }
           required
         />
       </div>

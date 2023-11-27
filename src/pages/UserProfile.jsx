@@ -144,6 +144,7 @@ const UserProfile = () => {
                   type="password"
                   placeholder="Enter your confirm password"
                   className="md:w-1/2 sm:w-full"
+                  value={passwordConfirm}
                   onChange={e => {
                     setPasswordConfirm(e.target.value);
                     setComparePassword(e.target.value === password);
