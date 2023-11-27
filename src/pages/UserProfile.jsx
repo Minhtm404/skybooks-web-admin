@@ -15,20 +15,23 @@ const UserProfile = () => {
   const [passwordCurrent, setPasswordCurrent] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [passwordConfirm, setPasswordConfirm] = useState(undefined);
+  const [comparePassword, setComparePassword] = useState(true);
 
-  const handleUpdateData = async () => {
+  const handleUpdateData = async e => {
+    e.preventDefault();
     setIsLoading(true);
     await updateMe({ name, email });
-    setName(user.name);
-    setEmail(user.email);
   };
 
-  const handleUpdatePassword = async () => {
-    setIsLoading(true);
-    await updatePassword({ passwordCurrent, password, passwordConfirm });
-    setPasswordCurrent(undefined);
-    setPassword(undefined);
-    setPasswordConfirm(undefined);
+  const handleUpdatePassword = async e => {
+    e.preventDefault();
+    if (comparePassword) {
+      setIsLoading(true);
+      await updatePassword({ passwordCurrent, password, passwordConfirm });
+      setPasswordCurrent(undefined);
+      setPassword(undefined);
+      setPasswordConfirm(undefined);
+    }
   };
 
   if (isLoading) {
@@ -141,8 +144,17 @@ const UserProfile = () => {
                   type="password"
                   placeholder="Enter your confirm password"
                   className="md:w-1/2 sm:w-full"
-                  value={passwordConfirm}
-                  onChange={e => setPasswordConfirm(e.target.value)}
+                  onChange={e => {
+                    setPasswordConfirm(e.target.value);
+                    setComparePassword(e.target.value === password);
+                  }}
+                  helperText={
+                    comparePassword ? undefined : (
+                      <span className="text-red-600">
+                        Your password and confirm password must match.
+                      </span>
+                    )
+                  }
                   required
                 />
               </div>
