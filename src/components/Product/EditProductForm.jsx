@@ -34,7 +34,7 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
   const [imageCover, setImageCover] = useState(undefined);
 
   useEffect(() => {
-    getAllCollections();
+    getAllCollections({});
   }, []);
 
   const handleUpdate = async () => {

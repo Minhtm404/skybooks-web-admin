@@ -13,7 +13,7 @@ const AddCollectionForm = ({ closeModalAfterSubmit }) => {
   const [parentCollection, setParentCollection] = useState(undefined);
 
   useEffect(() => {
-    getAllCollections();
+    getAllCollections({});
   }, []);
 
   const handleCreate = async () => {

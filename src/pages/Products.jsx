@@ -141,7 +141,7 @@ const Products = () => {
                 <Table.Cell>{product.name}</Table.Cell>
                 <Table.Cell>{product.mainCollection?.name}</Table.Cell>
                 <Table.Cell>{product.sku}</Table.Cell>
-                <Table.Cell>{product.price}</Table.Cell>
+                <Table.Cell>{product.price.toLocaleString().concat('₫')}</Table.Cell>
                 <Table.Cell>
                   <Button.Group>
                     <Button

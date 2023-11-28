@@ -13,7 +13,7 @@ const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
   const [parentCollection, setParentCollection] = useState(collection.parentCollection);
 
   useEffect(() => {
-    getAllCollections();
+    getAllCollections({});
   }, []);
 
   const handleUpdate = async () => {

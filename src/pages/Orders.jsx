@@ -110,7 +110,7 @@ const Orders = () => {
                 <Table.Cell>
                   {order.products.map(({ product }) => product.name).join(', ')}
                 </Table.Cell>
-                <Table.Cell>{order.price}</Table.Cell>
+                <Table.Cell>{order.price.toLocaleString().concat('₫')}</Table.Cell>
                 <Table.Cell>
                   <Badge color={order.paymentStatus ? 'success' : 'failure'} className="w-fit">
                     {order.paymentStatus ? 'Paid' : 'Unpaid'}

@@ -34,7 +34,7 @@ const AddProductForm = ({ closeModalAfterSubmit }) => {
   const [imageCover, setImageCover] = useState(undefined);
 
   useEffect(() => {
-    getAllCollections();
+    getAllCollections({});
   }, []);
 
   const handleCreate = async () => {
