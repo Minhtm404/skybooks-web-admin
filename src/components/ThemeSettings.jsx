@@ -26,7 +26,7 @@ const ThemeSettings = () => {
           </button>
         </div>
         <div className="flex-col border-t-1 border-color p-4 ml-4">
-          <p className="font-semibold text-xl ">Theme Option</p>
+          <p className="font-semibold text-xl">Theme Option</p>
 
           <div className="mt-4">
             <input
