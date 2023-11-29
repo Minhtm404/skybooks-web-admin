@@ -59,7 +59,7 @@ const Dashboard = () => {
 
   if (stats) {
     return (
-      <div className="mt-24">
+      <div className="my-24">
         <div className="flex justify-between items-center mb-4 mx-28">
           <p className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             {range}
@@ -235,6 +235,62 @@ const Dashboard = () => {
                 legendVisiblity={false}
                 height="160px"
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-10 m-4 flex-wrap justify-center">
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl">
+            <div className="flex justify-between items-center gap-2">
+              <p className="text-xl font-semibold">Top Performers</p>
+            </div>
+
+            <div className="mt-10 w-72 md:w-400">
+              {stats.topPerformers.map(item => (
+                <div key={item.productName} className="flex justify-between mt-4">
+                  <div className="flex items-start gap-4">
+                    <div className="text-2xl rounded-lg hover:drop-shadow-xl">
+                      <img
+                        src={`${item.productImage}/-/scale_crop/300x300/-/format/auto/-/quality/smart_retina/`}
+                        alt=""
+                        className="w-10 h-10"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-md font-semibold">{item.productName}</p>
+                      <p className="text-sm text-gray-400">{item.productCollectionName}</p>
+                    </div>
+                  </div>
+                  <p className="text-green-600">{item.totalSold}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg p-6 rounded-2xl">
+            <div className="flex justify-between items-center gap-2">
+              <p className="text-xl font-semibold">Low Performers</p>
+            </div>
+
+            <div className="mt-10 w-72 md:w-400">
+              {stats.lowPerformers.map(item => (
+                <div key={item.productName} className="flex justify-between mt-4">
+                  <div className="flex items-start gap-4">
+                    <div className="text-2xl rounded-lg hover:drop-shadow-xl">
+                      <img
+                        src={`${item.productImage}/-/scale_crop/300x300/-/format/auto/-/quality/smart_retina/`}
+                        alt=""
+                        className="w-10 h-10"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-md font-semibold">{item.name}</p>
+                      <p className="text-sm text-gray-400">{item.productCollectionName}</p>
+                    </div>
+                  </div>
+                  <p className="text-red-600">{item.totalSold}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
