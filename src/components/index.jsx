@@ -23,3 +23,6 @@ export { default as EditOrderForm } from './Order/EditOrderForm';
 
 export { default as AddPostForm } from './Post/AddPostForm';
 export { default as EditPostForm } from './Post/EditPostForm';
+
+export { default as SparkLine } from './Charts/SparkLine';
+export { default as Pie } from './Charts/Pie';

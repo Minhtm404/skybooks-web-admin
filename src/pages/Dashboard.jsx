@@ -10,6 +10,8 @@ import { Context as AuthContext } from '../contexts/AuthContext';
 
 import { Context as StatsContext } from '../contexts/StatsContext';
 
+import { Pie, SparkLine } from '../components';
+
 const Dashboard = () => {
   const { currentColor } = useContext(StateContext);
   const { user } = useContext(AuthContext);
@@ -148,6 +150,91 @@ const Dashboard = () => {
                 <span className="text-lg font-semibold">{stats.totalOrder.toLocaleString()}</span>
               </p>
               <p className="text-sm text-gray-400 mt-1">Orders</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-10 flex-wrap justify-center">
+          <div className=" rounded-2xl md:w-400 p-4 m-3" style={{ backgroundColor: currentColor }}>
+            <div className="flex justify-between items-center ">
+              <p className="font-semibold text-white text-2xl">Earnings</p>
+
+              <div>
+                <p className="text-2xl text-white font-semibold mt-8">
+                  {Math.round(
+                    stats.orderStats.reduce((sum, month) => sum + month.totalAmount, 0) / 6,
+                  )
+                    .toLocaleString()
+                    .concat('₫')}
+                </p>
+                <p className="text-gray-200">Monthly revenue</p>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <SparkLine
+                currentColor={currentColor}
+                id="column-sparkLine"
+                height="100px"
+                type="Column"
+                data={[
+                  {
+                    x: 0,
+                    xval: '2023-06',
+                  },
+                  {
+                    x: 1,
+                    xval: '2023-07',
+                  },
+                  {
+                    x: 2,
+                    xval: '2023-08',
+                  },
+                  {
+                    x: 3,
+                    xval: '2023-09',
+                  },
+                  {
+                    x: 4,
+                    xval: '2023-10',
+                  },
+                  {
+                    x: 5,
+                    xval: '2023-11',
+                  },
+                ].map(item => {
+                  item.yval = stats.orderStats.find(m => m.month === item.xval)?.totalAmount ?? 0;
+
+                  return item;
+                })}
+                width="320"
+                color="#f2fcfd"
+              />
+            </div>
+          </div>
+
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-2xl md:w-400 p-8 m-3 flex justify-center items-center gap-10">
+            <div>
+              <p className="text-2xl font-semibold">
+                {stats.collectionStats.reduce((count, c) => count + c.count, 0)}
+              </p>
+              <p className="text-gray-400">Products sold</p>
+            </div>
+
+            <div className="w-40">
+              <Pie
+                id="pie-chart"
+                data={[{ x: 'Books' }, { x: 'Posters' }, { x: 'Souvenirs' }].map(item => {
+                  item.y = stats.collectionStats.find(c => c.collectionName === item.x)?.count ?? 0;
+                  item.text = `${
+                    (item.y / stats.collectionStats.reduce((count, c) => count + c.count, 0)) * 100
+                  }%`;
+
+                  return item;
+                })}
+                legendVisiblity={false}
+                height="160px"
+              />
             </div>
           </div>
         </div>
