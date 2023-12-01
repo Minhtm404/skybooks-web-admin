@@ -16,65 +16,31 @@ const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
   };
 
   const printContent = (
-    <div>
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white">Update order</h3>
+    <div className="w-full flex flex-col gap-4">
+      <h3 className="text-xl font-medium text-gray-900 dark:text-white">Order #{order._id}</h3>
 
-      {/* Print Customer */}
-      <div>
-        <Label htmlFor="userName" value="Customer" />
-        <TextInput id="userName" name="userName" type="text" value={order.user.name} readOnly />
+      <div>Customer: {order.user.name}</div>
+
+      <div className="flex flex-col gap-2">
+        <div>Products:</div>
+        {order.products.map(item => (
+          <div key={item.id} className="flex justify-between">
+            <div>{item.product.name}</div>
+            <div>{item.quantity}</div>
+          </div>
+        ))}
       </div>
 
-      {/* Print Products */}
-      {order.products.map(item => (
-        <div key={item.id}>
-          <Label htmlFor="productName" value="Product" />
-          <TextInput
-            id="productName"
-            name="productName"
-            type="text"
-            value={item.product.name}
-            readOnly
-          />
-
-          <Label htmlFor="productQuantity" value="Quantity" />
-          <TextInput
-            id="productQuantity"
-            name="productQuantity"
-            type="number"
-            value={item.quantity}
-            readOnly
-          />
-        </div>
-      ))}
-
-      {/* Print Price */}
-      <div>
-        <Label htmlFor="price" value="Price" />
-        <TextInput id="price" name="price" type="number" value={order.price} readOnly />
-      </div>
-
-      {/* Print Payment and Order Status */}
-      <div>
-        <Label htmlFor="paymentStatus" value="Payment Status" />
-        <Select id="paymentStatus" name="paymentStatus" value={paymentStatus} disabled>
-          <option value={false}>Unpaid</option>
-          <option value={true}>Paid</option>
-        </Select>
-
-        <Label htmlFor="orderStatus" value="Order Status" />
-        <Select id="orderStatus" name="orderStatus" value={orderStatus} disabled>
-          <option value="new">New</option>
-          <option value="delivery">Delivery</option>
-          <option value="complete">Complete</option>
-        </Select>
+      <div className="flex justify-between">
+        <div>Total</div>
+        <div>{order.price.toLocaleString().concat('₫')}</div>
       </div>
     </div>
   );
 
   return (
     <div>
-      <div className="hidden print:block">{printContent}</div>
+      <div className="hidden print:flex">{printContent}</div>
 
       <form
         className="space-y-6 print:hidden"
@@ -181,7 +147,7 @@ const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
           <Button style={{ background: currentColor }} type="submit">
             Edit order
           </Button>
-          <Button style={{ background: currentColor }} onClick={() => window.print()}>
+          <Button color="light" onClick={() => window.print()}>
             Print
           </Button>
         </div>

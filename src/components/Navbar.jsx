@@ -55,7 +55,7 @@ const Navbar = () => {
   }, [screenSize]);
 
   return (
-    <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative">
+    <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative print:hidden">
       <NavButton
         title="Menu"
         customFunc={() => {
