@@ -116,6 +116,12 @@ const Posts = () => {
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {post._id}
                 </Table.Cell>
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  <img
+                    src={`${post.imageCover}/-/scale_crop/300x300/-/format/auto/-/quality/smart_retina/`}
+                    alt=""
+                  />
+                </Table.Cell>
                 <Table.Cell>{post.title}</Table.Cell>
                 <Table.Cell>{post.user.name}</Table.Cell>
                 <Table.Cell>

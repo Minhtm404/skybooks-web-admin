@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Label, TextInput, Textarea } from 'flowbite-react';
+import { Button, FileInput, Label, TextInput, Textarea } from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as PostContext } from '../../contexts/PostContext';
@@ -10,12 +10,14 @@ const EditPostForm = ({ post, closeModalAfterSubmit }) => {
 
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
+  const [imageCover, setImageCover] = useState(undefined);
 
   const handleUpdate = async () => {
     await updatePost({
       _id: post._id,
       title,
       content,
+      imageCover,
     });
 
     closeModalAfterSubmit();
@@ -58,6 +60,19 @@ const EditPostForm = ({ post, closeModalAfterSubmit }) => {
           value={content}
           onChange={e => setContent(e.target.value)}
           required
+        />
+      </div>
+
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="imageCover" value="Upload cover image" />
+        </div>
+        <FileInput
+          id="imageCover"
+          name="imageCover"
+          onChange={e => {
+            setImageCover(e.target.files[0]);
+          }}
         />
       </div>
 

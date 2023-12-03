@@ -215,6 +215,10 @@ export const POST_COLUMNS = [
     headerText: 'ID',
   },
   {
+    field: 'imageCover',
+    headerText: 'Cover Image',
+  },
+  {
     field: 'title',
     headerText: 'Title',
   },

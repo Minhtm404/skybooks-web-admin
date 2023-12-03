@@ -21,6 +21,22 @@ const postReducer = (state, action) => {
   }
 };
 
+const parseFormData = ({ title, content, imageCover }) => {
+  const formData = new FormData();
+
+  if (title) {
+    formData.append('title', title);
+  }
+  if (content) {
+    formData.append('content', content);
+  }
+  if (imageCover) {
+    formData.append('imageCover', imageCover);
+  }
+
+  return formData;
+};
+
 const setIsLoading = dispatch => async isLoading => {
   dispatch({ type: ACTIONS.SET_IS_LOADING, payload: isLoading });
 };
@@ -48,12 +64,9 @@ const getAllPosts =
 
 const addPost =
   dispatch =>
-  async ({ title, content }) => {
+  async ({ title, content, imageCover }) => {
     try {
-      await apiHelper.post('/posts', {
-        title,
-        content,
-      });
+      await apiHelper.post('/posts', parseFormData({ title, content, imageCover }));
 
       const { data } = await apiHelper.get('/posts');
 
@@ -74,12 +87,16 @@ const addPost =
 
 const updatePost =
   dispatch =>
-  async ({ _id: id, title, content }) => {
+  async ({ _id: id, title, content, imageCover }) => {
     try {
-      await apiHelper.patch(`/posts/${id}`, {
-        title,
-        content,
-      });
+      await apiHelper.patch(
+        `/posts/${id}`,
+        parseFormData({
+          title,
+          content,
+          imageCover,
+        }),
+      );
 
       const { data } = await apiHelper.get('/posts');
 
