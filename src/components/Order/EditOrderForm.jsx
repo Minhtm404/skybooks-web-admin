@@ -19,14 +19,22 @@ const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
     <div className="w-full flex flex-col gap-4">
       <h3 className="text-xl font-medium text-gray-900 dark:text-white">Order #{order._id}</h3>
 
-      <div>Customer: {order.user.name}</div>
+      <div className="flex justify-between">
+        <div>Customer: {order.user.name}</div>
+        <div>{new Date(order.createdAt).toLocaleString()}</div>
+      </div>
 
       <div className="flex flex-col gap-2">
         <div>Products:</div>
         {order.products.map(item => (
           <div key={item.id} className="flex justify-between">
-            <div>{item.product.name}</div>
-            <div>{item.quantity}</div>
+            <div className="w-400 min-[w]:400 overflow-hidden">{item.product.name}</div>
+            <div className="grid grid-cols-2">
+              <div className="col-span-1">{item.quantity}</div>
+              <div className="col-span-1 text-right">
+                {item.product.price.toLocaleString().concat('₫')}
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -60,8 +68,8 @@ const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
         </div>
 
         {order.products.map(item => (
-          <div className="grid gap-4 mb-4 sm:grid-cols-4">
-            <div className="col-span-3">
+          <div className="flex flex-col space-y-6">
+            <div>
               <div className="mb-2 block">
                 <Label htmlFor="productName" value="Product" />
               </div>
@@ -74,26 +82,56 @@ const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
               />
             </div>
 
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="productQuantity" value="Quantity" />
+            <div className="grid gap-4 mb-4 sm:grid-cols-4">
+              <div className="col-span-3">
+                <div className="mb-2 block">
+                  <Label htmlFor="productPrice" value="Price" />
+                </div>
+                <TextInput
+                  id="productPrice"
+                  name="productPrice"
+                  type="text"
+                  value={item.product.price}
+                  readOnly
+                />
               </div>
-              <TextInput
-                id="productQuantity"
-                name="productQuantity"
-                type="number"
-                value={item.quantity}
-                readOnly
-              />
+
+              <div>
+                <div className="mb-2 block">
+                  <Label htmlFor="productQuantity" value="Quantity" />
+                </div>
+                <TextInput
+                  id="productQuantity"
+                  name="productQuantity"
+                  type="number"
+                  value={item.quantity}
+                  readOnly
+                />
+              </div>
             </div>
           </div>
         ))}
 
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="price" value="Price" />
+        <div className="grid gap-4 mb-4 sm:grid-cols-2">
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="price" value="Price" />
+            </div>
+            <TextInput id="price" name="price" type="number" value={order.price} readOnly />
           </div>
-          <TextInput id="price" name="price" type="number" value={order.price} readOnly />
+
+          <div>
+            <div className="mb-2 block">
+              <Label htmlFor="createdAt" value="Created At" />
+            </div>
+            <TextInput
+              id="createdAt"
+              name="createdAt"
+              type="text"
+              value={new Date(order.createdAt).toLocaleString()}
+              readOnly
+            />
+          </div>
         </div>
 
         <div className="grid gap-4 mb-4 sm:grid-cols-2">

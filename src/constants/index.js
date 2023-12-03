@@ -200,6 +200,10 @@ export const ORDER_COLUMNS = [
     headerText: 'Price',
   },
   {
+    field: 'createdAt',
+    headerText: 'Created At',
+  },
+  {
     field: 'paymentStatus',
     headerText: 'Payment Status',
   },

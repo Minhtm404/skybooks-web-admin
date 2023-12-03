@@ -180,27 +180,27 @@ const Dashboard = () => {
                 data={[
                   {
                     x: 0,
-                    xval: '2023-06',
-                  },
-                  {
-                    x: 1,
                     xval: '2023-07',
                   },
                   {
-                    x: 2,
+                    x: 1,
                     xval: '2023-08',
                   },
                   {
-                    x: 3,
+                    x: 2,
                     xval: '2023-09',
                   },
                   {
-                    x: 4,
+                    x: 3,
                     xval: '2023-10',
                   },
                   {
-                    x: 5,
+                    x: 4,
                     xval: '2023-11',
+                  },
+                  {
+                    x: 5,
+                    xval: '2023-12',
                   },
                 ].map(item => {
                   item.yval = stats.orderStats.find(m => m.month === item.xval)?.totalAmount ?? 0;
@@ -226,9 +226,10 @@ const Dashboard = () => {
                 id="pie-chart"
                 data={[{ x: 'Books' }, { x: 'Posters' }, { x: 'Souvenirs' }].map(item => {
                   item.y = stats.collectionStats.find(c => c.collectionName === item.x)?.count ?? 0;
-                  item.text = `${
-                    (item.y / stats.collectionStats.reduce((count, c) => count + c.count, 0)) * 100
-                  }%`;
+                  item.text = `${(
+                    (item.y / stats.collectionStats.reduce((count, c) => count + c.count, 0)) *
+                    100
+                  ).toFixed(2)}%`;
 
                   return item;
                 })}
