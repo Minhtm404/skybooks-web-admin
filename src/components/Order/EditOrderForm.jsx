@@ -115,9 +115,9 @@ const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
         <div className="grid gap-4 mb-4 sm:grid-cols-2">
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="price" value="Price" />
+              <Label htmlFor="total" value="Total" />
             </div>
-            <TextInput id="price" name="price" type="number" value={order.price} readOnly />
+            <TextInput id="total" name="total" type="number" value={order.price} readOnly />
           </div>
 
           <div>
