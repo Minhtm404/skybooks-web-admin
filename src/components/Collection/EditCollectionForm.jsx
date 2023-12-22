@@ -4,7 +4,7 @@ import { Button, Dropdown, Label, TextInput, ToggleSwitch } from 'flowbite-react
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CollectionContext } from '../../contexts/CollectionContext';
 
-const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
+const EditCollectionForm = ({ collection, removeCurrent, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
   const { collections, updateCollection } = useContext(CollectionContext);
 
@@ -19,6 +19,8 @@ const EditCollectionForm = ({ collection, closeModalAfterSubmit }) => {
       mainCollection,
       parentCollection,
     });
+
+    removeCurrent();
 
     closeModalAfterSubmit();
   };

@@ -4,7 +4,7 @@ import { Button, Label, Select, TextInput } from 'flowbite-react';
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as OrderContext } from '../../contexts/OrderContext';
 
-const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
+const EditOrderForm = ({ order, removeCurrent, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
   const { updateOrder } = useContext(OrderContext);
 
@@ -13,6 +13,8 @@ const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
 
   const handleUpdate = async () => {
     await updateOrder({ orderId: order._id, paymentStatus, orderStatus });
+
+    removeCurrent();
   };
 
   const printContent = (

@@ -44,7 +44,7 @@ const Products = () => {
     getAllCollections({});
     setIsLoadingProduct(true);
     getAllProducts({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage, totalProducts, totalCollections]);
+  }, [currentPage, totalProducts, totalCollections, currentProduct]);
 
   const handleOpenUpdateModal = product => {
     setCurrentProduct(product);
@@ -201,6 +201,7 @@ const Products = () => {
           <Modal.Body>
             <EditProductForm
               product={currentProduct}
+              removeCurrent={() => setCurrentProduct(undefined)}
               closeModalAfterSubmit={() => setOpenUpdateProductModal(false)}
             />
           </Modal.Body>

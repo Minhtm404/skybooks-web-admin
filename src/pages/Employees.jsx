@@ -34,7 +34,7 @@ const Employees = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllEmployees({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage, totalEmployees, openUpdateEmployeeModal]);
+  }, [currentPage, totalEmployees, currentEmployee]);
 
   const handleOpenUpdateModal = employee => {
     setCurrentEmployee(employee);
@@ -185,6 +185,7 @@ const Employees = () => {
           <Modal.Body>
             <EditEmployeeForm
               employee={currentEmployee}
+              removeCurrent={() => setCurrentEmployee(undefined)}
               closeModalAfterSubmit={() => setOpenUpdateEmployeeModal(false)}
             />
           </Modal.Body>

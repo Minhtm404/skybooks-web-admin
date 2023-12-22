@@ -34,7 +34,7 @@ const Orders = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllOrders({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage, totalOrders, openUpdateOrderModal]);
+  }, [currentPage, totalOrders, currentOrder]);
 
   const handleOpenUpdateModal = order => {
     setCurrentOrder(order);
@@ -166,6 +166,7 @@ const Orders = () => {
           <Modal.Body>
             <EditOrderForm
               order={currentOrder}
+              removeCurrent={() => setCurrentOrder(undefined)}
               closeModalAfterSubmit={() => setOpenUpdateOrderModal(false)}
             />
           </Modal.Body>

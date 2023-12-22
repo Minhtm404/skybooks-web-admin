@@ -13,7 +13,7 @@ import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CollectionContext } from '../../contexts/CollectionContext';
 import { Context as ProductContext } from '../../contexts/ProductContext';
 
-const EditProductForm = ({ product, closeModalAfterSubmit }) => {
+const EditProductForm = ({ product, removeCurrent, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
   const { collections } = useContext(CollectionContext);
   const { updateProduct } = useContext(ProductContext);
@@ -51,6 +51,8 @@ const EditProductForm = ({ product, closeModalAfterSubmit }) => {
       description,
       imageCover,
     });
+
+    removeCurrent();
 
     closeModalAfterSubmit();
   };

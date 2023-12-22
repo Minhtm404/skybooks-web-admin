@@ -4,7 +4,7 @@ import { Button, Label, TextInput, ToggleSwitch } from 'flowbite-react';
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CustomerContext } from '../../contexts/CustomerContext';
 
-const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
+const EditCustomerForm = ({ customer, removeCurrent, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
   const { updateCustomer } = useContext(CustomerContext);
 
@@ -23,6 +23,8 @@ const EditCustomerForm = ({ customer, closeModalAfterSubmit }) => {
       address,
       active,
     });
+
+    removeCurrent();
 
     closeModalAfterSubmit();
   };
