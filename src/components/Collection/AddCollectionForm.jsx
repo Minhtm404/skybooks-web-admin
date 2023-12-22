@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Dropdown, Label, TextInput, ToggleSwitch } from 'flowbite-react';
 
 import { Context as StateContext } from '../../contexts/StateContext';
@@ -6,11 +6,15 @@ import { Context as CollectionContext } from '../../contexts/CollectionContext';
 
 const AddCollectionForm = ({ closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
-  const { collections, addCollection } = useContext(CollectionContext);
+  const { collections, getAllCollections, addCollection } = useContext(CollectionContext);
 
   const [name, setName] = useState(undefined);
   const [mainCollection, setMainCollection] = useState(undefined);
   const [parentCollection, setParentCollection] = useState(undefined);
+
+  useEffect(() => {
+    getAllCollections({});
+  }, []);
 
   const handleCreate = async () => {
     await addCollection({
