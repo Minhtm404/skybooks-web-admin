@@ -13,6 +13,7 @@ const employeeReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        error: undefined,
         employees: action.payload.employees,
         totalEmployees: action.payload.totalEmployees,
       };

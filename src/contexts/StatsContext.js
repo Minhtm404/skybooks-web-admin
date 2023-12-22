@@ -10,7 +10,7 @@ const StatsReducer = (state, action) => {
     case ACTIONS.SET_ERROR:
       return { ...state, isLoading: false, error: action.payload };
     case ACTIONS.SET_STATS:
-      return { ...state, isLoading: false, stats: action.payload };
+      return { ...state, isLoading: false, error: undefined, stats: action.payload };
     default:
       return state;
   }

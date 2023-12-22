@@ -13,6 +13,7 @@ const productReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        error: undefined,
         products: action.payload.products,
         totalProducts: action.payload.totalProducts,
       };

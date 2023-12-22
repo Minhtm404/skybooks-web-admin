@@ -13,6 +13,7 @@ const CustomerReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        error: undefined,
         customers: action.payload.customers,
         totalCustomers: action.payload.totalCustomers,
       };

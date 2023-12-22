@@ -13,6 +13,7 @@ const collectionReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        error: undefined,
         collections: action.payload.collections,
         totalCollections: action.payload.totalCollections,
       };

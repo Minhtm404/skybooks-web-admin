@@ -13,6 +13,7 @@ const postReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
+        error: undefined,
         posts: action.payload.posts,
         totalPosts: action.payload.totalPosts,
       };
