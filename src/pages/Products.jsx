@@ -17,6 +17,7 @@ const Products = () => {
   const {
     collections,
     getAllCollections,
+    totalCollections,
     isLoading: isLoadingCollection,
     setIsLoading: setIsLoadingCollection,
   } = useContext(CollectionContext);
@@ -43,7 +44,7 @@ const Products = () => {
     getAllCollections({});
     setIsLoadingProduct(true);
     getAllProducts({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage]);
+  }, [currentPage, totalProducts, totalCollections]);
 
   const handleOpenUpdateModal = product => {
     setCurrentProduct(product);

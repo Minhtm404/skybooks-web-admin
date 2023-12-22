@@ -97,16 +97,6 @@ const updatePost =
           imageCover,
         }),
       );
-
-      const { data } = await apiHelper.get('/posts');
-
-      dispatch({
-        type: ACTIONS.SET_POSTS,
-        payload: {
-          posts: data.data,
-          totalPosts: data.results,
-        },
-      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,

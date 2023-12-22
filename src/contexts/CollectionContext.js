@@ -78,13 +78,6 @@ const updateCollection =
         mainCollection,
         parentCollection,
       });
-
-      const { data } = await apiHelper.get('/collections');
-
-      dispatch({
-        type: ACTIONS.SET_COLLECTIONS,
-        payload: { collections: data.data, totalCollections: data.results },
-      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,

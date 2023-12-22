@@ -201,13 +201,6 @@ const updateProduct =
           imageCover,
         }),
       );
-
-      const { data } = await apiHelper.get('/products');
-
-      dispatch({
-        type: ACTIONS.SET_PRODUCTS,
-        payload: { products: data.data, totalProducts: data.results },
-      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,

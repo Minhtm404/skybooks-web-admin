@@ -34,7 +34,7 @@ const Collections = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllCollections({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage]);
+  }, [currentPage, totalCollections, openUpdateCollectionModal]);
 
   const handleOpenUpdateModal = collection => {
     setCurrentCollection(collection);

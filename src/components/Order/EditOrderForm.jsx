@@ -6,7 +6,7 @@ import { Context as OrderContext } from '../../contexts/OrderContext';
 
 const EditOrderForm = ({ order, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
-  const { updateOrder, isLoading, setIsLoading, error } = useContext(OrderContext);
+  const { updateOrder } = useContext(OrderContext);
 
   const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus);
   const [orderStatus, setOrderStatus] = useState(order.orderStatus);

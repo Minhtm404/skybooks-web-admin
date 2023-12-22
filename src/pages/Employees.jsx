@@ -34,7 +34,7 @@ const Employees = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllEmployees({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage]);
+  }, [currentPage, totalEmployees, openUpdateEmployeeModal]);
 
   const handleOpenUpdateModal = employee => {
     setCurrentEmployee(employee);

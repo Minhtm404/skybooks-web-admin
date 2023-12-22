@@ -34,7 +34,7 @@ const Orders = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllOrders({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage]);
+  }, [currentPage, totalOrders, openUpdateOrderModal]);
 
   const handleOpenUpdateModal = order => {
     setCurrentOrder(order);

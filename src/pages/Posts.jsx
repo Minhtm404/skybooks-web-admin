@@ -27,7 +27,7 @@ const Posts = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllPosts({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage]);
+  }, [currentPage, totalPosts, openUpdatePostModal]);
 
   const handleOpenUpdateModal = post => {
     setCurrentPost(post);

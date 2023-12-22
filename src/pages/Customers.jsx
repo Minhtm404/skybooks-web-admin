@@ -33,7 +33,7 @@ const Customers = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllCustomers({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage]);
+  }, [currentPage, totalCustomers, openUpdateCustomerModal]);
 
   const handleOpenUpdateModal = customer => {
     setCurrentCustomer(customer);

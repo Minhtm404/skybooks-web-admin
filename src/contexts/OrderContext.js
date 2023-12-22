@@ -53,16 +53,6 @@ const updateOrder =
   async ({ orderId, paymentStatus, orderStatus }) => {
     try {
       await apiHelper.patch(`/orders/${orderId}`, { paymentStatus, orderStatus });
-
-      const { data } = await apiHelper.get('/orders');
-
-      dispatch({
-        type: ACTIONS.SET_ORDERS,
-        payload: {
-          orders: data.data,
-          totalOrders: data.results,
-        },
-      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,

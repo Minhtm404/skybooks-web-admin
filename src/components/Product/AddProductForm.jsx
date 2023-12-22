@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Button,
   Datepicker,
@@ -15,7 +15,7 @@ import { Context as ProductContext } from '../../contexts/ProductContext';
 
 const AddProductForm = ({ closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
-  const { collections, getAllCollections } = useContext(CollectionContext);
+  const { collections } = useContext(CollectionContext);
   const { addProduct } = useContext(ProductContext);
 
   const [name, setName] = useState(undefined);
@@ -32,10 +32,6 @@ const AddProductForm = ({ closeModalAfterSubmit }) => {
   const [quantity, setQuantity] = useState(undefined);
   const [description, setDescription] = useState(undefined);
   const [imageCover, setImageCover] = useState(undefined);
-
-  useEffect(() => {
-    getAllCollections({});
-  }, []);
 
   const handleCreate = async () => {
     await addProduct({

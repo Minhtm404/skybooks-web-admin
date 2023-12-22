@@ -55,13 +55,6 @@ const updateCustomer =
         role,
         active,
       });
-
-      const { data } = await apiHelper.get('/users');
-
-      dispatch({
-        type: ACTIONS.SET_CUSTOMERS,
-        payload: { customers: data.data, totalCustomers: data.results },
-      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,

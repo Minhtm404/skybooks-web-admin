@@ -82,13 +82,6 @@ const updateEmployee =
         role,
         active,
       });
-
-      const { data } = await apiHelper.get('/admins');
-
-      dispatch({
-        type: ACTIONS.SET_EMPLOYEES,
-        payload: { employees: data.data, totalEmployees: data.results },
-      });
     } catch (err) {
       dispatch({
         type: ACTIONS.SET_ERROR,
