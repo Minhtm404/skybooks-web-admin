@@ -15,6 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(false);
     if (isAuthenticated) navigate('/');
   }, [isAuthenticated, navigate]);
 
