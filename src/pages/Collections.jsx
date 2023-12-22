@@ -34,7 +34,7 @@ const Collections = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllCollections({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage, totalCollections, currentCollection]);
+  }, [currentPage, totalCollections, openAddCollectionModal, openUpdateCollectionModal]);
 
   const handleOpenUpdateModal = collection => {
     setCurrentCollection(collection);
@@ -184,7 +184,6 @@ const Collections = () => {
           <Modal.Body>
             <EditCollectionForm
               collection={currentCollection}
-              removeCurrent={() => setCurrentCollection(undefined)}
               closeModalAfterSubmit={() => setOpenUpdateCollectionModal(false)}
             />
           </Modal.Body>

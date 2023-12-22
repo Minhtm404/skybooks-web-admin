@@ -44,7 +44,7 @@ const Products = () => {
     getAllCollections({});
     setIsLoadingProduct(true);
     getAllProducts({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage, totalProducts, totalCollections, currentProduct]);
+  }, [currentPage, totalProducts, totalCollections, openAddProductModal, openUpdateProductModal]);
 
   const handleOpenUpdateModal = product => {
     setCurrentProduct(product);

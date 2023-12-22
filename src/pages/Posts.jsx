@@ -27,7 +27,7 @@ const Posts = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllPosts({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage, totalPosts, currentPost]);
+  }, [currentPage, totalPosts, openAddPostModal, openUpdatePostModal]);
 
   const handleOpenUpdateModal = post => {
     setCurrentPost(post);
@@ -182,7 +182,6 @@ const Posts = () => {
           <Modal.Body>
             <EditPostForm
               post={currentPost}
-              removeCurrent={() => setCurrentPost(undefined)}
               closeModalAfterSubmit={() => setOpenUpdatePostModal(false)}
             />
           </Modal.Body>

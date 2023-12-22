@@ -4,7 +4,7 @@ import { Button, FileInput, Label, TextInput, Textarea } from 'flowbite-react';
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as PostContext } from '../../contexts/PostContext';
 
-const EditPostForm = ({ post, removeCurrent, closeModalAfterSubmit }) => {
+const EditPostForm = ({ post, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
   const { updatePost } = useContext(PostContext);
 
@@ -19,8 +19,6 @@ const EditPostForm = ({ post, removeCurrent, closeModalAfterSubmit }) => {
       content,
       imageCover,
     });
-
-    removeCurrent();
 
     closeModalAfterSubmit();
   };

@@ -155,6 +155,8 @@ const AddProductForm = ({ closeModalAfterSubmit }) => {
             placeholder="5"
             type="number"
             value={discount}
+            min={0}
+            max={99}
             onChange={e => setDiscount(e.target.value)}
           />
         </div>

@@ -33,7 +33,7 @@ const Customers = () => {
   useEffect(() => {
     setIsLoading(true);
     getAllCustomers({ keyword, page: currentPage, limit: 5 });
-  }, [currentPage, totalCustomers, currentCustomer]);
+  }, [currentPage, totalCustomers, openUpdateCustomerModal]);
 
   const handleOpenUpdateModal = customer => {
     setCurrentCustomer(customer);
@@ -164,7 +164,6 @@ const Customers = () => {
           <Modal.Body>
             <EditCustomerForm
               customer={currentCustomer}
-              removeCurrent={() => setCurrentCustomer(undefined)}
               closeModalAfterSubmit={() => setOpenUpdateCustomerModal(false)}
             />
           </Modal.Body>

@@ -4,7 +4,7 @@ import { Button, Dropdown, Label, TextInput, ToggleSwitch } from 'flowbite-react
 import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as EmployeeContext } from '../../contexts/EmployeeContext';
 
-const EditEmployeeForm = ({ employee, removeCurrent, closeModalAfterSubmit }) => {
+const EditEmployeeForm = ({ employee, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
   const { updateEmployee } = useContext(EmployeeContext);
 
@@ -23,8 +23,6 @@ const EditEmployeeForm = ({ employee, removeCurrent, closeModalAfterSubmit }) =>
     });
 
     closeModalAfterSubmit();
-
-    removeCurrent();
   };
 
   return (

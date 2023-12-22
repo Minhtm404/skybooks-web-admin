@@ -13,7 +13,7 @@ import { Context as StateContext } from '../../contexts/StateContext';
 import { Context as CollectionContext } from '../../contexts/CollectionContext';
 import { Context as ProductContext } from '../../contexts/ProductContext';
 
-const EditProductForm = ({ product, removeCurrent, closeModalAfterSubmit }) => {
+const EditProductForm = ({ product, closeModalAfterSubmit }) => {
   const { currentColor } = useContext(StateContext);
   const { collections } = useContext(CollectionContext);
   const { updateProduct } = useContext(ProductContext);
@@ -51,8 +51,6 @@ const EditProductForm = ({ product, removeCurrent, closeModalAfterSubmit }) => {
       description,
       imageCover,
     });
-
-    removeCurrent();
 
     closeModalAfterSubmit();
   };
@@ -158,6 +156,8 @@ const EditProductForm = ({ product, removeCurrent, closeModalAfterSubmit }) => {
             placeholder="5"
             type="number"
             value={discount}
+            min={0}
+            max={99}
             onChange={e => setDiscount(e.target.value)}
           />
         </div>
