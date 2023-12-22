@@ -201,7 +201,6 @@ const Products = () => {
           <Modal.Body>
             <EditProductForm
               product={currentProduct}
-              removeCurrent={() => setCurrentProduct(undefined)}
               closeModalAfterSubmit={() => setOpenUpdateProductModal(false)}
             />
           </Modal.Body>
